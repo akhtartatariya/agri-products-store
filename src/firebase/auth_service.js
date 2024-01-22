@@ -2,10 +2,12 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./config";
 
 class AuthService{
-    async signUp(email, password){
+    async signUp(email, password,name){
         try {
-           return await createUserWithEmailAndPassword(auth,email,password)
             
+           const user= await createUserWithEmailAndPassword(auth,email,password,name)
+            console.log(user.user)
+            return user
         } catch (error) {
             console.log(':: error creating user',error)
         }

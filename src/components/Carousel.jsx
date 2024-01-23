@@ -27,7 +27,7 @@ function Carousel({ data, text }) {
   return (
     <div className="flex justify-center items-center w-full h-[400px] relative">
       <BsArrowLeftCircleFill
-        className="absolute w-8 h-8 text-white left-4 hover:cursor-pointer drop-shadow"
+        className="absolute w-8 h-8 text-white left-4 hover:cursor-pointer drop-shadow z-10"
         onClick={prevSlide}
       />
       {data.map((item) => {
@@ -58,7 +58,7 @@ function Carousel({ data, text }) {
         );
       })}
       <BsArrowRightCircleFill
-        className="absolute w-8 h-8 text-white right-4 hover:cursor-pointer drop-shadow"
+        className="absolute w-8 h-8 text-white right-4 hover:cursor-pointer drop-shadow z-10"
         onClick={nextSlide}
       />
       <span className="flex absolute bottom-4">

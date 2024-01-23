@@ -1,12 +1,14 @@
 import "./App.css";
-import Sample from "./components/Sample";
-import { auth } from "./firebase/config";
+import Login from "./components/Login";
+// import SignUp from "./components/SignUp";
+// import { auth } from "./firebase/config";
 function App() {
-  console.log(auth);
+  // console.log(auth);
   return (
     <div>
       <h1>welcome to the agriculture</h1>
-      <Sample/>
+      {/* <SignUp/> */}
+      <Login/>
     </div>
   );
 }

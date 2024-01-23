@@ -6,7 +6,10 @@ function Home() {
   return (
     <div>
       {/* Carousel For Home Page */}
-      <Carousel data={slides} />
+      <Carousel
+        data={slides}
+        text={"Produce Tasty Silages and avoid reheating"}
+      />
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
+import Button from "./FormStuff/Button";
 
-function Carousel({ data }) {
+function Carousel({ data, text }) {
   //   console.log(data);
 
   const [slide, setSlide] = useState(1);
@@ -31,14 +32,29 @@ function Carousel({ data }) {
       />
       {data.map((item) => {
         return (
-          <img
-            src={item.src}
-            alt={item.alt}
-            key={item.id}
-            className={
-              slide === item.id ? "w-full h-full object-cover" : "hidden"
-            }
-          />
+          <>
+            <img
+              src={item.src}
+              alt={item.alt}
+              key={item.id}
+              className={
+                slide === item.id
+                  ? "w-full h-full object-cover brightness-75"
+                  : "hidden"
+              }
+            />
+            {text && (
+              <div className="absolute w-3/12 left-24 bottom-16">
+                <span className="text-white text-3xl font-bold">
+                  Produce tasty silages and avoid reheating
+                </span>
+                <Button
+                  children={"BUY FREE"}
+                  className="text-white text-xl font-bold px-4 py-4 bg-green-800 mt-8 rounded-sm "
+                />
+              </div>
+            )}
+          </>
         );
       })}
       <BsArrowRightCircleFill

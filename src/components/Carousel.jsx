@@ -18,7 +18,7 @@ function Carousel({ data, text }) {
   useEffect(() => {
     const intervalId = setInterval(() => {
       nextSlide(); // Invoke the function
-    }, 2000);
+    }, 3000);
 
     // Clear the interval when the component unmounts
     return () => clearInterval(intervalId);
@@ -44,13 +44,15 @@ function Carousel({ data, text }) {
               }
             />
             {text && (
-              <div className="absolute w-3/12 left-24 bottom-16">
-                <span className="text-white text-3xl font-bold">
+              <div className="absolute w-3/12 left-24 bottom-16" key={item.id}>
+                <span className="text-white text-3xl font-bold" key={item.id}>
                   Produce tasty silages and avoid reheating
                 </span>
                 <Button
+                  key={item.id}
+                  type={"button"}
                   children={"BUY FREE"}
-                  className="text-white text-xl font-bold px-4 py-4 bg-green-800 mt-8 rounded-sm "
+                  className="text-white text-xl font-bold px-4 py-4 bg-green-800 mt-8 rounded hover:bg-green-600 "
                 />
               </div>
             )}

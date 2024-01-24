@@ -1,16 +1,39 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { Provider } from 'react-redux';
-import store from './store/store'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import store from "./store/store";
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
+import Home from "./routes/Home";
+import About from "./routes/About";
+import SilageAdditives from "./routes/SilageAdditives";
+import FAQs from "./routes/FAQs";
+import Contact from "./routes/Contact";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<App />}>
+      <Route path="" element={<Home />} />
+      <Route path="silage_additives" element={<SilageAdditives />} />
+      <Route path="about" element={<About />} />
+      <Route path="faqs" element={<FAQs />} />
+      <Route path="contact" element={<Contact />} />
+    </Route>
+  )
+);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-    <App />
+      <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
 );

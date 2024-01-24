@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 //Components
 import Button from "./FormStuff/Button";
 
+//Animate.css
+import "animate.css";
+
 // Icons
 import { MdOutlineShoppingCart, MdOutlineSearch } from "react-icons/md";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
@@ -121,7 +124,7 @@ function Nav() {
         </div>
       </nav>
       {toggle && (
-        <div className={`w-full h-full`}>
+        <div className={`w-full h-full animate__animated animate__fadeIn`}>
           <ul
             className={`flex flex-col items-center p-2 gap-4 ease-in text-[#0073cf] font-bold text-sm h-full w-full bg-white`}
           >

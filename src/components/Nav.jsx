@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+//Components
 import Button from "./FormStuff/Button";
 
 // Icons
@@ -6,18 +7,38 @@ import { MdOutlineShoppingCart, MdOutlineSearch } from "react-icons/md";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { CgCloseO } from "react-icons/cg";
 
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Nav() {
+  //States
   const [toggle, setToggle] = useState(false);
+  const [search, setSearch] = useState(false);
 
+  //References
+  let searchRef = useRef();
+
+  //Functions
   const activeToggle = () => {
     setToggle(true);
   };
-
   const deactiveToggle = () => {
     setToggle(false);
   };
+
+  const activeSearch = () => {
+    setSearch(true);
+  };
+  const deactiveSearch = () => {
+    setSearch(false);
+  };
+
+  //Effects
+  useEffect(() => {
+    if (searchRef.current && search) {
+      searchRef.current.focus();
+    }
+  }, [search]);
+
   return (
     <>
       <nav
@@ -85,7 +106,7 @@ function Nav() {
         </div>
         <div className="w-[10rem] flex text-2xl text-[#0073cf] justify-end gap-8">
           <MdOutlineShoppingCart className="cursor-pointer" />
-          <MdOutlineSearch className="cursor-pointer" />
+          <MdOutlineSearch className="cursor-pointer" onClick={activeSearch} />
           {!toggle ? (
             <HiOutlineMenuAlt3
               className="cursor-pointer lg:hidden"
@@ -160,6 +181,28 @@ function Nav() {
               />
             </li>
           </ul>
+        </div>
+      )}
+      {search && (
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-35 backdrop-blur-sm z-30 ">
+          <div
+            className={`absolute flex flex-row gap-8 justify-center items-center  p-2 h-20 shadow w-full bg-white`}
+          >
+            <input
+              type="text"
+              placeholder="Search"
+              className="border border-black w-[60%] h-11 rounded outline-none px-4"
+              ref={searchRef}
+            />
+            <MdOutlineSearch
+              className="cursor-pointer text-2xl text-[#0073cf] -ml-16"
+              onClick={null}
+            />
+            <CgCloseO
+              className="cursor-pointer text-2xl text-[#0073cf] "
+              onClick={deactiveSearch}
+            />
+          </div>
         </div>
       )}
     </>

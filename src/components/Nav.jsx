@@ -58,9 +58,9 @@ function Nav() {
     <>
       {isHomePage && <div className="md:h-3 w-full bg-[#0073cf]"></div>}
       <nav
-        className={` flex px-8 w-full bg-white h-20 items-center justify-between gap-8`}
+        className={` flex px-[2%] w-full bg-white h-20 items-center justify-between gap-8`}
       >
-        <div className="w-[10rem]">
+        <div className="w-[10rem] z-30">
           <img src="../Corteva_logo.png" alt="Corteva logo" className="w-40" />
         </div>
         <div className={`w-[45rem] h-full max-lg:hidden`}>
@@ -120,7 +120,7 @@ function Nav() {
             </li>
           </ul>
         </div>
-        <div className="w-[10rem] flex text-2xl text-[#0073cf] justify-end gap-8">
+        <div className="w-[10rem] flex text-2xl text-[#0073cf] justify-end gap-3 md:gap-8 z-30">
           <MdOutlineShoppingCart className="cursor-pointer" />
           <MdOutlineSearch className="cursor-pointer" onClick={activeSearch} />
           {!toggle ? (
@@ -137,9 +137,11 @@ function Nav() {
         </div>
       </nav>
       {toggle && (
-        <div className={`w-full h-full animate__animated animate__fadeIn`}>
+        <div
+          className={`w-full fixed top-20 z-20 animate__animated animate__fadeInDownBig [--animate-duration:.5s]`}
+        >
           <ul
-            className={`flex flex-col items-center p-2 gap-4 ease-in text-[#0073cf] font-bold text-sm h-full w-full bg-white`}
+            className={`flex flex-col items-center p-2 gap-4 text-[#0073cf] font-bold text-sm bg-white`}
           >
             <NavLink
               to="/silage_additives"

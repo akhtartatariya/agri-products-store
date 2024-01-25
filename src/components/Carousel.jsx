@@ -25,7 +25,7 @@ function Carousel({ data, text }) {
   }, [slide, data.length]); // Include slide and data.length in the dependency array
 
   return (
-    <div className="flex justify-center items-center w-full h-[90vh] md:h-[400px] relative">
+    <div className="flex justify-center items-center w-full h-[35rem] md:h-[28rem] relative">
       <BsArrowLeftCircleFill
         className="absolute w-8 h-8 text-white left-4 hover:cursor-pointer drop-shadow z-10"
         onClick={prevSlide}
@@ -45,7 +45,7 @@ function Carousel({ data, text }) {
             />
             {text && (
               <div
-                className="absolute w-80 left-24 bottom-16 flex flex-col"
+                className="absolute w-80 sm:left-24 max-sm:left-[12%] bottom-16 flex flex-col"
                 key={item.index}
               >
                 <span className="text-white text-lg md:text-3xl font-bold">
@@ -54,7 +54,7 @@ function Carousel({ data, text }) {
                 <Button
                   type={"button"}
                   children={"BUY FREE"}
-                  className="text-white w-32 text-xl font-bold px-4 py-4 bg-green-800 mt-8 rounded hover:bg-green-600 "
+                  className="text-white w-32 text-lg md:w-40 md:text-2xl font-bold px-4 py-4 bg-green-800 mt-8 rounded hover:bg-green-600 "
                 />
               </div>
             )}

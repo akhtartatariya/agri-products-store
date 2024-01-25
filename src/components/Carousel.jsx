@@ -46,16 +46,12 @@ function Carousel({ data, text }) {
             {text && (
               <div
                 className="absolute w-80 left-24 bottom-16 flex flex-col"
-                key={item.id}
+                key={item.index}
               >
-                <span
-                  className="text-white text-lg md:text-3xl font-bold"
-                  key={item.id}
-                >
+                <span className="text-white text-lg md:text-3xl font-bold">
                   Produce tasty silages <br /> and avoid reheating
                 </span>
                 <Button
-                  key={item.id}
                   type={"button"}
                   children={"BUY FREE"}
                   className="text-white w-32 text-xl font-bold px-4 py-4 bg-green-800 mt-8 rounded hover:bg-green-600 "

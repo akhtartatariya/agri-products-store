@@ -10,12 +10,17 @@ import { MdOutlineShoppingCart, MdOutlineSearch } from "react-icons/md";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { CgCloseO } from "react-icons/cg";
 
-import { NavLink } from "react-router-dom";
+//React-Router-Dom
+import { NavLink, useLocation } from "react-router-dom";
 
 function Nav() {
   //States
   const [toggle, setToggle] = useState(false);
   const [search, setSearch] = useState(false);
+  const [isHomePage, setIsHomePage] = useState(false);
+
+  //Location
+  const location = useLocation();
 
   //References
   let searchRef = useRef();
@@ -42,8 +47,16 @@ function Nav() {
     }
   }, [search]);
 
+  useEffect(() => {
+    // Check if it's the home page based on the current URL
+    setIsHomePage(location.pathname === "/");
+  }, [location.pathname]);
+
+  // console.log(isHomePage); For Debugging
+
   return (
     <>
+      {isHomePage && <div className="md:h-3 w-full bg-[#0073cf]"></div>}
       <nav
         className={` flex px-8 w-full bg-white h-20 items-center justify-between gap-8`}
       >
@@ -194,15 +207,15 @@ function Nav() {
             <input
               type="text"
               placeholder="Search"
-              className="border border-black w-[60%] h-11 rounded outline-none px-4"
+              className="animate__animated animate__fadeIn border border-black w-[60%] h-11 rounded outline-none px-4"
               ref={searchRef}
             />
             <MdOutlineSearch
-              className="cursor-pointer text-2xl text-[#0073cf] -ml-16"
+              className="animate__animated animate__fadeIn cursor-pointer text-2xl text-[#0073cf] -ml-16"
               onClick={null}
             />
             <CgCloseO
-              className="cursor-pointer text-2xl text-[#0073cf] "
+              className="animate__animated animate__fadeIn cursor-pointer text-2xl text-[#0073cf] "
               onClick={deactiveSearch}
             />
           </div>

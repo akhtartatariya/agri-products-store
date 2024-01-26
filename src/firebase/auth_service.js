@@ -8,22 +8,25 @@ import { auth } from "./config";
 class AuthService {
   async signUp({ email, password }) {
     try {
-      const userAccount= await createUserWithEmailAndPassword(auth, email, password);
-      if(userAccount){
-        return this.login({email, password})
-      }
-      else{
-        return userAccount
+      const userAccount = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      if (userAccount) {
+        return this.login({ email, password });
+      } else {
+        return userAccount;
       }
     } catch (error) {
       console.log(":: error creating user", error);
     }
   }
-  async login({email,password}){
+  async login({ email, password }) {
     try {
-       return await signInWithEmailAndPassword(auth, email, password)
+      return await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
-        console.log(":: error while login", error);
+      console.log(":: error while login", error);
     }
   }
   async getCurrentUser() {
@@ -36,7 +39,7 @@ class AuthService {
           } else {
             resolve(null);
           }
-          
+
           unsubscribe();
         });
       });
@@ -45,7 +48,15 @@ class AuthService {
       throw error;
     }
   }
-  
+  async logout() {
+    try {
+      await auth.signOut();
+      return true;
+    } catch (error) {
+      console.log("error while logging out user:", error);
+      return false;
+    }
+  }
 }
 
 const authService = new AuthService();

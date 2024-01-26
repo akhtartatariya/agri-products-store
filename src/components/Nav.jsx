@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 //Components
 import Button from "./FormStuff/Button";
+import LogoutBtn from "./LogoutBtn";
 
 //Animate.css
 import "animate.css";
@@ -13,12 +14,15 @@ import { CgCloseO } from "react-icons/cg";
 //React-Router-Dom
 import { NavLink, useLocation } from "react-router-dom";
 
+// Redux
+
+import { useSelector } from "react-redux";
 function Nav() {
   //States
   const [toggle, setToggle] = useState(false);
   const [search, setSearch] = useState(false);
   const [isHomePage, setIsHomePage] = useState(false);
-
+  const userStatus = useSelector((state) => state.auth.status);
   //Location
   const location = useLocation();
 
@@ -107,17 +111,27 @@ function Nav() {
             >
               CONTACT
             </NavLink>
-            <li className="flex gap-4">
-              <Button
-                children={"Login"}
-                className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
-              />
-
-              <Button
-                children={"SignUp"}
-                className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
-              />
-            </li>
+            {!userStatus ? (
+              <li className="flex gap-4">
+                <NavLink to='/login'>
+                <Button
+                  children={"Login"}
+                  className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
+                />
+                </NavLink>
+                <NavLink to='/signup'>
+                <Button
+                  children={"SignUp"}
+                  className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
+                />
+                </NavLink>
+              </li>
+            ) : null}
+            {userStatus && (
+              <li className="flex gap-4">
+                <LogoutBtn />
+              </li>
+            )}
           </ul>
         </div>
         <div className="w-[10rem] flex text-2xl text-[#0073cf] justify-end gap-3 md:gap-8 z-30">
@@ -187,17 +201,24 @@ function Nav() {
             >
               CONTACT
             </NavLink>
-            <li className="flex gap-4">
-              <Button
-                children={"Login"}
-                className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
-              />
+            {!userStatus ? (
+              <li className="flex gap-4">
+                <Button
+                  children={"Login"}
+                  className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
+                />
 
-              <Button
-                children={"SignUp"}
-                className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
-              />
-            </li>
+                <Button
+                  children={"SignUp"}
+                  className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
+                />
+              </li>
+            ) : null}
+            {userStatus && (
+              <li className="flex gap-4">
+                <LogoutBtn />
+              </li>
+            )}
           </ul>
         </div>
       )}

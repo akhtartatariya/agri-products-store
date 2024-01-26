@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 import "./App.css";
 import Nav from "./components/Nav";
 // import Login from "./components/Login";
-import Home from "./routes/Home";
 import Footer from "./components/Footer";
 // import SignUp from "./components/SignUp";
 // import { auth } from "./firebase/config";

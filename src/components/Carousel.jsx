@@ -32,11 +32,10 @@ function Carousel({ data, text }) {
       />
       {data.map((item) => {
         return (
-          <>
+          <React.Fragment key={item.id}>
             <img
               src={item.src}
               alt={item.alt}
-              key={item.id}
               className={
                 slide === item.id
                   ? "w-full h-full object-cover brightness-75"
@@ -46,7 +45,7 @@ function Carousel({ data, text }) {
             {text && (
               <div
                 className="absolute w-80 sm:left-24 max-sm:left-[12%] bottom-16 flex flex-col"
-                key={item.index}
+                key={item.id + "-text"}
               >
                 <span className="text-white text-lg md:text-3xl font-bold">
                   Produce tasty silages <br /> and avoid reheating
@@ -58,7 +57,7 @@ function Carousel({ data, text }) {
                 />
               </div>
             )}
-          </>
+          </React.Fragment>
         );
       })}
       <BsArrowRightCircleFill

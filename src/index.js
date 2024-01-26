@@ -16,6 +16,8 @@ import About from "./routes/About";
 import SilageAdditives from "./routes/SilageAdditives";
 import FAQs from "./routes/FAQs";
 import Contact from "./routes/Contact";
+import Login from "./routes/Login";
+import Signup from "./routes/Signup";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +27,8 @@ const router = createBrowserRouter(
       <Route path="about" element={<About />} />
       <Route path="faqs" element={<FAQs />} />
       <Route path="contact" element={<Contact />} />
+      <Route path="login" element={<Login />} />
+      <Route path="signup" element={<Signup />} />
     </Route>
   )
 );

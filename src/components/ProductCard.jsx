@@ -1,15 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 
 function ProductCard({ products }) {
   const [price, setPrice] = useState({});
 
-  const weightRef = useRef();
-
-  // console.log(weightRef.current);
-
-  const handleWeightChange = (productId) => {
-    if (weightRef.current.value) {
-      const selectedWeight = weightRef.current.value;
+  const handleWeightChange = (productId, e) => {
+    if (e.target.value) {
+      const selectedWeight = e.target.value;
 
       // Calculate the price based on the selected weight for the specific product
       const updatedPrice =
@@ -73,8 +69,7 @@ function ProductCard({ products }) {
                   name="weight"
                   id={`weight-${product.id}`}
                   className="w-full outline-none border border-black p-2 rounded-sm"
-                  ref={weightRef}
-                  onChange={() => handleWeightChange(product.id)}
+                  onChange={(e) => handleWeightChange(product.id, e)}
                 >
                   <option value={product.weight._50g}>
                     {product.weight._50g}

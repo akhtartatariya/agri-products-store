@@ -23,18 +23,6 @@ function ProductCard({ products }) {
 
   console.log(price);
 
-  // useEffect(() => {
-  //   const updatedPrices = {};
-  //   products.forEach((product) => {
-  //     if (weightRef.current) {
-  //       const selectedWeight = parseInt(weightRef.current.value, 10);
-  //       updatedPrices[product.id] =
-  //         selectedWeight === 50 ? product.price._50g : product.price._250g;
-  //     }
-  //   });
-  //   setPrice(updatedPrices);
-  // }, [weightRef.current, products]);
-
   return (
     <>
       {products.map((product) => {

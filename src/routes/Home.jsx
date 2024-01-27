@@ -7,7 +7,7 @@ function Home() {
     <div>
       {/* Carousel For Home Page */}
       <Carousel
-        data={slides}
+        data={slides.slides}
         text={"Produce Tasty Silages and avoid reheating"}
       />
     </div>

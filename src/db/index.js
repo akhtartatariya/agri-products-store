@@ -1,5 +1,7 @@
 import slidesData from "./CarouselData/CarouselData.json";
+import productData from "./ProductData/ProductData.json";
 
-const slides = slidesData.slides;
-
-export default slides;
+export default {
+  slides: slidesData.slides,
+  products: productData.products,
+};

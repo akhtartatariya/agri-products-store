@@ -3,6 +3,10 @@ import React, { useEffect, useRef, useState } from "react";
 import Button from "./FormStuff/Button";
 import LogoutBtn from "./LogoutBtn";
 
+//FORMS
+import LoginForm from "./page-components/LoginForm";
+import RegistrationForm from "./page-components/RegistrationForm";
+
 //Animate.css
 import "animate.css";
 
@@ -23,6 +27,12 @@ function Nav() {
   const [search, setSearch] = useState(false);
   const [isHomePage, setIsHomePage] = useState(false);
   const userStatus = useSelector((state) => state.auth.status);
+  //Form State
+  const [forms, setForms] = useState({
+    loginForm: false,
+    registrationForm: false,
+  });
+  const [login, setLogin] = useState(false);
   //Location
   const location = useLocation();
 
@@ -42,6 +52,26 @@ function Nav() {
   };
   const deactiveSearch = () => {
     setSearch(false);
+  };
+
+  //Form Handle
+  //LogIn Form Handle
+  const handleShowLoginForm = () => {
+    setForms({ ...forms, registrationForm: false, loginForm: true });
+  };
+  const handleCancelLoginForm = () => {
+    setForms({ ...forms, loginForm: false });
+  };
+  function handleLoginFormValidation() {
+    setForms({ ...forms, loginForm: false });
+    setLogin(true);
+  }
+  //Registration Form Handle
+  function handleShowRegisterFrom() {
+    setForms({ ...forms, loginForm: false, registrationForm: true });
+  }
+  const handleCancelRegistrationForm = () => {
+    setForms({ ...forms, registrationForm: false });
   };
 
   //Effects
@@ -113,17 +143,19 @@ function Nav() {
             </NavLink>
             {!userStatus ? (
               <li className="flex gap-4">
-                <NavLink to='/login'>
-                <Button
-                  children={"Login"}
-                  className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
-                />
+                <NavLink>
+                  <Button
+                    children={"Login"}
+                    className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
+                    onClick={!login && handleShowLoginForm}
+                  />
                 </NavLink>
-                <NavLink to='/signup'>
-                <Button
-                  children={"SignUp"}
-                  className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
-                />
+                <NavLink>
+                  <Button
+                    children={"SignUp"}
+                    className="px-3 py-2 bg-green-800 text-white rounded hover:bg-green-600"
+                    onClick={!login && handleShowRegisterFrom}
+                  />
                 </NavLink>
               </li>
             ) : null}
@@ -206,11 +238,13 @@ function Nav() {
                 <Button
                   children={"Login"}
                   className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
+                  onClick={!login && handleShowLoginForm}
                 />
 
                 <Button
                   children={"SignUp"}
-                  className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
+                  className="px-3 py-2 bg-green-800 text-white rounded hover:bg-green-600"
+                  onClick={!login && handleShowRegisterFrom}
                 />
               </li>
             ) : null}
@@ -243,6 +277,22 @@ function Nav() {
             />
           </div>
         </div>
+      )}
+      {/* UTILITIES */}
+      {/* FORMS */}
+      {/* Login Form */}
+      {forms.loginForm && (
+        <LoginForm
+          handleCancel={handleCancelLoginForm}
+          showRegister={handleShowRegisterFrom}
+          loggedIn={handleLoginFormValidation}
+        />
+      )}
+      {forms.registrationForm && (
+        <RegistrationForm
+          handleCancel={handleCancelRegistrationForm}
+          showLogin={handleShowLoginForm}
+        />
       )}
     </>
   );

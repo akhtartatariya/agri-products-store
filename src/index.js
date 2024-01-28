@@ -11,6 +11,8 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+
+//Routes
 import Home from "./routes/Home";
 import About from "./routes/About";
 import SilageAdditives from "./routes/SilageAdditives";
@@ -20,8 +22,6 @@ import Payment from "./routes/Payment";
 import Shipment from "./routes/Shipment";
 import RightOfWithdrawal from "./routes/RightOfWithdrawal";
 import TermsAndCondition from "./routes/TermsAndCondition";
-import Login from "./routes/Login";
-import Signup from "./routes/Signup";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

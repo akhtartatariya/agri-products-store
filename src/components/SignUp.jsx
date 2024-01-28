@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 const SignUp = () => {
   const dispatch = useDispatch();
-//   const navigate = useNavigate();
+  //   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState("");
   const submit = async (data) => {

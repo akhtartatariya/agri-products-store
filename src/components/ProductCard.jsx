@@ -21,7 +21,7 @@ function ProductCard({ products }) {
     }
   };
 
-  console.log(price);
+  // console.log(price);
 
   return (
     <>

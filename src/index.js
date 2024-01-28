@@ -16,6 +16,10 @@ import About from "./routes/About";
 import SilageAdditives from "./routes/SilageAdditives";
 import FAQs from "./routes/FAQs";
 import Contact from "./routes/Contact";
+import Payment from "./routes/Payment";
+import Shipment from "./routes/Shipment";
+import RightOfWithdrawal from "./routes/RightOfWithdrawal";
+import TermsAndCondition from "./routes/TermsAndCondition";
 import Login from "./routes/Login";
 import Signup from "./routes/Signup";
 
@@ -27,8 +31,10 @@ const router = createBrowserRouter(
       <Route path="about" element={<About />} />
       <Route path="faqs" element={<FAQs />} />
       <Route path="contact" element={<Contact />} />
-      <Route path="login" element={<Login />} />
-      <Route path="signup" element={<Signup />} />
+      <Route path="payment" element={<Payment />} />
+      <Route path="shipment" element={<Shipment />} />
+      <Route path="rightofwithdrawal" element={<RightOfWithdrawal />} />
+      <Route path="termsandconditions" element={<TermsAndCondition />} />
     </Route>
   )
 );

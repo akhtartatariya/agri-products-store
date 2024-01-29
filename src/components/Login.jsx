@@ -4,7 +4,7 @@ import authService from "../firebase/auth_service";
 import { Input, Button } from "./index";
 import { login as authLogin } from "../store/authSlice";
 import { useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
   const { register, handleSubmit } = useForm();
 //   const navigate = useNavigate();

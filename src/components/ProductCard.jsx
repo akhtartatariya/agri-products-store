@@ -3,22 +3,21 @@ import React, { useState } from "react";
 function ProductCard({ products }) {
   const [price, setPrice] = useState({});
 
+  //calculate the price in this function
+  const calculatePrice = (productId, selectedWeight) => {
+    const product = products.find((p) => p.id === productId);
+    return selectedWeight === "50g" ? product.price._50g : product.price._250g;
+  };
+
   const handleWeightChange = (productId, e) => {
-    if (e.target.value) {
-      const selectedWeight = e.target.value;
+    const selectedWeight = e.target.value;
+    //call the calculate function
+    const updatedPrice = calculatePrice(productId, selectedWeight);
 
-      // Calculate the price based on the selected weight for the specific product
-      const updatedPrice =
-        selectedWeight === "50g"
-          ? products.find((product) => product.id === productId).price._50g
-          : products.find((product) => product.id === productId).price._250g;
-
-      // Update the state with the calculated price for the specific product
-      setPrice((prevPrices) => ({
-        ...prevPrices,
-        [productId]: updatedPrice,
-      }));
-    }
+    setPrice((prevPrices) => ({
+      ...prevPrices,
+      [productId]: updatedPrice,
+    }));
   };
 
   // console.log(price);

@@ -2,7 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import Title from "../Title";
 import Button from "../FormStuff/Button";
 import FormGroup from "../FormGroup";
-
+import authService from "../../firebase/auth_service";
+import { login as authLogin } from "../../store/authSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 function LoginForm({ handleCancel, loggedIn, showRegister }) {
   //STATES
   const [password, setPassword] = useState("");
@@ -11,7 +14,9 @@ function LoginForm({ handleCancel, loggedIn, showRegister }) {
   //REFERENCES
   let emailRef = useRef();
   let passwordRef = useRef();
-
+  //HOOK OBJECTS
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   //HANDLERS
   const changeEmail = (e) => {
     setEmail(e.target.value);
@@ -20,15 +25,23 @@ function LoginForm({ handleCancel, loggedIn, showRegister }) {
   const changePassword = (e) => {
     setPassword(e.target.value);
   };
-  const handleSubmit = (e) => {
+
+  //AUTHENTICATION FUNTIONALITY AND STORE UPDATEs
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const event = {
-      email: email,
-      password: password,
-      id: Math.floor(Math.random() * 1000),
-    };
-    // console.log(event);
-    validateLoginForm();
+    try {
+      const account = await authService.login(email, password);
+      console.log(account.user.displayName);
+      if (account) {
+        const userData = await authService.getCurrentUser();
+        if (userData) dispatch(authLogin(userData));
+        navigate("/");
+      }
+      // console.log(event);
+      validateLoginForm();
+    } catch (error) {
+      console.log(":: error while submit login form", error);
+    }
   };
   const resetForm = () => {
     setEmail("");
@@ -83,7 +96,6 @@ function LoginForm({ handleCancel, loggedIn, showRegister }) {
                 children="Login"
                 type={"submit"}
                 className={"bg-[#0073cf] text-white px-4 py-2 rounded-md"}
-                onClick={() => window.alert("Form Submission")}
               />
               <Button
                 children="Register"

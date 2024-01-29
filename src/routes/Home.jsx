@@ -3,6 +3,7 @@ import Carousel from "../components/Carousel";
 import slides from "../db";
 
 function Home() {
+  
   return (
     <div>
       {/* Carousel For Home Page */}

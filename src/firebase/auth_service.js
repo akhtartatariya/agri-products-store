@@ -2,27 +2,27 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "./config";
 
 class AuthService {
-  async signUp({ email, password }) {
+  async signUp(name, email, password) {
     try {
       const userAccount = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      if (userAccount) {
-        return this.login({ email, password });
-      } else {
-        return userAccount;
-      }
+      await updateProfile(userAccount.user, {
+        displayName: name,
+      });
+      return name;
     } catch (error) {
       console.log(":: error creating user", error);
     }
   }
-  async login({ email, password }) {
+  async login(email, password) {
     try {
       return await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
@@ -51,10 +51,8 @@ class AuthService {
   async logout() {
     try {
       await auth.signOut();
-      return true;
     } catch (error) {
       console.log("error while logging out user:", error);
-      return false;
     }
   }
 }

@@ -3,6 +3,10 @@ import React, { useEffect, useRef, useState } from "react";
 import Title from "../Title";
 import Button from "../FormStuff/Button";
 import FormGroup from "../FormGroup";
+import authService from "../../firebase/auth_service";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../store/authSlice";
 
 function RegistrationForm({
   handleCancel,
@@ -18,12 +22,15 @@ function RegistrationForm({
     passwordConf: "",
   });
 
+  //HOOK OBJECTS
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   //Handlers
   const handlerInputChange = (e) => {
     setRegistration({ ...registration, [e.target.name]: e.target.value });
   };
 
-  const handleRegistration = (e) => {
+  const handleRegistration = async (e) => {
     e.preventDefault();
 
     const events = {
@@ -33,8 +40,6 @@ function RegistrationForm({
       passwordConf: registration.passwordConf,
       id: Math.floor(Math.random() * 1000),
     };
-    // console.log(events);
-
     const validateRegistrationForm = (obj) => {
       console.log(obj);
       if (
@@ -42,14 +47,29 @@ function RegistrationForm({
           (value) => value || (typeof value === "number" && value === 0)
         )
       ) {
-        resetForm();
-        window.alert("Success !!");
-        showLogin();
+        return true; // Form is valid
       } else {
         window.alert("Complete all fields");
+        return false; // Form is not valid
       }
     };
-    validateRegistrationForm(events);
+    if (validateRegistrationForm(events)) {
+      try {
+        const account = await authService.signUp(
+          registration.fullName,
+          registration.email,
+          registration.password
+        );
+  
+        if (account) {
+          const userData = await authService.getCurrentUser();
+          if (userData) dispatch(login(userData));
+          navigate("/");
+        }
+      } catch (error) {
+        console.log(":: error while registering form ", error);
+      }
+    }
   };
 
   //References

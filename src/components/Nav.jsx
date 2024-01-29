@@ -129,7 +129,7 @@ function Nav() {
                 } border-b-4 hover:border-[#0073cf] h-full flex items-center`
               }
             >
-              FAQs
+              {!login ? "FAQs" : "FREQUENTLY ASKED QUESTIONS"}
             </NavLink>
             <NavLink
               to="/contact"
@@ -141,7 +141,7 @@ function Nav() {
             >
               CONTACT
             </NavLink>
-            {!userStatus ? (
+            {!userStatus && !login ? (
               <li className="flex gap-4">
                 <NavLink>
                   <Button
@@ -220,7 +220,7 @@ function Nav() {
                 } border-b-4 hover:border-[#0073cf] h-full flex items-center`
               }
             >
-              FAQs
+              {!login ? "FAQs" : "FREQUENTLY ASKED QUESTIONS"}
             </NavLink>
             <NavLink
               to="/contact"
@@ -233,7 +233,7 @@ function Nav() {
             >
               CONTACT
             </NavLink>
-            {!userStatus ? (
+            {!userStatus && !login ? (
               <li className="flex gap-4">
                 <Button
                   children={"Login"}

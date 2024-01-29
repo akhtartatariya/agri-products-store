@@ -12,7 +12,7 @@ function SilageAdditives() {
       <div className="h-14 w-full text-white text-sm pl-[3%] md:pl-[7%] bg-[#0073cf] flex flex-row items-center">
         <Link to={"/"}>Home</Link> &nbsp;/ Silage additives
       </div>
-      <div className="p-10 flex gap-8">
+      <div className="p-10 flex flex-wrap max-sm:justify-center gap-8">
         <ProductCard products={products.products} />
       </div>
     </>

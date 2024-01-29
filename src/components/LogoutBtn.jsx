@@ -3,12 +3,13 @@ import authService from "../firebase/auth_service";
 import { useDispatch } from "react-redux";
 import { logout } from "../store/authSlice";
 
-const LogoutBtn = () => {
+const LogoutBtn = ({ logoutHandle }) => {
   const dispatch = useDispatch();
   const handleCllck = () => {
     authService.logout().then(() => {
       dispatch(logout());
     });
+    logoutHandle();
   };
   return (
     <button

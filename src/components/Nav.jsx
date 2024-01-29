@@ -26,6 +26,8 @@ function Nav() {
   const [toggle, setToggle] = useState(false);
   const [search, setSearch] = useState(false);
   const [isHomePage, setIsHomePage] = useState(false);
+
+  //Fetch data From Store
   const userStatus = useSelector((state) => state.auth.status);
   const userName = useSelector((state) => state.auth.userData?.displayName);
   console.log(userName);
@@ -74,6 +76,11 @@ function Nav() {
   }
   const handleCancelRegistrationForm = () => {
     setForms({ ...forms, registrationForm: false });
+  };
+
+  //Logout Handle
+  const logoutHandle = () => {
+    setLogin(false);
   };
 
   //Effects
@@ -149,21 +156,21 @@ function Nav() {
                   <Button
                     children={"Login"}
                     className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
-                    onClick={!login && handleShowLoginForm}
+                    onClick={!login ? handleShowLoginForm : undefined}
                   />
                 </NavLink>
                 <NavLink>
                   <Button
                     children={"SignUp"}
                     className="px-3 py-2 bg-green-800 text-white rounded hover:bg-green-600"
-                    onClick={!login && handleShowRegisterFrom}
+                    onClick={!login ? handleShowRegisterFrom : undefined}
                   />
                 </NavLink>
               </li>
             ) : null}
             {userStatus && (
               <li className="flex gap-2 items-center">
-                <LogoutBtn /> {`(${userName})`}
+                <LogoutBtn logoutHandle={logoutHandle} /> {`(${userName})`}
               </li>
             )}
           </ul>
@@ -240,13 +247,13 @@ function Nav() {
                 <Button
                   children={"Login"}
                   className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
-                  onClick={!login && handleShowLoginForm}
+                  onClick={!login ? handleShowLoginForm : undefined}
                 />
 
                 <Button
                   children={"SignUp"}
                   className="px-3 py-2 bg-green-800 text-white rounded hover:bg-green-600"
-                  onClick={!login && handleShowRegisterFrom}
+                  onClick={!login ? handleShowRegisterFrom : undefined}
                 />
               </li>
             ) : null}

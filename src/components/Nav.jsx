@@ -27,6 +27,8 @@ function Nav() {
   const [search, setSearch] = useState(false);
   const [isHomePage, setIsHomePage] = useState(false);
   const userStatus = useSelector((state) => state.auth.status);
+  const userName = useSelector((state) => state.auth.userData?.displayName);
+  console.log(userName);
   //Form State
   const [forms, setForms] = useState({
     loginForm: false,
@@ -160,8 +162,8 @@ function Nav() {
               </li>
             ) : null}
             {userStatus && (
-              <li className="flex gap-4">
-                <LogoutBtn />
+              <li className="flex gap-2 items-center">
+                <LogoutBtn /> {`(${userName})`}
               </li>
             )}
           </ul>
@@ -249,8 +251,8 @@ function Nav() {
               </li>
             ) : null}
             {userStatus && (
-              <li className="flex gap-4">
-                <LogoutBtn />
+              <li className="flex gap-2 items-center">
+                <LogoutBtn /> {`(${userName})`}
               </li>
             )}
           </ul>

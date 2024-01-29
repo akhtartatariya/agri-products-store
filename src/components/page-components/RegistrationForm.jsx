@@ -63,8 +63,9 @@ function RegistrationForm({
 
         if (account) {
           const userData = await authService.getCurrentUser();
-          if (userData) dispatch(login({ userData }))
-          navigate("/");
+          // if (userData) dispatch(login({ userData })); //No need to direct Login from here
+          // navigate("/");
+          userData && showLogin(); //Redirected to Login form after completing signup
         }
       } catch (error) {
         console.log(":: error while registering form ", error);

@@ -34,8 +34,8 @@ function LoginForm({ handleCancel, loggedIn, showRegister }) {
       console.log(account.user.displayName);
       if (account) {
         const userData = await authService.getCurrentUser();
-        console.log(userData)
-        if (userData) dispatch(authLogin({userData}));
+        console.log(userData);
+        if (userData) dispatch(authLogin({ userData }));
         navigate("/");
       }
       // console.log(event);

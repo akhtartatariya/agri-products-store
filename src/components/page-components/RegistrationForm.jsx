@@ -63,7 +63,7 @@ function RegistrationForm({
 
         if (account) {
           const userData = await authService.getCurrentUser();
-          if (userData) dispatch(login(userData));
+          if (userData) dispatch(login({ userData }))
           navigate("/");
         }
       } catch (error) {

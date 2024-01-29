@@ -17,7 +17,7 @@ class AuthService {
       await updateProfile(userAccount.user, {
         displayName: name,
       });
-      return name;
+      return userAccount.user;
     } catch (error) {
       console.log(":: error creating user", error);
     }
@@ -34,8 +34,7 @@ class AuthService {
       return new Promise((resolve) => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
           if (user) {
-            const uid = user.uid;
-            resolve(uid);
+            resolve(user);
           } else {
             resolve(null);
           }

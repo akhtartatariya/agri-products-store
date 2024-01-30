@@ -259,7 +259,7 @@ function Nav() {
             ) : null}
             {userStatus && (
               <li className="flex gap-2 items-center">
-                <LogoutBtn /> {`(${userName})`}
+                <LogoutBtn logoutHandle={logoutHandle} /> {`(${userName})`}
               </li>
             )}
           </ul>

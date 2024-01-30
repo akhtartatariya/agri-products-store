@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/cartSlice";
 
 function ProductCard({ products }) {
   const [price, setPrice] = useState({});
@@ -21,6 +23,13 @@ function ProductCard({ products }) {
   };
 
   // console.log(price);
+
+  //Add to Cart Reducer
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+  };
 
   return (
     <>
@@ -74,7 +83,7 @@ function ProductCard({ products }) {
             </div>
 
             <div className="bg-green-800 text-white font-bold h-9 flex items-center justify-center">
-              <h2>ADD TO CART</h2>
+              <h2 onClick={() => handleAddToCart(product)}>ADD TO CART</h2>
             </div>
           </div>
         );

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/cartSlice";
+
+//Toast
+import { toast } from "react-toastify";
 
 function ProductCard({ products }) {
   const [price, setPrice] = useState({});
@@ -30,6 +33,9 @@ function ProductCard({ products }) {
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
   };
+
+  //Fetch data From Store
+  const userStatus = useSelector((state) => state.auth.status);
 
   return (
     <>
@@ -82,8 +88,18 @@ function ProductCard({ products }) {
               />
             </div>
 
-            <div className="bg-green-800 text-white font-bold h-9 flex items-center justify-center">
-              <h2 onClick={() => handleAddToCart(product)}>ADD TO CART</h2>
+            <div
+              className="bg-green-800 text-white font-bold h-9 flex items-center justify-center cursor-pointer"
+              onClick={
+                userStatus
+                  ? () => handleAddToCart(product)
+                  : () =>
+                      toast.error("Please Login First", {
+                        position: "top-right",
+                      })
+              }
+            >
+              <h2>ADD TO CART</h2>
             </div>
           </div>
         );

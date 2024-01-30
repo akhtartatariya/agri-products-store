@@ -29,19 +29,24 @@ function LoginForm({ handleCancel, loggedIn, showRegister }) {
   //AUTHENTICATION FUNTIONALITY AND STORE UPDATEs
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const account = await authService.login(email, password);
       console.log(account.user.displayName);
       if (account) {
-        const userData = await authService.getCurrentUser();
-        console.log(userData);
+        const user = await authService.getCurrentUser();
+        console.log(user);
+        const userData = {
+          uid: account.user.uid,
+          email: account.user.email,
+          displayName: account.user.displayName,
+        };
         if (userData) dispatch(authLogin({ userData }));
         navigate("/");
       }
-      // console.log(event);
       validateLoginForm();
     } catch (error) {
-      console.log(":: error while submit login form", error);
+      console.error("Error while submitting login form", error);
     }
   };
   const resetForm = () => {

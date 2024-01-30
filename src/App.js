@@ -7,6 +7,8 @@ import { login, logout } from "./store/authSlice";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import authService from "./firebase/auth_service";
+
+import { ToastContainer } from "react-toastify";
 // import SignUp from "./components/SignUp";
 // import { auth } from "./firebase/config";
 function App() {
@@ -15,7 +17,7 @@ function App() {
   useEffect(() => {
     authService.getCurrentUser().then((userData) => {
       if (userData) {
-        dispatch(login({userData} ));
+        dispatch(login({ userData }));
       } else {
         dispatch(logout());
       }
@@ -27,6 +29,7 @@ function App() {
       {/* <SignUp/> */}
       {/* <Login/> */}
       <Nav />
+      <ToastContainer />
       <Outlet />
       <Footer />
     </>

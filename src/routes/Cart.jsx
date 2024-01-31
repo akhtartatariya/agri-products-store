@@ -3,14 +3,21 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 //Redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 //Icon
 import { BsArrowLeft } from "react-icons/bs";
 import Button from "../components/FormStuff/Button";
+import { removeFromCart } from "../store/cartSlice";
 
 function Cart() {
   const cart = useSelector((state) => state.cart);
+
+  const dispatch = useDispatch();
+
+  const handleRemoveFromCart = (cartItem) => {
+    dispatch(removeFromCart(cartItem));
+  };
   return (
     <>
       <div className="min-h-[100vh]">
@@ -61,6 +68,7 @@ function Cart() {
                         <p className="text-sm">{cartItem.product_desc}</p>
                         <Button
                           children={"remove"}
+                          onClick={() => handleRemoveFromCart(cartItem)}
                           className="border-none outline-none mt-3 bg-none text-gray-500 hover:text-black"
                         />
                       </div>

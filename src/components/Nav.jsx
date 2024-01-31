@@ -46,6 +46,10 @@ function Nav() {
   //Navigator
   const navigate = useNavigate();
 
+  const handleOpenCart = () => {
+    navigate("/cart");
+  };
+
   //Functions
   const activeToggle = () => {
     setToggle(true);
@@ -179,7 +183,10 @@ function Nav() {
           </ul>
         </div>
         <div className="w-[10rem] flex text-2xl text-[#0073cf] justify-end gap-3 md:gap-8 z-30">
-          <MdOutlineShoppingCart className="cursor-pointer" onClick={"/cart"} />
+          <MdOutlineShoppingCart
+            className="cursor-pointer"
+            onClick={() => handleOpenCart()}
+          />
           <MdOutlineSearch className="cursor-pointer" onClick={activeSearch} />
           {!toggle ? (
             <HiOutlineMenuAlt3

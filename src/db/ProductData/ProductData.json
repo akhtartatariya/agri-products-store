@@ -1,0 +1,49 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "src": "../img/products/11C33.webp",
+      "alt": "11C33",
+      "product_name": "SILA-BAC® Corn Combi RR",
+      "product_desc": "Less reheating in corn silages.",
+      "price": {
+        "_50g": 83.3,
+        "_250g": 416.5
+      },
+      "weight": {
+        "_50g": "50g",
+        "_250g": "250g"
+      }
+    },
+    {
+      "id": 2,
+      "src": "../img/products/11CFT.JPG",
+      "alt": "11CFT",
+      "product_name": "Pioneer® 11CFT",
+      "product_desc": "Efficient ensiling and less reheating in corn silages.",
+      "price": {
+        "_50g": 107.1,
+        "_250g": 535.5
+      },
+      "weight": {
+        "_50g": "50g",
+        "_250g": "250g"
+      }
+    },
+    {
+      "id": 3,
+      "src": "../img/products/11C33.webp",
+      "alt": "11CFT",
+      "product_name": "Pioneer® 11CH4",
+      "product_desc": "Silage for biogas production.",
+      "price": {
+        "_50g": 107.1,
+        "_250g": 535.5
+      },
+      "weight": {
+        "_50g": "50g",
+        "_250g": "250g"
+      }
+    }
+  ]
+}

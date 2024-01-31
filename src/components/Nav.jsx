@@ -3,6 +3,10 @@ import React, { useEffect, useRef, useState } from "react";
 import Button from "./FormStuff/Button";
 import LogoutBtn from "./LogoutBtn";
 
+//FORMS
+import LoginForm from "./page-components/LoginForm";
+import RegistrationForm from "./page-components/RegistrationForm";
+
 //Animate.css
 import "animate.css";
 
@@ -12,22 +16,35 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { CgCloseO } from "react-icons/cg";
 
 //React-Router-Dom
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 // Redux
-
 import { useSelector } from "react-redux";
+
 function Nav() {
   //States
   const [toggle, setToggle] = useState(false);
   const [search, setSearch] = useState(false);
   const [isHomePage, setIsHomePage] = useState(false);
+
+  //Fetch data From Store
   const userStatus = useSelector((state) => state.auth.status);
+  const userName = useSelector((state) => state.auth.userData?.displayName);
+  // console.log(userName);
+  //Form State
+  const [forms, setForms] = useState({
+    loginForm: false,
+    registrationForm: false,
+  });
+  const [login, setLogin] = useState(false);
   //Location
   const location = useLocation();
 
   //References
   let searchRef = useRef();
+
+  //Navigator
+  const navigate = useNavigate();
 
   //Functions
   const activeToggle = () => {
@@ -42,6 +59,31 @@ function Nav() {
   };
   const deactiveSearch = () => {
     setSearch(false);
+  };
+
+  //Form Handle
+  //LogIn Form Handle
+  const handleShowLoginForm = () => {
+    setForms({ ...forms, registrationForm: false, loginForm: true });
+  };
+  const handleCancelLoginForm = () => {
+    setForms({ ...forms, loginForm: false });
+  };
+  function handleLoginFormValidation() {
+    setForms({ ...forms, loginForm: false });
+    setLogin(true);
+  }
+  //Registration Form Handle
+  function handleShowRegisterFrom() {
+    setForms({ ...forms, loginForm: false, registrationForm: true });
+  }
+  const handleCancelRegistrationForm = () => {
+    setForms({ ...forms, registrationForm: false });
+  };
+
+  //Logout Handle
+  const logoutHandle = () => {
+    setLogin(false);
   };
 
   //Effects
@@ -113,29 +155,31 @@ function Nav() {
             </NavLink>
             {!userStatus ? (
               <li className="flex gap-4">
-                <NavLink to='/login'>
-                <Button
-                  children={"Login"}
-                  className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
-                />
+                <NavLink>
+                  <Button
+                    children={"Login"}
+                    className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
+                    onClick={!login ? handleShowLoginForm : undefined}
+                  />
                 </NavLink>
-                <NavLink to='/signup'>
-                <Button
-                  children={"SignUp"}
-                  className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
-                />
+                <NavLink>
+                  <Button
+                    children={"SignUp"}
+                    className="px-3 py-2 bg-green-800 text-white rounded hover:bg-green-600"
+                    onClick={!login ? handleShowRegisterFrom : undefined}
+                  />
                 </NavLink>
               </li>
             ) : null}
             {userStatus && (
-              <li className="flex gap-4">
-                <LogoutBtn />
+              <li className="flex gap-2 items-center">
+                <LogoutBtn logoutHandle={logoutHandle} /> {`(${userName})`}
               </li>
             )}
           </ul>
         </div>
         <div className="w-[10rem] flex text-2xl text-[#0073cf] justify-end gap-3 md:gap-8 z-30">
-          <MdOutlineShoppingCart className="cursor-pointer" />
+          <MdOutlineShoppingCart className="cursor-pointer" onClick={"/cart"} />
           <MdOutlineSearch className="cursor-pointer" onClick={activeSearch} />
           {!toggle ? (
             <HiOutlineMenuAlt3
@@ -206,17 +250,19 @@ function Nav() {
                 <Button
                   children={"Login"}
                   className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
+                  onClick={!login ? handleShowLoginForm : undefined}
                 />
 
                 <Button
                   children={"SignUp"}
-                  className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
+                  className="px-3 py-2 bg-green-800 text-white rounded hover:bg-green-600"
+                  onClick={!login ? handleShowRegisterFrom : undefined}
                 />
               </li>
             ) : null}
             {userStatus && (
-              <li className="flex gap-4">
-                <LogoutBtn />
+              <li className="flex gap-2 items-center">
+                <LogoutBtn logoutHandle={logoutHandle} /> {`(${userName})`}
               </li>
             )}
           </ul>
@@ -243,6 +289,22 @@ function Nav() {
             />
           </div>
         </div>
+      )}
+      {/* UTILITIES */}
+      {/* FORMS */}
+      {/* Login Form */}
+      {forms.loginForm && (
+        <LoginForm
+          handleCancel={handleCancelLoginForm}
+          showRegister={handleShowRegisterFrom}
+          loggedIn={handleLoginFormValidation}
+        />
+      )}
+      {forms.registrationForm && (
+        <RegistrationForm
+          handleCancel={handleCancelRegistrationForm}
+          showLogin={handleShowLoginForm}
+        />
       )}
     </>
   );

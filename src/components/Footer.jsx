@@ -15,16 +15,18 @@ function Footer() {
           />
           <ul className="flex flex-col md:flex-row w-full gap-[.5rem] md:gap-[8%]">
             <li>
-              <Link>Payment</Link>
+              <Link to={"/payment"}>Payment</Link>
             </li>
             <li>
-              <Link>Shipment</Link>
+              <Link to={"/shipment"}>Shipment</Link>
             </li>
             <li>
-              <Link>Right of withdrawal</Link>
+              <Link to={"/rightofwithdrawal"}>Right of withdrawal</Link>
             </li>
             <li>
-              <Link>Corteva</Link>
+              <Link to={"https://www.corteva.in/"} target="_blank">
+                Corteva
+              </Link>
             </li>
           </ul>
         </div>
@@ -33,19 +35,34 @@ function Footer() {
           <div>
             <ul className="flex flex-col md:flex-row justify-start gap-[.5rem] md:gap-[5%]">
               <li>
-                <Link>Data protection</Link>
+                <Link
+                  to={"https://www.corteva.in/privacy-policy.html"}
+                  target="_blank"
+                >
+                  Data protection
+                </Link>
               </li>
               <li>
-                <Link>Legal Notice</Link>
+                <Link
+                  to={"https://www.corteva.in/terms-and-conditions.html"}
+                  target="_blank"
+                >
+                  Legal Notice
+                </Link>
               </li>
               <li>
-                <Link>Conditions</Link>
+                <Link to={"/termsandconditions"}>Conditions</Link>
               </li>
               <li>
-                <Link>imprint</Link>
+                <Link
+                  to={"https://www.corteva.in/who-we-are/our-merger.html"}
+                  target="_blank"
+                >
+                  imprint
+                </Link>
               </li>
               <li>
-                <Link>Data protection request</Link>
+                <Link to={"#"}>Data protection request</Link>
               </li>
             </ul>
           </div>

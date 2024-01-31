@@ -10,6 +10,7 @@ import { getFirestore } from "firebase/firestore";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 // Initialize Firebase
-export const app = initializeApp(conf);
-export const fireDB = getFirestore(app);
-export const auth = getAuth(app);
+const app = initializeApp(conf);
+const fireDB = getFirestore(app);
+const auth = getAuth(app);
+export { app, fireDB, auth };

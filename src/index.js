@@ -24,11 +24,13 @@ import Payment from "./routes/Payment";
 import Shipment from "./routes/Shipment";
 import RightOfWithdrawal from "./routes/RightOfWithdrawal";
 import TermsAndCondition from "./routes/TermsAndCondition";
+import Cart from "./routes/Cart";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="" element={<Home />} />
+      <Route path="cart" element={<Cart />} />
       <Route path="silage_additives" element={<SilageAdditives />} />
       <Route path="about" element={<About />} />
       <Route path="faqs" element={<FAQs />} />

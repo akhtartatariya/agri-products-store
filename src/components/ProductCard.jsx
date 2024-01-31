@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/cartSlice";
 
+//Router
+import { useNavigate } from "react-router";
+
 //Toast
 import { toast } from "react-toastify";
 
@@ -30,8 +33,11 @@ function ProductCard({ products }) {
   //Add to Cart Reducer
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
+    navigate("/cart");
   };
 
   //Fetch data From Store

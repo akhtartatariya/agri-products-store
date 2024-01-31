@@ -19,8 +19,8 @@ import { CgCloseO } from "react-icons/cg";
 import { NavLink, useLocation } from "react-router-dom";
 
 // Redux
-
 import { useSelector } from "react-redux";
+
 function Nav() {
   //States
   const [toggle, setToggle] = useState(false);

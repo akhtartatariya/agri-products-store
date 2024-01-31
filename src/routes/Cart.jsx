@@ -50,8 +50,8 @@ function Cart() {
                   >
                     <div className="flex">
                       <img
-                        src={cartItem.src}
-                        alt={cartItem.alt}
+                        src={cartItem.product_img}
+                        alt={cartItem.product_name}
                         className="w-40 max-w-full mr-4 -ml-8"
                       />
                       <div>

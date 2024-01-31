@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import authService from "./firebase/auth_service";
 
 import { ToastContainer } from "react-toastify";
+import productService from "./firebase/product_service";
 // import SignUp from "./components/SignUp";
 // import { auth } from "./firebase/config";
 function App() {
@@ -22,7 +23,9 @@ function App() {
         dispatch(logout());
       }
     });
+    
   }, [dispatch]);
+
   return (
     <>
       {/* <h1>welcome to the agriculture</h1> */}

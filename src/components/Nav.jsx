@@ -30,7 +30,7 @@ function Nav() {
   //Fetch data From Store
   const userStatus = useSelector((state) => state.auth.status);
   const userName = useSelector((state) => state.auth.userData?.displayName);
-  console.log(userName);
+  // console.log(userName);
   //Form State
   const [forms, setForms] = useState({
     loginForm: false,

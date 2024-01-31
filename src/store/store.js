@@ -8,5 +8,12 @@ const store = configureStore({
     auth: authSlice,
     cart: cartReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        // Ignore specific action types causing the warning
+        ignoredActions: ['auth/login'], // Replace with your actual action type
+      },
+    }),
 });
 export default store;

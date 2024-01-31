@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/cartSlice";
-
 //Router
 import { useNavigate } from "react-router";
 
@@ -46,6 +45,8 @@ function ProductCard({ products }) {
   return (
     <>
       {products.map((product) => {
+        console.log(`${product.product_img}`);
+
         return (
           <div
             className="w-[15rem] h-[28rem] shadow-[0_3px_10px_rgb(0,0,0,0.2)] relative text-xs flex flex-col justify-between"
@@ -53,7 +54,11 @@ function ProductCard({ products }) {
           >
             <div className="py-2 px-3 flex flex-col gap-6">
               <div className="flex justify-center">
-                <img src={product.src} alt={product.alt} className="w-44" />
+                <img
+                  src={product.product_img}
+                  alt={product.product_name}
+                  className=" w-44"
+                />
               </div>
               <div className="flex flex-col justify-between h-20">
                 <h2 className="font-bold text-2xl">{product.product_name}</h2>

@@ -4,9 +4,9 @@ import Title from "../Title";
 import Button from "../FormStuff/Button";
 import FormGroup from "../FormGroup";
 import authService from "../../firebase/auth_service";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { login } from "../../store/authSlice";
+// import { useDispatch } from "react-redux";
+// import { useNavigate } from "react-router-dom";
+// import { login } from "../../store/authSlice";
 
 function RegistrationForm({
   handleCancel,
@@ -23,8 +23,8 @@ function RegistrationForm({
   });
 
   //HOOK OBJECTS
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
   //Handlers
   const handlerInputChange = (e) => {
     setRegistration({ ...registration, [e.target.name]: e.target.value });

@@ -5,7 +5,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth, fireDB } from "./config";
-import { addDoc, collection } from "firebase/firestore";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
 
 class AuthService {
   async signUp(name, email, password) {
@@ -15,14 +15,15 @@ class AuthService {
         email,
         password
       );
-      console.log(userAccount)
-      let user={
+      console.log(userAccount);
+      let user = {
         name: name,
         email: userAccount.user.email,
-        uid:userAccount.user.uid
-      }
-      const userRef=collection(fireDB,"users")
-      await addDoc(userRef,user)
+        uid: userAccount.user.uid,
+        time: Timestamp.now(),
+      };
+      const userRef = collection(fireDB, "users");
+      await addDoc(userRef, user);
       await updateProfile(userAccount.user, {
         displayName: name,
       });

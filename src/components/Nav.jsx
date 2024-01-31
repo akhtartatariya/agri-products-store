@@ -16,7 +16,7 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { CgCloseO } from "react-icons/cg";
 
 //React-Router-Dom
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 // Redux
 import { useSelector } from "react-redux";
@@ -42,6 +42,9 @@ function Nav() {
 
   //References
   let searchRef = useRef();
+
+  //Navigator
+  const navigate = useNavigate();
 
   //Functions
   const activeToggle = () => {
@@ -176,7 +179,7 @@ function Nav() {
           </ul>
         </div>
         <div className="w-[10rem] flex text-2xl text-[#0073cf] justify-end gap-3 md:gap-8 z-30">
-          <MdOutlineShoppingCart className="cursor-pointer" />
+          <MdOutlineShoppingCart className="cursor-pointer" onClick={"/cart"} />
           <MdOutlineSearch className="cursor-pointer" onClick={activeSearch} />
           {!toggle ? (
             <HiOutlineMenuAlt3

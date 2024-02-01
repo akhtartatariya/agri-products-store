@@ -14,6 +14,9 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
+      console.log("State:", state);
+      console.log("Action:", action);
+
       const itemIndex = state.cartItems.findIndex(
         (item) => item.id === action.payload.id
       );
@@ -44,9 +47,60 @@ const cartSlice = createSlice({
         position: "top-right",
       });
     },
+    updatedPriceAndWeight: (state, action) => {
+      const { itemId, newPrice, newWeight } = action.payload;
+      const updatedCartItems = state.cartItems.map((item) => {
+        if (item.id === itemId) {
+          return {
+            ...item,
+            price: newPrice,
+            weight: newWeight,
+          };
+        }
+        return item;
+      });
+
+      const updatedState = {
+        ...state,
+        cartItems: updatedCartItems,
+      };
+
+      console.log(action.payload);
+
+      localStorage.setItem("cartItems", JSON.stringify(updatedState.cartItems));
+
+      return updatedState;
+    },
+    decreaseCartQuantity: (state, action) => {
+      const itemIndex = state.cartItems.findIndex(
+        (cartItem) => cartItem.id === action.payload.id
+      );
+
+      if (state.cartItems[itemIndex].cartQuantity > 1) {
+        state.cartItems[itemIndex].cartQuantity -= 1;
+
+        toast.info(`Decreased ${action.payload.product_name}'s cart quantity`, {
+          position: "top-right",
+        });
+      } else if (state.cartItems[itemIndex].cartQuantity === 1) {
+        const updatedCartItems = state.cartItems.filter(
+          (cartItem) => cartItem.id !== action.payload.id
+        );
+        state.cartItems = updatedCartItems;
+        toast.error(`${action.payload.product_name} removed from cart`, {
+          position: "top-right",
+        });
+      }
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  updatedPriceAndWeight,
+  decreaseCartQuantity,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

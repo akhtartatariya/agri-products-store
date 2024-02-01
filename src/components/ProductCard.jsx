@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../store/cartSlice";
+import { addToCart, updatedPriceAndWeight } from "../store/cartSlice";
 //Router
 import { useNavigate } from "react-router";
 
@@ -9,25 +9,50 @@ import { toast } from "react-toastify";
 
 function ProductCard({ products }) {
   const [price, setPrice] = useState({});
+  const [weight, setWeight] = useState({});
 
   //calculate the price in this function
   const calculatePrice = (productId, selectedWeight) => {
     const product = products.find((p) => p.id === productId);
     return selectedWeight === "50g" ? product.price._50g : product.price._250g;
   };
+  const calculateWeight = (productId, selectedWeight) => {
+    const product = products.find((p) => p.id === productId);
+    return selectedWeight === "50g"
+      ? product.weight._50g
+      : product.weight._250g;
+  };
 
   const handleWeightChange = (productId, e) => {
     const selectedWeight = e.target.value;
     //call the calculate function
     const updatedPrice = calculatePrice(productId, selectedWeight);
+    const updatedWeight = calculateWeight(productId, selectedWeight);
 
     setPrice((prevPrices) => ({
       ...prevPrices,
       [productId]: updatedPrice,
     }));
+    setWeight((prevWeights) => ({
+      ...prevWeights,
+      [productId]: updatedWeight,
+    }));
   };
 
-  // console.log(price);
+  useEffect(() => {
+    products.map((item) => {
+      setPrice((prevPrices) => ({
+        ...prevPrices,
+        [item.id]: item.price._50g,
+      }));
+      setWeight((prevWeights) => ({
+        ...prevWeights,
+        [item.id]: item.weight._50g,
+      }));
+    });
+  }, [products]);
+
+  console.log(weight);
 
   //Add to Cart Reducer
   const dispatch = useDispatch();
@@ -36,16 +61,24 @@ function ProductCard({ products }) {
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
+    dispatch(
+      updatedPriceAndWeight({
+        itemId: product.id,
+        newPrice: price,
+        newWeight: weight,
+      })
+    );
     navigate("/cart");
   };
 
   //Fetch data From Store
   const userStatus = useSelector((state) => state.auth.status);
+  console.log(price);
 
   return (
     <>
       {products.map((product) => {
-        console.log(`${product.product_img}`);
+        // console.log(`${product.product_img}`);
 
         return (
           <div
@@ -70,10 +103,7 @@ function ProductCard({ products }) {
                 <hr className="h-[0.02rem] bg-gray-600 w-full" />
                 <div className="flex justify-between font-bold">
                   <span>List Price</span>
-                  <span>
-                    €
-                    {price[product.id] ? price[product.id] : product.price._50g}
-                  </span>
+                  <span>€{price[product.id]}</span>
                 </div>
                 <p className="text-gray-600">VAT included.</p>
               </div>

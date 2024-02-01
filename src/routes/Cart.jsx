@@ -8,7 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 //Icon
 import { BsArrowLeft } from "react-icons/bs";
 import Button from "../components/FormStuff/Button";
-import { removeFromCart } from "../store/cartSlice";
+import {
+  addToCart,
+  decreaseCartQuantity,
+  removeFromCart,
+} from "../store/cartSlice";
 
 function Cart() {
   const cart = useSelector((state) => state.cart);
@@ -17,6 +21,14 @@ function Cart() {
 
   const handleRemoveFromCart = (cartItem) => {
     dispatch(removeFromCart(cartItem));
+  };
+
+  const handleDecreaseCart = (cartItem) => {
+    dispatch(decreaseCartQuantity(cartItem));
+  };
+
+  const handleIncreaseCart = (cartItem) => {
+    dispatch(addToCart(cartItem));
   };
   return (
     <>
@@ -31,7 +43,10 @@ function Cart() {
             <div className="text-2xl mt-8 text-gray-600 flex flex-col items-center">
               <p>Your cart is currently empty</p>
               <div className="mt-4">
-                <Link to={"/"} className="text-gray-500 flex items-center">
+                <Link
+                  to={"/silage_additives"}
+                  className="text-gray-500 flex items-center"
+                >
                   <BsArrowLeft />
                   <span className="ml-2">Start Shopping</span>
                 </Link>
@@ -65,7 +80,10 @@ function Cart() {
                         <h3 className="font-semibold">
                           {cartItem.product_name}
                         </h3>
-                        <p className="text-sm">{cartItem.product_desc}</p>
+                        <p className="text-sm">
+                          {cartItem.product_desc} <br />{" "}
+                          {cartItem.weight[cartItem.id]}
+                        </p>
                         <Button
                           children={"remove"}
                           onClick={() => handleRemoveFromCart(cartItem)}
@@ -73,20 +91,26 @@ function Cart() {
                         />
                       </div>
                     </div>
-                    <div>€{cartItem.price._50g}</div>
+                    <div>€{cartItem.price[cartItem.id]}</div>
+                    {/* {console.log(cartItem.price[cartItem.id])} */}
                     <div className="flex items-start justify-center w-32 max-w-full border-[0.5px] border-slate-600 rounded-sm">
                       <Button
                         children={"-"}
                         className="border-none outline-none bg-none py-3 px-6"
+                        onClick={() => handleDecreaseCart(cartItem)}
                       />
                       <div className="py-3">{cartItem.cartQuantity}</div>
                       <Button
                         children={"+"}
                         className="border-none outline-none bg-none py-3 px-6"
+                        onClick={() => handleIncreaseCart(cartItem)}
                       />
                     </div>
                     <div className="justify-self-end pr-2 font-bold">
-                      €{cartItem.price._50g * cartItem.cartQuantity}
+                      €
+                      {(
+                        cartItem.price[cartItem.id] * cartItem.cartQuantity
+                      ).toFixed(2)}
                     </div>
                   </div>
                 ))}
@@ -110,7 +134,10 @@ function Cart() {
                     className="bg-[#0073cf] outline-none w-full h-12 font-semibold tracking-wide border-[0.5px] border-none text-white rounded-md"
                   />
                   <div className="mt-4">
-                    <Link to={"/"} className="text-gray-500 flex items-center">
+                    <Link
+                      to={"/silage_additives"}
+                      className="text-gray-500 flex items-center"
+                    >
                       <BsArrowLeft />
                       <span className="ml-2">Continue Shopping</span>
                     </Link>

@@ -1,4 +1,11 @@
-import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import { fireDB } from "./config";
 class ProductService {
   async addProduct({ product_name, product_desc, product_img, price, weight }) {
@@ -17,24 +24,24 @@ class ProductService {
       console.error("Error adding product: ", error);
     }
   }
-  async updateProduct(productId, {updatedData}) {
+  async updateProduct(productId, { updatedData }) {
     try {
-      const productRef = doc(fireDB, 'products', productId);
+      const productRef = doc(fireDB, "products", productId);
       await updateDoc(productRef, updatedData);
-      console.log('Product updated successfully');
+      console.log("Product updated successfully");
     } catch (error) {
-      console.error('Error updating product: ', error);
+      console.error("Error updating product: ", error);
     }
   }
   async deleteProduct(productId) {
     try {
-      const productRef = doc(fireDB, 'products', productId);
+      const productRef = doc(fireDB, "products", productId);
       await deleteDoc(productRef);
-      console.log('Product deleted successfully');
-      return true
+      console.log("Product deleted successfully");
+      return true;
     } catch (error) {
-      console.error('Error deleting product: ', error);
-      return false
+      console.error("Error deleting product: ", error);
+      return false;
     }
   }
   async getAllProducts() {

@@ -10,6 +10,7 @@ import { BsArrowLeft } from "react-icons/bs";
 import Button from "../components/FormStuff/Button";
 import {
   addToCart,
+  clearCart,
   decreaseCartQuantity,
   removeFromCart,
 } from "../store/cartSlice";
@@ -29,6 +30,10 @@ function Cart() {
 
   const handleIncreaseCart = (cartItem) => {
     dispatch(addToCart(cartItem));
+  };
+
+  const handleClearCart = () => {
+    dispatch(clearCart());
   };
   return (
     <>
@@ -119,6 +124,7 @@ function Cart() {
               <div className="flex justify-between items-start border-t border-slate-500 pt-8">
                 <Button
                   children={"Clear Cart"}
+                  onClick={() => handleClearCart()}
                   className="bg-none outline-none w-32 max-w-full h-12 font-semibold tracking-wide border-[0.5px] border-slate-400 text-gray-500 rounded-md"
                 />
                 <div className="w-72 max-w-full">

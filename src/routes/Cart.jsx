@@ -16,7 +16,7 @@ import {
 
 function Cart() {
   const cart = useSelector((state) => state.cart);
-
+  // console.log(cart)
   const dispatch = useDispatch();
 
   const handleRemoveFromCart = (cartItem) => {

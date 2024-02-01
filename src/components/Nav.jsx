@@ -30,6 +30,8 @@ function Nav() {
   //Fetch data From Store
   const userStatus = useSelector((state) => state.auth.status);
   const userName = useSelector((state) => state.auth.userData?.displayName);
+  const userEmail = useSelector((state) => state.auth.userData?.email);
+
   // console.log(userName);
   //Form State
   const [forms, setForms] = useState({
@@ -101,7 +103,33 @@ function Nav() {
     // Check if it's the home page based on the current URL
     setIsHomePage(location.pathname === "/");
   }, [location.pathname]);
-
+  const navItems = [
+    {
+      name: "SILAGE ADDITIVES",
+      slug: "/silage_additives",
+      active: true,
+    },
+    {
+      name: "ABOUT US",
+      slug: "/about",
+      active: true,
+    },
+    {
+      name: "FAQs",
+      slug: "/faqs",
+      active: true,
+    },
+    {
+      name: "CONTACT",
+      slug: "/contact",
+      active: true,
+    },
+    {
+      name: "ADMIN",
+      slug: "/admin",
+      active: userEmail == "a@gmail.com" //here add admin email ID 
+    },
+  ];
   // console.log(isHomePage); For Debugging
 
   return (
@@ -117,46 +145,22 @@ function Nav() {
           <ul
             className={`flex justify-between items-center text-[#0073cf] font-bold text-sm h-full w-full bg-white`}
           >
-            <NavLink
-              to="/silage_additives"
-              className={({ isActive }) =>
-                `${
-                  isActive ? "border-[#0073cf]" : "border-transparent"
-                } border-b-4 hover:border-[#0073cf] h-full flex items-center`
-              }
-            >
-              SILAGE ADDITIVES
-            </NavLink>
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                `${
-                  isActive ? "border-[#0073cf]" : "border-transparent"
-                } border-b-4 hover:border-[#0073cf] h-full flex items-center`
-              }
-            >
-              ABOUT US
-            </NavLink>
-            <NavLink
-              to="/faqs"
-              className={({ isActive }) =>
-                `${
-                  isActive ? "border-[#0073cf]" : "border-transparent"
-                } border-b-4 hover:border-[#0073cf] h-full flex items-center`
-              }
-            >
-              FAQs
-            </NavLink>
-            <NavLink
-              to="/contact"
-              className={({ isActive }) =>
-                `${
-                  isActive ? "border-[#0073cf]" : "border-transparent"
-                } border-b-4 hover:border-[#0073cf] h-full flex items-center`
-              }
-            >
-              CONTACT
-            </NavLink>
+            {navItems.map((item) =>
+              item.active ? (
+                <NavLink
+                  to={item.slug}
+                  key={item.name}
+                  className={({ isActive }) =>
+                    `${
+                      isActive ? "border-[#0073cf]" : "border-transparent"
+                    } border-b-4 hover:border-[#0073cf] h-full flex items-center`
+                  }
+                >
+                  {item.name}
+                </NavLink>
+              ) : null
+            )}
+
             {!userStatus ? (
               <li className="flex gap-4">
                 <NavLink>

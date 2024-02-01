@@ -11,6 +11,7 @@ function Home() {
         data={slides.slides}
         text={"Produce Tasty Silages and avoid reheating"}
       />
+      
     </div>
   );
 }

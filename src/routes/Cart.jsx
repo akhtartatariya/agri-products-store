@@ -12,7 +12,7 @@ import { removeFromCart } from "../store/cartSlice";
 
 function Cart() {
   const cart = useSelector((state) => state.cart);
-
+  // console.log(cart)
   const dispatch = useDispatch();
 
   const handleRemoveFromCart = (cartItem) => {

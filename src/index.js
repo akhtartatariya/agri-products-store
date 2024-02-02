@@ -25,10 +25,10 @@ import Shipment from "./routes/Shipment";
 import RightOfWithdrawal from "./routes/RightOfWithdrawal";
 import TermsAndCondition from "./routes/TermsAndCondition";
 import Cart from "./routes/Cart";
-import Admin from "./routes/Admin";
 
 //Reducer
 import { getTotals } from "./store/cartSlice";
+import AddProduct from "./routes/AddProduct";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,7 +39,7 @@ const router = createBrowserRouter(
       <Route path="about" element={<About />} />
       <Route path="faqs" element={<FAQs />} />
       <Route path="contact" element={<Contact />} />
-      <Route path="admin" element={<Admin />} />
+      <Route path="add-product" element={<AddProduct />} />
       <Route path="payment" element={<Payment />} />
       <Route path="shipment" element={<Shipment />} />
       <Route path="rightofwithdrawal" element={<RightOfWithdrawal />} />

@@ -111,22 +111,22 @@ function Nav() {
     {
       name: "ABOUT US",
       slug: "/about",
-      active: true,
+      active: userEmail !== "a@gmail.com",
     },
     {
       name: "FAQs",
       slug: "/faqs",
-      active: true,
+      active: userEmail !== "a@gmail.com",
     },
     {
       name: "CONTACT",
       slug: "/contact",
-      active: true,
+      active: userEmail !== "a@gmail.com",
     },
     {
-      name: "ADMIN",
-      slug: "/admin",
-      active: userEmail == "a@gmail.com" //here add admin email ID 
+      name: "ADD PRODUCT",
+      slug: "/add-product",
+      active: userEmail === "a@gmail.com", //here add admin email ID
     },
   ];
   // console.log(isHomePage); For Debugging

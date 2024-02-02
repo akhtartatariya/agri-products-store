@@ -42,10 +42,8 @@ function Nav() {
   const [login, setLogin] = useState(false);
   //Location
   const location = useLocation();
-
   //References
   let searchRef = useRef();
-
   //Navigator
   const navigate = useNavigate();
 
@@ -128,7 +126,7 @@ function Nav() {
     {
       name: "ADMIN",
       slug: "/admin",
-      active: userEmail == "a@gmail.com", //here add admin email ID
+      active: userEmail == "a@gmail.com" //here add admin email ID 
     },
   ];
   // console.log(isHomePage); For Debugging
@@ -218,50 +216,23 @@ function Nav() {
           <ul
             className={`flex flex-col items-center p-2 gap-4 text-[#0073cf] font-bold text-sm bg-white`}
           >
-            <NavLink
-              to="/silage_additives"
-              onClick={deactiveToggle}
-              className={({ isActive }) =>
-                `${
-                  isActive ? "border-[#0073cf]" : "border-transparent"
-                } border-b-4 hover:border-[#0073cf] h-full flex items-center`
-              }
-            >
-              SILAGE ADDITIVES
-            </NavLink>
-            <NavLink
-              to="/about"
-              onClick={deactiveToggle}
-              className={({ isActive }) =>
-                `${
-                  isActive ? "border-[#0073cf]" : "border-transparent"
-                } border-b-4 hover:border-[#0073cf] h-full flex items-center`
-              }
-            >
-              ABOUT US
-            </NavLink>
-            <NavLink
-              to="/faqs"
-              onClick={deactiveToggle}
-              className={({ isActive }) =>
-                `${
-                  isActive ? "border-[#0073cf]" : "border-transparent"
-                } border-b-4 hover:border-[#0073cf] h-full flex items-center`
-              }
-            >
-              FAQs
-            </NavLink>
-            <NavLink
-              to="/contact"
-              onClick={deactiveToggle}
-              className={({ isActive }) =>
-                `${
-                  isActive ? "border-[#0073cf]" : "border-transparent"
-                } border-b-4 hover:border-[#0073cf] h-full flex items-center`
-              }
-            >
-              CONTACT
-            </NavLink>
+            {navItems.map((item) =>
+              item.active ? (
+                <NavLink
+                  onClick={deactiveToggle}
+                  to={item.slug}
+                  key={item.name}
+                  className={({ isActive }) =>
+                    `${
+                      isActive ? "border-[#0073cf]" : "border-transparent"
+                    } border-b-4 hover:border-[#0073cf] h-full flex items-center`
+                  }
+                >
+                  {item.name}
+                </NavLink>
+              ) : null
+            )}
+
             {!userStatus ? (
               <li className="flex gap-4">
                 <Button

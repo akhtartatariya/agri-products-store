@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 function ProductCard({ products }) {
   const [price, setPrice] = useState({});
   const [weight, setWeight] = useState({});
-
+  console.log(price)
   //calculate the price in this function
   const calculatePrice = (productId, selectedWeight) => {
     const product = products.find((p) => p.id === productId);
@@ -52,7 +52,7 @@ function ProductCard({ products }) {
     });
   }, [products]);
 
-  console.log(weight);
+  // console.log(weight);
 
   //Add to Cart Reducer
   const dispatch = useDispatch();
@@ -73,13 +73,12 @@ function ProductCard({ products }) {
 
   //Fetch data From Store
   const userStatus = useSelector((state) => state.auth.status);
-  console.log(price);
+  // console.log(price);
 
   return (
     <>
       {products.map((product) => {
         // console.log(`${product.product_img}`);
-
         return (
           <div
             className="w-[15rem] h-[28rem] shadow-[0_3px_10px_rgb(0,0,0,0.2)] relative text-xs flex flex-col justify-between"

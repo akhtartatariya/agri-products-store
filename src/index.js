@@ -27,6 +27,9 @@ import TermsAndCondition from "./routes/TermsAndCondition";
 import Cart from "./routes/Cart";
 import Admin from "./routes/Admin";
 
+//Reducer
+import { getTotals } from "./store/cartSlice";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -44,6 +47,8 @@ const router = createBrowserRouter(
     </Route>
   )
 );
+
+store.dispatch(getTotals());
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

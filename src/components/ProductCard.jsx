@@ -41,6 +41,7 @@ function ProductCard({ products }) {
 
   useEffect(() => {
     products.map((item) => {
+      console.log(item.price._50g);
       setPrice((prevPrices) => ({
         ...prevPrices,
         [item.id]: item.price._50g,
@@ -49,6 +50,7 @@ function ProductCard({ products }) {
         ...prevWeights,
         [item.id]: item.weight._50g,
       }));
+      // console.log(price);
     });
   }, [products]);
 

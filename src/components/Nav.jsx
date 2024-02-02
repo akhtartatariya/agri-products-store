@@ -31,6 +31,7 @@ function Nav() {
   const userStatus = useSelector((state) => state.auth.status);
   const userName = useSelector((state) => state.auth.userData?.displayName);
   const userEmail = useSelector((state) => state.auth.userData?.email);
+  const { cartTotalQuantity } = useSelector((state) => state.cart);
 
   // console.log(userName);
   //Form State
@@ -125,7 +126,7 @@ function Nav() {
     {
       name: "ADMIN",
       slug: "/admin",
-      active: userEmail === "a@gmail.com", //here add admin email ID
+      active: userEmail == "a@gmail.com" //here add admin email ID 
     },
   ];
   // console.log(isHomePage); For Debugging
@@ -185,10 +186,15 @@ function Nav() {
           </ul>
         </div>
         <div className="w-[10rem] flex text-2xl text-[#0073cf] justify-end gap-3 md:gap-8 z-30">
-          <MdOutlineShoppingCart
-            className="cursor-pointer"
-            onClick={() => handleOpenCart()}
-          />
+          <div className="relative flex">
+            <MdOutlineShoppingCart
+              className="cursor-pointer"
+              onClick={() => handleOpenCart()}
+            />
+            <div className="bg-[#0073cf] rounded-full text-white h-4 w-4 text-xs flex justify-center items-center absolute left-4 -top-2">
+              {cartTotalQuantity}
+            </div>
+          </div>
           <MdOutlineSearch className="cursor-pointer" onClick={activeSearch} />
           {!toggle ? (
             <HiOutlineMenuAlt3

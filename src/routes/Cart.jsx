@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -12,6 +12,7 @@ import {
   addToCart,
   clearCart,
   decreaseCartQuantity,
+  getTotals,
   removeFromCart,
 } from "../store/cartSlice";
 
@@ -35,6 +36,10 @@ function Cart() {
   const handleClearCart = () => {
     dispatch(clearCart());
   };
+
+  useEffect(() => {
+    dispatch(getTotals());
+  }, [cart, dispatch]);
   return (
     <>
       <div className="min-h-[100vh]">
@@ -130,7 +135,9 @@ function Cart() {
                 <div className="w-72 max-w-full">
                   <div className="flex justify-between text-lg">
                     <span>Subtotal</span>
-                    <span className="font-bold">€{cart.cartTotalAmount}</span>
+                    <span className="font-bold">
+                      €{cart.cartTotalAmount.toFixed(2)}
+                    </span>
                   </div>
                   <p className="text-sm font-light my-2">
                     Taxes and shipping calculated at checkout

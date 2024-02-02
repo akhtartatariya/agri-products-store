@@ -32,7 +32,7 @@ function SilageAdditives() {
           <Link to={"/"}>Home</Link> &nbsp;/ Silage additives
         </div>
         <div className="flex justify-center w-full">
-          <div className="animate__animated animate__pulse animate__infinite my-8 text-white text-center p-4 w-3/4 bg-[#0073cf] shadow-lg border-solid border-2 border-opacity-30 border-gray-600 rounded-lg">
+          <div className="animate__animated animate__pulse animate__infinite my-8 text-white text-sm h-11 flex items-center justify-center w-3/4 bg-[#0073cf] shadow-lg border-solid border-2 border-opacity-30 border-gray-600 rounded-lg">
             Loading...
           </div>
         </div>

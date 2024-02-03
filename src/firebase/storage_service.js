@@ -49,7 +49,9 @@ class StorageService {
           });
         }
       );
-    } catch (error) {}
+    } catch (error) {
+      console.log(":: error while uploading file", error);
+    }
   }
 }
 const storageService = new StorageService();

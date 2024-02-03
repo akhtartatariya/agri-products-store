@@ -8,11 +8,11 @@ import { useNavigate } from "react-router-dom";
 const PostProduct = ({ product }) => {
   const [weight_50, setWeight_50] = useState("");
   const [weight_250, setWeight_250] = useState("");
-
   useEffect(() => {
     setWeight_50("50g");
     setWeight_250("250g");
   }, []);
+
   const navigate = useNavigate();
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
@@ -39,6 +39,7 @@ const PostProduct = ({ product }) => {
     }
   };
   const submit = async (data) => {
+    console.log(data.image[0])
     if (product) {
       const file = data.image[0]
         ? await storageService.uploadFile(data.image[0])
@@ -51,12 +52,21 @@ const PostProduct = ({ product }) => {
         product_img: file ? file.id : undefined,
       });
       if (dbProduct) {
-        // navigate('/products/'+`${dbProduct.id}`)
+        // navigate(`/products/${dbProduct.id}`)
       }
     } else {
-      console.log(data.image)
+     if(data.image[0]){
+     const file= await storageService.uploadFile(data.image[0])
+     if(file){
+      const dbProduct=await productService.addProduct({...data})
+      if(dbProduct){
+        // navigate(`/products/${dbProduct.id}`)
+      }
+      }
+     }
+     }
+
     }
-  };
 
   return (
     <>

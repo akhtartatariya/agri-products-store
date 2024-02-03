@@ -71,7 +71,7 @@ function LoginForm({ handleCancel, loggedIn, showRegister }) {
         <div className="">
           <Title
             text="Login"
-            classes={"text-center mb-10 text-[#0073cf] font-bold"}
+            className={"text-4xl text-center mb-10 text-[#0073cf] font-bold"}
           />
           <h4 className="text-center text-2xl font-semibold">
             Enter Your Credentials

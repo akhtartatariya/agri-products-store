@@ -126,7 +126,7 @@ function Nav() {
     {
       name: "ADD PRODUCT",
       slug: "/add-product",
-      active: userEmail === "a@gmail.com", //here add admin email ID
+      active: userEmail === "a@gmail.com" || "sanaya@gmail.com", //here add admin email ID
     },
   ];
   // console.log(isHomePage); For Debugging

@@ -29,7 +29,6 @@ import Cart from "./routes/Cart";
 //Reducer
 import { getTotals } from "./store/cartSlice";
 import AddProduct from "./routes/AddProduct";
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>

@@ -3,6 +3,7 @@ import {
   ref,
   uploadBytesResumable,
   getDownloadURL,
+  deleteObject,
 } from "firebase/storage";
 class StorageService {
   storage = getStorage();
@@ -51,6 +52,15 @@ class StorageService {
       );
     } catch (error) {
       console.log(":: error while uploading file", error);
+    }
+  }
+  async deleteFile(imagePath) {
+    try {
+      const storageRef = ref(this.storage, imagePath);
+      await deleteObject(storageRef);
+      console.log("File deleted successfully");
+    } catch (error) {
+      console.error("Error deleting file: ", error);
     }
   }
 }

@@ -1,8 +1,19 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../FormStuff/Button";
 import Input from "../FormStuff/Input";
+import storageService from "../../firebase/storage_service";
+import productService from "../../firebase/product_service";
+import { useNavigate } from "react-router-dom";
 const PostProduct = ({ product }) => {
+  const [weight_50, setWeight_50] = useState("");
+  const [weight_250, setWeight_250] = useState("");
+
+  useEffect(() => {
+    setWeight_50("50g");
+    setWeight_250("250g");
+  }, []);
+  const navigate = useNavigate();
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
       product_name: product?.name || "",
@@ -18,17 +29,35 @@ const PostProduct = ({ product }) => {
     },
   });
   const [imagePreview, setImagePreview] = useState(null);
-console.log(imagePreview)
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
       const selectedImage = e.target.files[0];
+
+      console.log(selectedImage);
       setValue("image", selectedImage);
       setImagePreview(URL.createObjectURL(selectedImage));
     }
   };
   const submit = async (data) => {
-    console.log(data);
+    if (product) {
+      const file = data.image[0]
+        ? await storageService.uploadFile(data.image[0])
+        : null;
+      if (file) {
+        await storageService.deleteFile(product.product_img);
+      }
+      const dbProduct = await productService.updateProduct(product.id, {
+        ...data,
+        product_img: file ? file.id : undefined,
+      });
+      if (dbProduct) {
+        // navigate('/products/'+`${dbProduct.id}`)
+      }
+    } else {
+      console.log(data.image)
+    }
   };
+
   return (
     <>
       <div className="flex items-center justify-center w-full">
@@ -38,17 +67,17 @@ console.log(imagePreview)
           <div className="mb-2 flex justify-center">
             <span className="inline-block w-full max-w-[100px]"></span>
           </div>
-          <h2 className="text-center text-2xl font-bold leading-tight">
+          <h2 className="mb-2 text-center text-2xl font-bold leading-tight">
             Add Product
           </h2>
-
+          <hr />
           <form className="mt-8" onSubmit={handleSubmit(submit)}>
             <div className="space-y-5">
               <Input
                 label={"Product Name"}
                 type={"text"}
                 placeholder={"Enter Product Name"}
-                className="mb-4 mt-8 outline-[#0073cf] block"
+                className="mb-4 mt-8 outline-[#0073cf] block "
                 {...register("product_name", { required: true })}
               />
 
@@ -63,7 +92,27 @@ console.log(imagePreview)
               <label htmlFor="" className="font-semibold block">
                 Product Details :{" "}
               </label>
+              <label htmlFor="weight50g">Weight (50g):</label>
+              <Input
+                type="text"
+                id="weight50g"
+                name="weight50g"
+                required
+                value={weight_50}
+                {...register("weight._50g", { required: true })}
+              />
+              <br />
 
+              <label htmlFor="weight250g">Weight (250g):</label>
+              <Input
+                type="text"
+                id="weight250g"
+                name="weight250g"
+                required
+                value={weight_250}
+                {...register("weight._250g", { required: true })}
+              />
+              <br />
               <label htmlFor="price50g">Price (50g) : </label>
               <Input
                 type="number"
@@ -85,24 +134,7 @@ console.log(imagePreview)
                 {...register("price._250g", { required: true })}
               />
               <br />
-              <label htmlFor="weight50g">Weight (50g):</label>
-              <Input
-                type="text"
-                id="weight50g"
-                name="weight50g"
-                required
-                {...register("weight._50g", { required: true })}
-              />
-              <br />
 
-              <label htmlFor="weight250g">Weight (250g):</label>
-              <Input
-                type="text"
-                id="weight250g"
-                name="weight250g"
-                required
-                {...register("weight._250g", { required: true })}
-              />
               <br />
               <label htmlFor="" className=" font-semibold block">
                 Choose Image :
@@ -116,7 +148,7 @@ console.log(imagePreview)
               {imagePreview && (
                 <img
                   src={imagePreview}
-                  alt="image"
+                  alt="Img Preview"
                   className=" max-w-[200px] max-h-[200px]"
                 />
               )}

@@ -14,43 +14,97 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      console.log("State:", state);
-      console.log("Action:", action);
+      const { id, price, weight, product_name, product_desc, product_img } =
+        action.payload;
 
-      const itemIndex = state.cartItems.findIndex(
-        (item) => item.id === action.payload.id
+      console.log(state.cartItems);
+
+      const existingItem = state.cartItems.find(
+        (item) => item.id === id && item.weight[id] === weight[id]
       );
-      if (itemIndex >= 0) {
-        state.cartItems[itemIndex].cartQuantity += 1;
-        toast.info(
-          `Increased ${state.cartItems[itemIndex].product_name} quantity`,
-          {
-            position: "top-right",
+
+      if (existingItem) {
+        // If the product with the same id and weight is already in the cart, update the quantity
+        const updatedCartItems = state.cartItems.map((item) => {
+          if (item.id === id && item.weight[id] === weight[id]) {
+            return {
+              ...item,
+              cartQuantity: item.cartQuantity + 1,
+            };
           }
-        );
+          return item;
+        });
+
+        toast.info(`Increased ${existingItem.product_name} quantity`, {
+          position: "top-right",
+        });
+
+        state.cartItems = updatedCartItems;
       } else {
-        const tempProduct = { ...action.payload, cartQuantity: 1 };
-        state.cartItems.push(tempProduct);
-        toast.success(`${action.payload.product_name} added to Cart`, {
+        // If the product is not in the cart, add it as a new item
+        state.cartItems.push({
+          id,
+          price,
+          weight,
+          cartQuantity: 1,
+          product_name,
+          product_desc,
+          product_img,
+        });
+
+        toast.success(`${product_name} added to Cart`, {
           position: "top-right",
         });
       }
+
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
     removeFromCart: (state, action) => {
-      const updatedCartItems = state.cartItems.filter(
-        (cartItem) => cartItem.id !== action.payload.id
+      const { id, weight } = action.payload;
+
+      const existingItem = state.cartItems.find(
+        (cartItem) => cartItem.id === id && cartItem.weight[id] === weight[id]
       );
-      state.cartItems = updatedCartItems;
+
+      if (existingItem) {
+        // If the product with the same id and weight is in the cart, update the quantity
+        const updatedCartItems = state.cartItems.map((item) => {
+          if (item.id === id && item.weight[id] === weight[id]) {
+            return {
+              ...item,
+              cartQuantity: item.cartQuantity - 1,
+            };
+          }
+          return item;
+        });
+
+        // Filter out items with cartQuantity <= 0
+        const filteredCartItems = updatedCartItems.filter(
+          (item) => item.cartQuantity > 0
+        );
+
+        state.cartItems = filteredCartItems;
+
+        toast.info(`Decreased ${existingItem.product_name}'s cart quantity`, {
+          position: "top-right",
+        });
+      } else {
+        // If the product is not in the cart, handle it accordingly (you may keep the existing code)
+        const updatedCartItems = state.cartItems.filter(
+          (cartItem) => cartItem.id !== id
+        );
+        state.cartItems = updatedCartItems;
+        toast.error(`${action.payload.product_name} removed from cart`, {
+          position: "top-right",
+        });
+      }
+
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-      toast.error(`${action.payload.product_name} removed from cart`, {
-        position: "top-right",
-      });
     },
     updatedPriceAndWeight: (state, action) => {
       const { itemId, newPrice, newWeight } = action.payload;
       const updatedCartItems = state.cartItems.map((item) => {
-        if (item.id === itemId) {
+        if (item.id === itemId && item.weight === newWeight[itemId][item.id]) {
           return {
             ...item,
             price: newPrice,
@@ -65,34 +119,41 @@ const cartSlice = createSlice({
         cartItems: updatedCartItems,
       };
 
-      console.log(action.payload);
-
       localStorage.setItem("cartItems", JSON.stringify(updatedState.cartItems));
 
       return updatedState;
     },
+
     decreaseCartQuantity: (state, action) => {
-      const itemIndex = state.cartItems.findIndex(
-        (cartItem) => cartItem.id === action.payload.id
+      const { id, weight } = action.payload;
+
+      const existingItemIndex = state.cartItems.findIndex(
+        (cartItem) => cartItem.id === id && cartItem.weight[id] === weight[id]
       );
 
-      if (state.cartItems[itemIndex].cartQuantity > 1) {
-        state.cartItems[itemIndex].cartQuantity -= 1;
+      if (existingItemIndex !== -1) {
+        const existingItem = state.cartItems[existingItemIndex];
 
-        toast.info(`Decreased ${action.payload.product_name}'s cart quantity`, {
-          position: "top-right",
-        });
-      } else if (state.cartItems[itemIndex].cartQuantity === 1) {
-        const updatedCartItems = state.cartItems.filter(
-          (cartItem) => cartItem.id !== action.payload.id
-        );
-        state.cartItems = updatedCartItems;
-        toast.error(`${action.payload.product_name} removed from cart`, {
-          position: "top-right",
-        });
+        if (existingItem.cartQuantity > 1) {
+          // If quantity > 1, update the quantity
+          state.cartItems[existingItemIndex].cartQuantity -= 1;
+
+          toast.info(`Decreased ${existingItem.product_name}'s cart quantity`, {
+            position: "top-right",
+          });
+        } else {
+          // If quantity is 1, remove the item
+          state.cartItems.splice(existingItemIndex, 1);
+
+          toast.error(`${existingItem.product_name} removed from cart`, {
+            position: "top-right",
+          });
+        }
+
+        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
       }
-      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
+
     clearCart: (state, action) => {
       state.cartItems = [];
       toast.error(`Cleared Cart`, {

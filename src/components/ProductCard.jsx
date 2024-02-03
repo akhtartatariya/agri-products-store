@@ -10,7 +10,30 @@ import { toast } from "react-toastify";
 function ProductCard({ products }) {
   const [price, setPrice] = useState({});
   const [weight, setWeight] = useState({});
-  console.log(price)
+
+  //Fetch data From Store
+  const userStatus = useSelector((state) => state.auth.status);
+  const cart = useSelector((state) => state.cart);
+
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const [productStates, setProductStates] = useState({});
+
+  useEffect(() => {
+    const initialPrices = {};
+    const initialWeights = {};
+
+    products.forEach((item) => {
+      initialPrices[item.id] = item.price._50g;
+      initialWeights[item.id] = item.weight._50g;
+    });
+
+    setPrice(initialPrices);
+    setWeight(initialWeights);
+  }, [products]);
+
   //calculate the price in this function
   const calculatePrice = (productId, selectedWeight) => {
     const product = products.find((p) => p.id === productId);
@@ -25,57 +48,74 @@ function ProductCard({ products }) {
 
   const handleWeightChange = (productId, e) => {
     const selectedWeight = e.target.value;
-    //call the calculate function
-    const updatedPrice = calculatePrice(productId, selectedWeight);
-    const updatedWeight = calculateWeight(productId, selectedWeight);
 
     setPrice((prevPrices) => ({
       ...prevPrices,
-      [productId]: updatedPrice,
+      [productId]: calculatePrice(productId, selectedWeight),
     }));
+
     setWeight((prevWeights) => ({
       ...prevWeights,
-      [productId]: updatedWeight,
+      [productId]: calculateWeight(productId, selectedWeight),
     }));
   };
 
-  useEffect(() => {
-    products.map((item) => {
-      console.log(item.price._50g);
-      setPrice((prevPrices) => ({
-        ...prevPrices,
-        [item.id]: item.price._50g,
-      }));
-      setWeight((prevWeights) => ({
-        ...prevWeights,
-        [item.id]: item.weight._50g,
-      }));
-      // console.log(price);
-    });
-  }, [products]);
-
-  // console.log(weight);
-
-  //Add to Cart Reducer
-  const dispatch = useDispatch();
-
-  const navigate = useNavigate();
-
   const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
-    dispatch(
-      updatedPriceAndWeight({
-        itemId: product.id,
-        newPrice: price,
-        newWeight: weight,
-      })
+    const selectedWeight = weight[product.id];
+    const updatedPrice =
+      selectedWeight === "50g" ? product.price._50g : product.price._250g;
+    const updatedWeight =
+      selectedWeight === "50g" ? product.weight._50g : product.weight._250g;
+
+    const existingProductIndex = cart.cartItems.findIndex(
+      (item) => item.id === product.id && item.weight === selectedWeight
     );
+
+    if (existingProductIndex !== -1) {
+      // If the product is in the cart, update the quantity
+      const updatedCartItems = cart.cartItems.map((item) => {
+        if (item.id === product.id && item.weight === selectedWeight) {
+          return {
+            ...item,
+            cartQuantity: item.cartQuantity + 1,
+          };
+        }
+        return item;
+      });
+
+      dispatch(
+        updatedPriceAndWeight({
+          itemId: product.id,
+          newPrice: { [product.id]: updatedPrice },
+          newWeight: { [product.id]: updatedWeight },
+        })
+      );
+
+      dispatch({
+        type: "cart/updateCart",
+        payload: updatedCartItems,
+      });
+    } else {
+      // If the product is not in the cart, add it as a new item
+      const updatedProduct = {
+        ...product,
+        price: { [product.id]: updatedPrice },
+        weight: { [product.id]: updatedWeight },
+        cartQuantity: 1,
+      };
+
+      dispatch(addToCart(updatedProduct));
+      dispatch(
+        updatedPriceAndWeight({
+          itemId: product.id,
+          newPrice: { [product.id]: updatedPrice },
+          newWeight: { [product.id]: updatedWeight },
+        })
+      );
+    }
+
     navigate("/cart");
   };
-
-  //Fetch data From Store
-  const userStatus = useSelector((state) => state.auth.status);
-  // console.log(price);
 
   return (
     <>

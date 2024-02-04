@@ -9,6 +9,7 @@ import Title from "../components/Title";
 
 //Icons
 import { CgClose, CgCloseO } from "react-icons/cg";
+import { IoIosArrowDropupCircle } from "react-icons/io";
 
 function SilageAdditives() {
   // console.log(products.products);
@@ -17,6 +18,8 @@ function SilageAdditives() {
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState(false);
   const [filteredItems, setFilteredItems] = useState([]);
+  const [usedFor, setUsedFor] = useState(true);
+  const [technology, setTechnology] = useState(true);
 
   useEffect(() => {
     try {
@@ -63,7 +66,7 @@ function SilageAdditives() {
       </div>
 
       {/* FILTER SECTION */}
-      <section className="px-28">
+      <section className="px-28 grid grid-cols-[.7fr_2.2fr] py-12 gap-x-8 bg-gray-50">
         {/* SORT */}
         <div>
           {filter && (
@@ -88,9 +91,106 @@ function SilageAdditives() {
               </div>
             </div>
           )}
+          {/* Used For */}
+          <div>
+            {/* toggle */}
+            <div className="flex justify-between">
+              <h3 className="font-bold">Used for</h3>
+              <IoIosArrowDropupCircle className="text-xl text-[#0073cf] rounded-full cursor-pointer" />
+            </div>
+            {/* options */}
+            <ul className="flex flex-col h-60 py-4 pl-1 justify-around">
+              <li className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  name="technology"
+                  id="technology"
+                  className="size-6"
+                />{" "}
+                <span>Corn</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  name="technology"
+                  id="technology"
+                  className="size-6"
+                />{" "}
+                <span>Multiforage</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  name="technology"
+                  id="technology"
+                  className="size-6"
+                />{" "}
+                <span>Grass</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  name="technology"
+                  id="technology"
+                  className="size-6"
+                />{" "}
+                <span>Pastone</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  name="technology"
+                  id="technology"
+                  className="size-6"
+                />{" "}
+                <span>Alfalfa</span>
+              </li>
+            </ul>
+          </div>
+          <hr className="bg-slate-400 w-full h-[0.5px]" />
+          {/* Technology */}
+          <div className="mt-4">
+            {/* toggle */}
+            <div className="flex justify-between">
+              <h3 className="font-bold">Technology</h3>
+              <IoIosArrowDropupCircle className="text-xl text-[#0073cf] rounded-full cursor-pointer" />
+            </div>
+            {/* options */}
+            <ul className="flex flex-col h-40 py-4 pl-1 justify-around">
+              <li className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  name="technology"
+                  id="technology"
+                  className="size-6"
+                />{" "}
+                <span>Fiber Technology</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  name="technology"
+                  id="technology"
+                  className="size-6"
+                />{" "}
+                <span>Standard</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  name="technology"
+                  id="technology"
+                  className="size-6"
+                />{" "}
+                <span>Rapid React</span>
+              </li>
+            </ul>
+          </div>
         </div>
         {/* PRODUCT LIST */}
-        <div></div>
+        <div className="grid grid-cols-[1fr_1fr_1fr] gap-y-4">
+          <ProductCard products={products} />
+        </div>
       </section>
 
       {/* <div className="p-10 flex flex-wrap max-sm:justify-center gap-8">

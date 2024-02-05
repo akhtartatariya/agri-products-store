@@ -5,6 +5,7 @@ import Input from "../FormStuff/Input";
 import storageService from "../../firebase/storage_service";
 import productService from "../../firebase/product_service";
 import { useNavigate } from "react-router-dom";
+import Select from "../FormStuff/Select";
 const PostProduct = ({ product }) => {
   const [weight_50, setWeight_50] = useState("");
   const [weight_250, setWeight_250] = useState("");
@@ -18,6 +19,8 @@ const PostProduct = ({ product }) => {
     defaultValues: {
       product_name: product?.name || "",
       product_desc: product?.desc || "",
+      category: product?.category || "",
+      technology: product?.technology || "",
       price: {
         _50g: product?.price._50g || "",
         _250g: product?.price._250g || "",
@@ -28,45 +31,52 @@ const PostProduct = ({ product }) => {
       },
     },
   });
-  const [imagePreview, setImagePreview] = useState(null);
-  const handleImageChange = (e) => {
-    if (e.target.files[0]) {
-      const selectedImage = e.target.files[0];
+  // const [imagePreview, setImagePreview] = useState(null);
+  // const handleImageChange = (e) => {
+  //   if (e.target.files[0]) {
+  //     const selectedImage = e.target.files[0];
 
-      console.log(selectedImage);
-      setValue("image", selectedImage);
-      setImagePreview(URL.createObjectURL(selectedImage));
-    }
-  };
+  //     console.log(selectedImage);
+  //     setValue("image", selectedImage);
+  //     setImagePreview(URL.createObjectURL(selectedImage));
+  //   }
+  // };
   const submit = async (data) => {
-    console.log(data.image[0])
+    console.log(data);
+    const file = data.image[0]
+      ? await storageService.uploadFile(data.image[0])
+      : null;
+    const product = await productService.addProduct({...data,product_img: file});
     if (product) {
-      const file = data.image[0]
-        ? await storageService.uploadFile(data.image[0])
-        : null;
-      if (file) {
-        await storageService.deleteFile(product.product_img);
-      }
-      const dbProduct = await productService.updateProduct(product.id, {
-        ...data,
-        product_img: file ? file.id : undefined,
-      });
-      if (dbProduct) {
-        // navigate(`/products/${dbProduct.id}`)
-      }
-    } else {
-     if(data.image[0]){
-     const file= await storageService.uploadFile(data.image[0])
-     if(file){
-      const dbProduct=await productService.addProduct({...data})
-      if(dbProduct){
-        // navigate(`/products/${dbProduct.id}`)
-      }
-      }
-     }
-     }
-
+      navigate("/silage_additives");
     }
+    // console.log(data.image[0]);
+    // if (product) {
+    //   const file = data.image[0]
+    //     ? await storageService.uploadFile(data.image[0])
+    //     : null;
+    //   if (file) {
+    //     await storageService.deleteFile(product.product_img);
+    //   }
+    //   const dbProduct = await productService.updateProduct(product.id, {
+    //     ...data,
+    //     product_img: file ? file.id : undefined,
+    //   });
+    //   if (dbProduct) {
+    //     // navigate(`/products/${dbProduct.id}`)
+    //   }
+    // } else {
+    //   if (data.image[0]) {
+    //     const file = await storageService.uploadFile(data.image[0]);
+    //     if (file) {
+    //       const dbProduct = await productService.addProduct({ ...data });
+    //       if (dbProduct) {
+    //         // navigate(`/products/${dbProduct.id}`)
+    //       }
+    //     }
+    //   }
+    // }
+  };
 
   return (
     <>
@@ -145,23 +155,33 @@ const PostProduct = ({ product }) => {
               />
               <br />
 
-              <br />
+              <Select
+                className="mb-2"
+                label="Category : "
+                options={["Corn", "Multiforage", "Grass", "Pastone", "Alfalfa"]}
+                {...register("category", { required: true })}
+              />
+              <Select
+                className="mb-2"
+                label="Technology : "
+                options={["Fiber ", "Standard", "Rapid React"]}
+                {...register("technology", { required: true })}
+              />
               <label htmlFor="" className=" font-semibold block">
                 Choose Image :
               </label>
               <Input
                 type="file"
-                onChange={handleImageChange}
                 accept="image/png, image/jpg, image/jpeg, image/gif"
-                {...register("image", { required: !product })}
+                {...register("image", { required: true })}
               />
-              {imagePreview && (
+              {/* {imagePreview && (
                 <img
                   src={imagePreview}
                   alt="Img Preview"
                   className=" max-w-[200px] max-h-[200px]"
                 />
-              )}
+              )} */}
               <br />
 
               <Button

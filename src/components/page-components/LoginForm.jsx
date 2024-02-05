@@ -42,6 +42,7 @@ function LoginForm({ handleCancel, loggedIn, showRegister }) {
           displayName: account.user.displayName,
         };
         if (userData) dispatch(authLogin({ userData }));
+        localStorage.setItem('user',JSON.stringify(userData));
         navigate("/");
       }
       validateLoginForm();

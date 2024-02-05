@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
@@ -13,6 +13,7 @@ import { IoIosArrowDropupCircle } from "react-icons/io";
 
 function SilageAdditives() {
   // console.log(products.products);
+
   //States
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -20,6 +21,45 @@ function SilageAdditives() {
   const [filteredItems, setFilteredItems] = useState([]);
   const [usedFor, setUsedFor] = useState(true);
   const [technology, setTechnology] = useState(true);
+  //Filter States
+  const [corn, setCorn] = useState(false);
+  const [multiforage, setMultiForage] = useState(false);
+  const [grass, setGrass] = useState(false);
+  const [pastone, setPastone] = useState(false);
+  const [alfalfa, setAlfalfa] = useState(false);
+  const [fiberTechnology, setFiberTechnology] = useState(false);
+  const [standard, setStandard] = useState(false);
+  const [rapidReact, setRapidReact] = useState(false);
+
+  //Functions
+  const handleUsedFor = () => {
+    setUsedFor(!usedFor);
+  };
+  const handleTechnology = () => {
+    setTechnology(!technology);
+  };
+
+  console.log(corn);
+
+  useEffect(() => {
+    try {
+      productService.getAllProducts().then((product) => {
+        {
+          corn
+            ? setProducts((product) =>
+                product.filter((item) => item.used_for === "Corn")
+              )
+            : multiforage
+            ? setProducts((product) =>
+                product.filter((item) => item.used_for === "Multiforage")
+              )
+            : setProducts(product);
+        }
+      });
+    } catch (error) {
+      console.log(":: error while loading products");
+    }
+  }, [corn, multiforage]);
 
   useEffect(() => {
     try {
@@ -94,97 +134,135 @@ function SilageAdditives() {
           {/* Used For */}
           <div>
             {/* toggle */}
-            <div className="flex justify-between">
+            <div
+              className={`flex justify-between ${
+                !usedFor && "mb-4"
+              } cursor-pointer`}
+              onClick={() => handleUsedFor()}
+            >
               <h3 className="font-bold">Used for</h3>
-              <IoIosArrowDropupCircle className="text-xl text-[#0073cf] rounded-full cursor-pointer" />
+              <IoIosArrowDropupCircle
+                className={`text-xl text-[#0073cf] rounded-full duration-300 ${
+                  !usedFor && "rotate-180 duration-300"
+                }`}
+              />
             </div>
             {/* options */}
-            <ul className="flex flex-col h-60 py-4 pl-1 justify-around">
-              <li className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  name="technology"
-                  id="technology"
-                  className="size-6"
-                />{" "}
-                <span>Corn</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  name="technology"
-                  id="technology"
-                  className="size-6"
-                />{" "}
-                <span>Multiforage</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  name="technology"
-                  id="technology"
-                  className="size-6"
-                />{" "}
-                <span>Grass</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  name="technology"
-                  id="technology"
-                  className="size-6"
-                />{" "}
-                <span>Pastone</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  name="technology"
-                  id="technology"
-                  className="size-6"
-                />{" "}
-                <span>Alfalfa</span>
-              </li>
-            </ul>
+            {usedFor && (
+              <ul className="flex flex-col h-60 py-4 pl-1 justify-around">
+                <li className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="used_for"
+                    id="corn"
+                    className="size-6 cursor-pointer"
+                    onClick={() => setCorn(!corn)}
+                  />{" "}
+                  <label for={"corn"} className="cursor-pointer">
+                    Corn
+                  </label>
+                </li>
+                <li className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="used_for"
+                    id="multiforage"
+                    className="size-6 cursor-pointer"
+                    onClick={() => setMultiForage(!multiforage)}
+                  />{" "}
+                  <label for={"multiforage"} className="cursor-pointer">
+                    Multiforage
+                  </label>
+                </li>
+                <li className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="used_for"
+                    id="grass"
+                    className="size-6 cursor-pointer"
+                  />{" "}
+                  <label for={"grass"} className="cursor-pointer">
+                    Grass
+                  </label>
+                </li>
+                <li className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="used_for"
+                    id="pastone"
+                    className="size-6 cursor-pointer"
+                  />{" "}
+                  <label for={"pastone"} className="cursor-pointer">
+                    Pastone
+                  </label>
+                </li>
+                <li className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="used_for"
+                    id="alfalfa"
+                    className="size-6 cursor-pointer"
+                  />{" "}
+                  <label for={"alfalfa"} className="cursor-pointer">
+                    Alfalfa
+                  </label>
+                </li>
+              </ul>
+            )}
           </div>
           <hr className="bg-slate-400 w-full h-[0.5px]" />
           {/* Technology */}
           <div className="mt-4">
             {/* toggle */}
-            <div className="flex justify-between">
+            <div
+              className={`flex justify-between cursor-pointer`}
+              onClick={() => handleTechnology()}
+            >
               <h3 className="font-bold">Technology</h3>
-              <IoIosArrowDropupCircle className="text-xl text-[#0073cf] rounded-full cursor-pointer" />
+              <IoIosArrowDropupCircle
+                className={`text-xl text-[#0073cf] rounded-full duration-300 ${
+                  !technology && "rotate-180 duration-300"
+                }`}
+              />
             </div>
             {/* options */}
-            <ul className="flex flex-col h-40 py-4 pl-1 justify-around">
-              <li className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  name="technology"
-                  id="technology"
-                  className="size-6"
-                />{" "}
-                <span>Fiber Technology</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  name="technology"
-                  id="technology"
-                  className="size-6"
-                />{" "}
-                <span>Standard</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  name="technology"
-                  id="technology"
-                  className="size-6"
-                />{" "}
-                <span>Rapid React</span>
-              </li>
-            </ul>
+            {technology && (
+              <ul className="flex flex-col h-40 py-4 pl-1 justify-around">
+                <li className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="technology"
+                    id="fiber"
+                    className="size-6 cursor-pointer"
+                  />{" "}
+                  <label for={"fiber"} className="cursor-pointer">
+                    Fiber Technology
+                  </label>
+                </li>
+                <li className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="technology"
+                    id="standard"
+                    className="size-6 cursor-pointer"
+                  />{" "}
+                  <label for={"standard"} className="cursor-pointer">
+                    Standard
+                  </label>
+                </li>
+                <li className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="technology"
+                    id="rapid"
+                    className="size-6 cursor-pointer"
+                  />{" "}
+                  <label for={"rapid"} className="cursor-pointer">
+                    Rapid React
+                  </label>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
         {/* PRODUCT LIST */}

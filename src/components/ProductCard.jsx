@@ -123,7 +123,7 @@ function ProductCard({ products }) {
         // console.log(`${product.product_img}`);
         return (
           <div
-            className="w-[15rem] h-[28rem] shadow-[0_3px_10px_rgb(0,0,0,0.2)] relative text-xs flex flex-col justify-between"
+            className="w-[15rem] h-[28rem] shadow-[0_3px_10px_rgb(0,0,0,0.2)] relative text-xs flex flex-col justify-between bg-white"
             key={product.id}
           >
             <div className="py-2 px-3 flex flex-col gap-6">

@@ -6,8 +6,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 class StorageService {
-  constructor(){
-
+  constructor() {
     this.storage = getStorage();
   }
 
@@ -19,15 +18,15 @@ class StorageService {
 
       // Get download URL
       const downloadURL = await getDownloadURL(snapshot.ref);
-      console.log('File available at', downloadURL);
+      console.log("File available at", downloadURL);
       return downloadURL;
     } catch (error) {
       // Handle errors
-      console.error('Error uploading image:', error);
+      console.error("Error uploading image:", error);
       throw error; // Re-throw the error to handle it in the calling component
     }
   }
-  
+
   async deleteFile(imagePath) {
     try {
       const storageRef = ref(this.storage, imagePath);

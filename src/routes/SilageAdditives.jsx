@@ -158,7 +158,7 @@ function SilageAdditives() {
                     className="size-6 cursor-pointer"
                     onClick={() => setCorn(!corn)}
                   />{" "}
-                  <label for={"corn"} className="cursor-pointer">
+                  <label htmlFor={"corn"} className="cursor-pointer">
                     Corn
                   </label>
                 </li>
@@ -170,7 +170,7 @@ function SilageAdditives() {
                     className="size-6 cursor-pointer"
                     onClick={() => setMultiForage(!multiforage)}
                   />{" "}
-                  <label for={"multiforage"} className="cursor-pointer">
+                  <label htmlFor={"multiforage"} className="cursor-pointer">
                     Multiforage
                   </label>
                 </li>
@@ -181,7 +181,7 @@ function SilageAdditives() {
                     id="grass"
                     className="size-6 cursor-pointer"
                   />{" "}
-                  <label for={"grass"} className="cursor-pointer">
+                  <label htmlFor={"grass"} className="cursor-pointer">
                     Grass
                   </label>
                 </li>
@@ -192,7 +192,7 @@ function SilageAdditives() {
                     id="pastone"
                     className="size-6 cursor-pointer"
                   />{" "}
-                  <label for={"pastone"} className="cursor-pointer">
+                  <label htmlFor={"pastone"} className="cursor-pointer">
                     Pastone
                   </label>
                 </li>
@@ -203,7 +203,7 @@ function SilageAdditives() {
                     id="alfalfa"
                     className="size-6 cursor-pointer"
                   />{" "}
-                  <label for={"alfalfa"} className="cursor-pointer">
+                  <label htmlFor={"alfalfa"} className="cursor-pointer">
                     Alfalfa
                   </label>
                 </li>
@@ -235,7 +235,7 @@ function SilageAdditives() {
                     id="fiber"
                     className="size-6 cursor-pointer"
                   />{" "}
-                  <label for={"fiber"} className="cursor-pointer">
+                  <label htmlFor={"fiber"} className="cursor-pointer">
                     Fiber Technology
                   </label>
                 </li>
@@ -246,7 +246,7 @@ function SilageAdditives() {
                     id="standard"
                     className="size-6 cursor-pointer"
                   />{" "}
-                  <label for={"standard"} className="cursor-pointer">
+                  <label htmlFor={"standard"} className="cursor-pointer">
                     Standard
                   </label>
                 </li>
@@ -257,7 +257,7 @@ function SilageAdditives() {
                     id="rapid"
                     className="size-6 cursor-pointer"
                   />{" "}
-                  <label for={"rapid"} className="cursor-pointer">
+                  <label htmlFor={"rapid"} className="cursor-pointer">
                     Rapid React
                   </label>
                 </li>

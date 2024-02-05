@@ -8,7 +8,15 @@ import {
 } from "firebase/firestore";
 import { fireDB } from "./config";
 class ProductService {
-  async addProduct({ product_name, product_desc, product_img, technology,category, price, weight }) {
+  async addProduct({
+    product_name,
+    product_desc,
+    product_img,
+    technology,
+    category,
+    price,
+    weight,
+  }) {
     try {
       const productRef = collection(fireDB, "products");
       const newProduct = {
@@ -18,7 +26,7 @@ class ProductService {
         price,
         weight,
         technology,
-        category
+        category,
       };
       const docRef = await addDoc(productRef, newProduct);
       console.log("Product added with ID: ", docRef.id);

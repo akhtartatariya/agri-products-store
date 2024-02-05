@@ -104,7 +104,7 @@ function Nav() {
   }, [location.pathname]);
   const navItems = [
     {
-      name: "SILAGE ADDITIVES",
+      name: userEmail ==="a@gmail.com" ? "ALL PRODUCTS": 'SILAGE ADDITIVES',
       slug: "/silage_additives",
       active: true,
     },
@@ -126,7 +126,7 @@ function Nav() {
     {
       name: "ADD PRODUCT",
       slug: "/add-product",
-      active: userEmail === "a@gmail.com" || "sanaya@gmail.com", //here add admin email ID
+      active: userEmail === "sanaya@gmail.com" //here only add 1 email ID because we add second email ID then occurred issue
     },
   ];
   // console.log(isHomePage); For Debugging

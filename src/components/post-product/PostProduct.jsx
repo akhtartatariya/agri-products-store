@@ -46,9 +46,12 @@ const PostProduct = ({ product }) => {
     const file = data.image[0]
       ? await storageService.uploadFile(data.image[0])
       : null;
-    const product = await productService.addProduct({...data,product_img: file});
+    const product = await productService.addProduct({
+      ...data,
+      product_img: file,
+    });
     if (product) {
-      navigate("/silage_additives");
+      navigate("/");
     }
     // console.log(data.image[0]);
     // if (product) {

@@ -39,7 +39,14 @@ const router = createBrowserRouter(
       <Route path="about" element={<About />} />
       <Route path="faqs" element={<FAQs />} />
       <Route path="contact" element={<Contact />} />
-      <Route path="add-product" element={<Protected><AddProduct /></Protected>} />
+      <Route
+        path="add-product"
+        element={
+          <Protected>
+            <AddProduct />
+          </Protected>
+        }
+      />
       <Route path="payment" element={<Payment />} />
       <Route path="shipment" element={<Shipment />} />
       <Route path="rightofwithdrawal" element={<RightOfWithdrawal />} />

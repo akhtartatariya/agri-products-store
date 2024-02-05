@@ -29,6 +29,7 @@ import Cart from "./routes/Cart";
 //Reducer
 import { getTotals } from "./store/cartSlice";
 import AddProduct from "./routes/AddProduct";
+import Protected from "./components/ProtectedRoute/Protected";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -38,7 +39,7 @@ const router = createBrowserRouter(
       <Route path="about" element={<About />} />
       <Route path="faqs" element={<FAQs />} />
       <Route path="contact" element={<Contact />} />
-      <Route path="add-product" element={<AddProduct />} />
+      <Route path="add-product" element={<Protected><AddProduct /></Protected>} />
       <Route path="payment" element={<Payment />} />
       <Route path="shipment" element={<Shipment />} />
       <Route path="rightofwithdrawal" element={<RightOfWithdrawal />} />

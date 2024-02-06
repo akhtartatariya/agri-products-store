@@ -30,6 +30,7 @@ import Cart from "./routes/Cart";
 import { getTotals } from "./store/cartSlice";
 import AddProduct from "./routes/AddProduct";
 import Protected from "./components/ProtectedRoute/Protected";
+import AllProducts from "./routes/AllProducts";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -39,6 +40,10 @@ const router = createBrowserRouter(
       <Route path="about" element={<About />} />
       <Route path="faqs" element={<FAQs />} />
       <Route path="contact" element={<Contact />} />
+      <Route path="payment" element={<Payment />} />
+      <Route path="shipment" element={<Shipment />} />
+      <Route path="rightofwithdrawal" element={<RightOfWithdrawal />} />
+      <Route path="termsandconditions" element={<TermsAndCondition />} />
       <Route
         path="add-product"
         element={
@@ -47,10 +52,14 @@ const router = createBrowserRouter(
           </Protected>
         }
       />
-      <Route path="payment" element={<Payment />} />
-      <Route path="shipment" element={<Shipment />} />
-      <Route path="rightofwithdrawal" element={<RightOfWithdrawal />} />
-      <Route path="termsandconditions" element={<TermsAndCondition />} />
+      <Route
+        path="all-products"
+        element={
+          <Protected>
+            <AllProducts />
+          </Protected>
+        }
+      />
     </Route>
   )
 );

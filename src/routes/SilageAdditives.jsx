@@ -47,45 +47,68 @@ function SilageAdditives() {
         let filteredProducts = []; // Start with an empty array
 
         // Filter products based on selected options
-        const selectedOptions = [
+        const selectedUsedForOptions = [
           corn,
           multiforage,
           grass,
           pastone,
           alfalfa,
+        ];
+        const selectedTechnologyOptions = [
           fiberTechnology,
           standard,
           rapidReact,
         ];
 
-        const selectedFilters = [
+        const selectedUsedForFilters = [
           "Corn",
           "Multiforage",
           "Grass",
           "Pastone",
           "Alfalfa",
+        ];
+        const selectedTechnologyFilters = [
           "FiberTechnology",
           "Standard",
           "RapidReact",
         ];
 
-        selectedOptions.forEach((option, index) => {
-          if (option) {
-            filteredProducts = [
-              ...filteredProducts,
-              ...products.filter((item) => {
-                if (index < 5) {
-                  return item.used_for === selectedFilters[index];
-                } else {
-                  return item.technology === selectedFilters[index];
-                }
-              }),
-            ];
-          }
-        });
+        if (
+          selectedUsedForOptions.some((option) => option) &&
+          selectedTechnologyOptions.some((option) => option)
+        ) {
+          // If both types of filters are active, filter based on both used_for and technology
+          const usedForFilteredProducts = products.filter((item) => {
+            return selectedUsedForOptions.some(
+              (option, index) =>
+                option && item.used_for === selectedUsedForFilters[index]
+            );
+          });
 
-        // If no options are selected, set the state to all products
-        if (!selectedOptions.some((option) => option)) {
+          filteredProducts = usedForFilteredProducts.filter((item) => {
+            return selectedTechnologyOptions.some(
+              (option, index) =>
+                option && item.technology === selectedTechnologyFilters[index]
+            );
+          });
+        } else if (selectedUsedForOptions.some((option) => option)) {
+          // If only used_for filters are active, filter based on used_for only
+          filteredProducts = products.filter((item) => {
+            return selectedUsedForOptions.some(
+              (option, index) =>
+                option && item.used_for === selectedUsedForFilters[index]
+            );
+          });
+        } else if (selectedTechnologyOptions.some((option) => option)) {
+          // If only technology filters are active, filter based on technology only
+          filteredProducts = products.filter((item) => {
+            return selectedTechnologyOptions.some(
+              (option, index) =>
+                option && item.technology === selectedTechnologyFilters[index]
+            );
+          });
+        } else {
+          // If no filters are active, set the state to all products
           filteredProducts = products;
         }
 

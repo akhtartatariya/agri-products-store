@@ -56,7 +56,7 @@ const PostProduct = ({ product }) => {
     // console.log(data.image[0]);
     // if (product) {
     //   const file = data.image[0]
-    //     ? await storageService.uploadFile(data.image[0])
+    //     /? await storageService.uploadFile(data.image[0])
     //     : null;
     //   if (file) {
     //     await storageService.deleteFile(product.product_img);

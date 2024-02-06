@@ -39,27 +39,95 @@ function SilageAdditives() {
     setTechnology(!technology);
   };
 
-  console.log(corn);
+  // console.log(corn);
 
   useEffect(() => {
     try {
-      productService.getAllProducts().then((product) => {
-        {
-          corn
-            ? setProducts((product) =>
-                product.filter((item) => item.used_for === "Corn")
-              )
-            : multiforage
-            ? setProducts((product) =>
-                product.filter((item) => item.used_for === "Multiforage")
-              )
-            : setProducts(product);
+      productService.getAllProducts().then((products) => {
+        let filteredProducts = []; // Start with an empty array
+
+        // Filter products based on selected options
+        const selectedUsedForOptions = [
+          corn,
+          multiforage,
+          grass,
+          pastone,
+          alfalfa,
+        ];
+        const selectedTechnologyOptions = [
+          fiberTechnology,
+          standard,
+          rapidReact,
+        ];
+
+        const selectedUsedForFilters = [
+          "Corn",
+          "Multiforage",
+          "Grass",
+          "Pastone",
+          "Alfalfa",
+        ];
+        const selectedTechnologyFilters = [
+          "FiberTechnology",
+          "Standard",
+          "RapidReact",
+        ];
+
+        if (
+          selectedUsedForOptions.some((option) => option) &&
+          selectedTechnologyOptions.some((option) => option)
+        ) {
+          // If both types of filters are active, filter based on both used_for and technology
+          const usedForFilteredProducts = products.filter((item) => {
+            return selectedUsedForOptions.some(
+              (option, index) =>
+                option && item.used_for === selectedUsedForFilters[index]
+            );
+          });
+
+          filteredProducts = usedForFilteredProducts.filter((item) => {
+            return selectedTechnologyOptions.some(
+              (option, index) =>
+                option && item.technology === selectedTechnologyFilters[index]
+            );
+          });
+        } else if (selectedUsedForOptions.some((option) => option)) {
+          // If only used_for filters are active, filter based on used_for only
+          filteredProducts = products.filter((item) => {
+            return selectedUsedForOptions.some(
+              (option, index) =>
+                option && item.used_for === selectedUsedForFilters[index]
+            );
+          });
+        } else if (selectedTechnologyOptions.some((option) => option)) {
+          // If only technology filters are active, filter based on technology only
+          filteredProducts = products.filter((item) => {
+            return selectedTechnologyOptions.some(
+              (option, index) =>
+                option && item.technology === selectedTechnologyFilters[index]
+            );
+          });
+        } else {
+          // If no filters are active, set the state to all products
+          filteredProducts = products;
         }
+
+        // Set the state to the filtered products
+        setProducts(filteredProducts);
       });
     } catch (error) {
-      console.log(":: error while loading products");
+      console.log("Error while loading products:", error);
     }
-  }, [corn, multiforage]);
+  }, [
+    corn,
+    multiforage,
+    grass,
+    pastone,
+    alfalfa,
+    fiberTechnology,
+    standard,
+    rapidReact,
+  ]);
 
   useEffect(() => {
     try {
@@ -149,8 +217,10 @@ function SilageAdditives() {
             </div>
             {/* options */}
             {usedFor && (
-              <ul className="flex flex-col h-60 py-4 pl-1 justify-around">
-                <li className="flex items-center gap-2">
+              <ul className="flex flex-col gap-4 py-4 pl-1 justify-around">
+                <li
+                  className={`${standard && "hidden"} flex items-center gap-2`}
+                >
                   <input
                     type="checkbox"
                     name="used_for"
@@ -162,7 +232,11 @@ function SilageAdditives() {
                     Corn
                   </label>
                 </li>
-                <li className="flex items-center gap-2">
+                <li
+                  className={`${
+                    (fiberTechnology || rapidReact) && "hidden"
+                  } flex items-center gap-2`}
+                >
                   <input
                     type="checkbox"
                     name="used_for"
@@ -174,34 +248,47 @@ function SilageAdditives() {
                     Multiforage
                   </label>
                 </li>
-                <li className="flex items-center gap-2">
+                <li
+                  className={`${standard && "hidden"} flex items-center gap-2`}
+                >
                   <input
                     type="checkbox"
                     name="used_for"
                     id="grass"
                     className="size-6 cursor-pointer"
+                    onClick={() => setGrass(!grass)}
                   />{" "}
                   <label htmlFor={"grass"} className="cursor-pointer">
                     Grass
                   </label>
                 </li>
-                <li className="flex items-center gap-2">
+                <li
+                  className={`${
+                    (fiberTechnology || standard) && "hidden"
+                  } flex items-center gap-2`}
+                >
                   <input
                     type="checkbox"
                     name="used_for"
                     id="pastone"
                     className="size-6 cursor-pointer"
+                    onClick={() => setPastone(!pastone)}
                   />{" "}
                   <label htmlFor={"pastone"} className="cursor-pointer">
                     Pastone
                   </label>
                 </li>
-                <li className="flex items-center gap-2">
+                <li
+                  className={`${
+                    rapidReact && "hidden"
+                  } flex items-center gap-2`}
+                >
                   <input
                     type="checkbox"
                     name="used_for"
                     id="alfalfa"
                     className="size-6 cursor-pointer"
+                    onClick={() => setAlfalfa(!alfalfa)}
                   />{" "}
                   <label htmlFor={"alfalfa"} className="cursor-pointer">
                     Alfalfa
@@ -227,35 +314,50 @@ function SilageAdditives() {
             </div>
             {/* options */}
             {technology && (
-              <ul className="flex flex-col h-40 py-4 pl-1 justify-around">
-                <li className="flex items-center gap-2">
+              <ul className="flex flex-col gap-4 py-4 pl-1 justify-around">
+                <li
+                  className={`${
+                    (multiforage || pastone) && "hidden"
+                  } flex items-center gap-2`}
+                >
                   <input
                     type="checkbox"
                     name="technology"
                     id="fiber"
                     className="size-6 cursor-pointer"
+                    onClick={() => setFiberTechnology(!fiberTechnology)}
                   />{" "}
                   <label htmlFor={"fiber"} className="cursor-pointer">
                     Fiber Technology
                   </label>
                 </li>
-                <li className="flex items-center gap-2">
+                <li
+                  className={`${
+                    (corn || grass || pastone) && "hidden"
+                  } flex items-center gap-2`}
+                >
                   <input
                     type="checkbox"
                     name="technology"
                     id="standard"
                     className="size-6 cursor-pointer"
+                    onClick={() => setStandard(!standard)}
                   />{" "}
                   <label htmlFor={"standard"} className="cursor-pointer">
                     Standard
                   </label>
                 </li>
-                <li className="flex items-center gap-2">
+                <li
+                  className={`${
+                    (multiforage || alfalfa) && "hidden"
+                  } flex items-center gap-2`}
+                >
                   <input
                     type="checkbox"
                     name="technology"
                     id="rapid"
                     className="size-6 cursor-pointer"
+                    onClick={() => setRapidReact(!rapidReact)}
                   />{" "}
                   <label htmlFor={"rapid"} className="cursor-pointer">
                     Rapid React

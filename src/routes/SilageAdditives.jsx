@@ -44,31 +44,48 @@ function SilageAdditives() {
   useEffect(() => {
     try {
       productService.getAllProducts().then((products) => {
-        let filteredProducts = []; // Copy all products initially
+        let filteredProducts = []; // Start with an empty array
 
         // Filter products based on selected options
         const selectedOptions = [
-          "corn",
-          "multiforage",
-          "grass",
-          "pastone",
-          "alfalfa",
+          corn,
+          multiforage,
+          grass,
+          pastone,
+          alfalfa,
+          fiberTechnology,
+          standard,
+          rapidReact,
         ];
-        selectedOptions.forEach((option) => {
-          if (eval(option)) {
+
+        const selectedFilters = [
+          "Corn",
+          "Multiforage",
+          "Grass",
+          "Pastone",
+          "Alfalfa",
+          "FiberTechnology",
+          "Standard",
+          "RapidReact",
+        ];
+
+        selectedOptions.forEach((option, index) => {
+          if (option) {
             filteredProducts = [
               ...filteredProducts,
-              ...products.filter(
-                (item) =>
-                  item.used_for ===
-                  option.charAt(0).toUpperCase() + option.slice(1)
-              ),
+              ...products.filter((item) => {
+                if (index < 5) {
+                  return item.used_for === selectedFilters[index];
+                } else {
+                  return item.technology === selectedFilters[index];
+                }
+              }),
             ];
           }
         });
 
         // If no options are selected, set the state to all products
-        if (!selectedOptions.some((option) => eval(option))) {
+        if (!selectedOptions.some((option) => option)) {
           filteredProducts = products;
         }
 
@@ -78,7 +95,16 @@ function SilageAdditives() {
     } catch (error) {
       console.log("Error while loading products:", error);
     }
-  }, [corn, multiforage, grass, pastone, alfalfa]);
+  }, [
+    corn,
+    multiforage,
+    grass,
+    pastone,
+    alfalfa,
+    fiberTechnology,
+    standard,
+    rapidReact,
+  ]);
 
   useEffect(() => {
     try {

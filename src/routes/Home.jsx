@@ -3,7 +3,6 @@ import Carousel from "../components/Carousel";
 import slides from "../db";
 
 function Home() {
-  
   return (
     <div>
       {/* Carousel For Home Page */}
@@ -11,7 +10,6 @@ function Home() {
         data={slides.slides}
         text={"Produce Tasty Silages and avoid reheating"}
       />
-      
     </div>
   );
 }

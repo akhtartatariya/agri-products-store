@@ -108,7 +108,10 @@ function Nav() {
         userEmail === "a@gmail.com" || userEmail === "sanaya@gmail.com"
           ? "ALL PRODUCTS"
           : "SILAGE ADDITIVES",
-      slug: userEmail==="a@gmail.com" || userEmail === "sanaya@gmail.com" ? '/all-products':"/silage_additives",
+      slug:
+        userEmail === "a@gmail.com" || userEmail === "sanaya@gmail.com"
+          ? "/all-products"
+          : "/silage_additives",
       active: true,
     },
     {
@@ -188,8 +191,8 @@ function Nav() {
             )}
           </ul>
         </div>
-          <div className="w-[10rem] flex text-2xl text-[#0073cf] justify-end gap-3 md:gap-8 z-30">
-        {userEmail !== "a@gmail.com" && userEmail !== "sanaya@gmail.com" ? (
+        <div className="w-[10rem] flex text-2xl text-[#0073cf] justify-end gap-3 md:gap-8 z-30">
+          {userEmail !== "a@gmail.com" && userEmail !== "sanaya@gmail.com" ? (
             <div className="relative flex">
               <MdOutlineShoppingCart
                 className="cursor-pointer"
@@ -199,23 +202,20 @@ function Nav() {
                 {cartTotalQuantity}
               </div>
             </div>
-                ) : null}
-            <MdOutlineSearch
-              className="cursor-pointer"
-              onClick={activeSearch}
+          ) : null}
+          <MdOutlineSearch className="cursor-pointer" onClick={activeSearch} />
+          {!toggle ? (
+            <HiOutlineMenuAlt3
+              className="cursor-pointer lg:hidden"
+              onClick={activeToggle}
             />
-            {!toggle ? (
-              <HiOutlineMenuAlt3
-                className="cursor-pointer lg:hidden"
-                onClick={activeToggle}
-              />
-            ) : (
-              <CgCloseO
-                className="cursor-pointer lg:hidden"
-                onClick={deactiveToggle}
-              />
-            )}
-          </div>
+          ) : (
+            <CgCloseO
+              className="cursor-pointer lg:hidden"
+              onClick={deactiveToggle}
+            />
+          )}
+        </div>
       </nav>
       {toggle && (
         <div

@@ -11,10 +11,11 @@ function FormGroup({
   reference,
   name,
   input_outline_color,
+  className="",
 }) {
   return (
     <div className={`${classes}`}>
-      <label className="font-semibold">{label}</label>
+      <label className={`${className}font-semibol`}>{label}</label>
       <input
         type={type}
         placeholder={placeholder}

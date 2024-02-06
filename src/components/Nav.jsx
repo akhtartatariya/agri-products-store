@@ -104,29 +104,32 @@ function Nav() {
   }, [location.pathname]);
   const navItems = [
     {
-      name: userEmail ==="a@gmail.com" ? "ALL PRODUCTS": 'SILAGE ADDITIVES',
+      name:
+        userEmail === "a@gmail.com" || userEmail === "sanaya@gmail.com"
+          ? "ALL PRODUCTS"
+          : "SILAGE ADDITIVES",
       slug: "/silage_additives",
       active: true,
     },
     {
       name: "ABOUT US",
       slug: "/about",
-      active: userEmail !== "a@gmail.com",
+      active: userEmail !== "sanaya@gmail.com" && userEmail !== "a@gmail.com",
     },
     {
       name: "FAQs",
       slug: "/faqs",
-      active: userEmail !== "a@gmail.com",
+      active: userEmail !== "sanaya@gmail.com" && userEmail !== "a@gmail.com",
     },
     {
       name: "CONTACT",
       slug: "/contact",
-      active: userEmail !== "a@gmail.com",
+      active: userEmail !== "sanaya@gmail.com" && userEmail !== "a@gmail.com",
     },
     {
       name: "ADD PRODUCT",
       slug: "/add-product",
-      active: userEmail === "sanaya@gmail.com" //here only add 1 email ID because we add second email ID then occurred issue
+      active: userEmail === "sanaya@gmail.com" || userEmail === "a@gmail.com", 
     },
   ];
   // console.log(isHomePage); For Debugging

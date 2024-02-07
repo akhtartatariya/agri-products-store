@@ -13,7 +13,7 @@ class ProductService {
     product_desc,
     product_img,
     technology,
-    category,
+    used_for,
     price,
     weight,
   }) {
@@ -26,7 +26,7 @@ class ProductService {
         price,
         weight,
         technology,
-        category,
+        used_for,
       };
       const docRef = await addDoc(productRef, newProduct);
       console.log("Product added with ID: ", docRef.id);

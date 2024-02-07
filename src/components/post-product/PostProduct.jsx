@@ -19,7 +19,7 @@ const PostProduct = ({ product }) => {
     defaultValues: {
       product_name: product?.name || "",
       product_desc: product?.desc || "",
-      category: product?.category || "",
+      used_for: product?.used_for || "",
       technology: product?.technology || "",
       price: {
         _50g: product?.price._50g || "",
@@ -210,15 +210,15 @@ const PostProduct = ({ product }) => {
 
             <div className="sm:col-span-3">
               <label
-                htmlFor="product-category"
+                htmlFor="product-used_for"
                 className="block text-sm font-medium leading-6 text-gray-700"
               >
-                Category
+                Used_for
               </label>
               <div className="mt-2">
                 <Select
-                  id="product-category"
-                  name="product-category"
+                  id="product-used_for"
+                  name="product-used_for"
                   options={[
                     "Corn",
                     "Multiforage",
@@ -226,7 +226,8 @@ const PostProduct = ({ product }) => {
                     "Pastone",
                     "Alfalfa",
                   ]}
-                  {...register("category", { required: true })}
+                  required
+                  {...register("used_for", { required: true })}
                 ></Select>
               </div>
             </div>
@@ -242,7 +243,8 @@ const PostProduct = ({ product }) => {
                 <Select
                   id="product-technology"
                   name="product-technology"
-                  options={["Fiber ", "Standard", "Rapid React"]}
+                  options={["FiberTechnology", "Standard", "RapidReact"]}
+                  required
                   {...register("technology", { required: true })}
                 ></Select>
               </div>
@@ -284,7 +286,8 @@ const PostProduct = ({ product }) => {
 
 export default PostProduct;
 
-{/* <div className="flex items-center justify-center w-full">
+{
+  /* <div className="flex items-center justify-center w-full">
   <div
     className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}
   >
@@ -396,4 +399,5 @@ export default PostProduct;
       </div>
     </form>
   </div>
-</div>; */}
+</div>; */
+}

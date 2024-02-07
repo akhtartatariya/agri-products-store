@@ -27,8 +27,8 @@ const PostProduct = ({ product }) => {
         _250g: product?.price?._250g || "",
       },
       weight: {
-        _50g: product?.weight?._50g || "",
-        _250g: product?.weight?._50g || "",
+        _50g: product?.weight._50g || "",
+        _250g: product?.weight._50g || "",
       },
     },
   });
@@ -193,7 +193,7 @@ const PostProduct = ({ product }) => {
                   id="product-weight-50g"
                   className="block w-full rounded-md border-gray-300 py-2 px-3 placeholder-gray-400 focus:ring focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50 sm:text-sm"
                   value={weight_50}
-                  {...register("weight._50g", { required: true })}
+                  {...register("weight._50g", { required: false })}
                 />
               </div>
             </div>
@@ -212,7 +212,7 @@ const PostProduct = ({ product }) => {
                   id="product-weight-250g"
                   className="block w-full rounded-md border-gray-300 py-2 px-3 placeholder-gray-400 focus:ring focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50 sm:text-sm"
                   value={weight_250}
-                  {...register("weight._250g", { required: true })}
+                  {...register("weight._250g", { required: false })}
                 />
               </div>
             </div>

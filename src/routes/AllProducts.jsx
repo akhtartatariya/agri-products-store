@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import productService from "../firebase/product_service";
 import { FiEdit } from "react-icons/fi";
 import { FiDelete } from "react-icons/fi";
+import adminLogo from "../components/FormStuff/admin-user-web-svgrepo-com.svg"
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
@@ -27,10 +28,12 @@ const AllProducts = () => {
         </div>
         <div>
           <div className="logo p-3">
-            <Link to={"/"}>Logo</Link>
+            <Link to={"/"}>
+              <img src={adminLogo} alt="" className="max-w-[150px]"/>
+            </Link>
           </div>
-          <div>
-            <div className="parent-container">
+          <div className="  ">
+            <div className="parent-container bg-gray-100">
               <div className=" p-8 grid grid-rows-1 md:grid-cols-4 gap-[1fr] place-content-center">
                 <h3 className="font-semibold uppercase">Id</h3>
                 <h3 className="font-semibold uppercase">Product Image</h3>
@@ -40,14 +43,14 @@ const AllProducts = () => {
               </div>
               <hr />
               {products?.map((product) => (
+                <React.Fragment key={product.id}>
                 <div
                   className="p-8 grid grid-rows-1 md:grid-cols-4 gap-[1fr] items-center"
-                  key={product.id}
                 >
                   <div className="product-id">
                     <p>{product.id}</p>
                   </div>
-                  <div className="product-img ">
+                  <div className="product-img">
                     <img
                       src={product.product_img}
                       alt={product.product_name}
@@ -74,6 +77,8 @@ const AllProducts = () => {
                     </button>
                   </div>
                 </div>
+                <hr />
+                </React.Fragment>
               ))}
             </div>
             <div className="p-8">

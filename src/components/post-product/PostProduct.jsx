@@ -16,6 +16,7 @@ const PostProduct = ({ product }) => {
   }, []);
 
   const navigate = useNavigate();
+
   const { register, handleSubmit, setValue, watch } = useForm({
     defaultValues: {
       product_name: product?.product_name || "",
@@ -44,16 +45,6 @@ const PostProduct = ({ product }) => {
       setValue("weight._250g", product.weight?._250g || "");
     }
   }, [product, setValue]);
-  // const [imagePreview, setImagePreview] = useState(null);
-  // const handleImageChange = (e) => {
-  //   if (e.target.files[0]) {
-  //     const selectedImage = e.target.files[0];
-
-  //     console.log(selectedImage);
-  //     setValue("image", selectedImage);
-  //     setImagePreview(URL.createObjectURL(selectedImage));
-  //   }
-  // };
   const submit = async (data) => {
     console.log(data);
     if (product) {

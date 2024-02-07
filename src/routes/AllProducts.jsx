@@ -11,9 +11,6 @@ const AllProducts = () => {
       console.log(product);
     });
   }, []);
-  const handleDelete=async(productId)=>{
-    await productService.deleteProduct(productId)
-  }
   return (
     <div className="min-h-screen">
       <div className="h-14 w-full text-white text-sm pl-[3%] md:pl-[7%] bg-[#0073cf] flex flex-row items-center">
@@ -72,7 +69,7 @@ const AllProducts = () => {
                         />
                       </button>
                     </Link>
-                    <button className="p-2  border-2 border-gray-600 rounded-md text-base text-gray-600/100 font-semibold hover:bg-gray-600 hover:text-white" onClick={() => handleDelete(product.id)}>
+                    <button className="p-2  border-2 border-gray-600 rounded-md text-base text-gray-600/100 font-semibold hover:bg-gray-600 hover:text-white" onClick={() => productService.deleteProduct(product.id)}>
                       <FiDelete />
                     </button>
                   </div>

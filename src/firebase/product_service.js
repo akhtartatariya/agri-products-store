@@ -5,6 +5,7 @@ import {
   doc,
   updateDoc,
   deleteDoc,
+  getDoc,
 } from "firebase/firestore";
 import { fireDB } from "./config";
 class ProductService {
@@ -34,10 +35,29 @@ class ProductService {
       console.error("Error adding product: ", error);
     }
   }
-  async updateProduct(productId, { updatedData }) {
+  async updateProduct(
+    productId,
+    {
+      product_name,
+      product_desc,
+      product_img,
+      technology,
+      used_for,
+      price,
+      weight,
+    }
+  ) {
     try {
       const productRef = doc(fireDB, "products", productId);
-      await updateDoc(productRef, updatedData);
+      await updateDoc(productRef, {
+        product_name,
+        product_desc,
+        product_img,
+        technology,
+        used_for,
+        price,
+        weight,
+      });
       console.log("Product updated successfully");
     } catch (error) {
       console.error("Error updating product: ", error);
@@ -66,6 +86,24 @@ class ProductService {
     } catch (error) {
       console.log(":: error while getting all products", error);
       return [];
+    }
+  }
+  async getProduct(productId) {
+    try {
+      const productDoc = await getDoc(doc(fireDB, "products", productId));
+      if (productDoc.exists) {
+        const productData = {
+          id: productDoc.id,
+          ...productDoc.data(),
+        };
+        return productData;
+      } else {
+        console.error("Product not found");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching product:", error);
+      return null;
     }
   }
 }

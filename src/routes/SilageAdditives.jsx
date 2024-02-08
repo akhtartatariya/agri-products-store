@@ -31,6 +31,15 @@ function SilageAdditives() {
   const [standard, setStandard] = useState(false);
   const [rapidReact, setRapidReact] = useState(false);
 
+  //Utility Function
+  function toCamelCase(str) {
+    // Make the first letter lowercase
+    return str.charAt(0).toLowerCase() + str.slice(1);
+  }
+
+  // Example usage:
+  console.log(toCamelCase("FiberTechnology")); // Outputs: fiberTechnology
+
   //Functions
   const handleUsedFor = () => {
     setUsedFor(!usedFor);
@@ -100,8 +109,10 @@ function SilageAdditives() {
         break;
     }
 
+    console.log(item);
+
     // Uncheck the checkbox associated with the selected option
-    const checkbox = document.getElementById(item.toLowerCase());
+    const checkbox = document.getElementById(toCamelCase(item));
     if (checkbox) checkbox.checked = false;
   };
 

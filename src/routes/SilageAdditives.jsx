@@ -330,9 +330,12 @@ function SilageAdditives() {
         <Link to={"/"}>Home</Link> &nbsp;/ Silage additives
       </div>
       {/* PRODUCTS */}
-      <div className="w-full border-b-4 border-slate-30000 h-60 pt-16 px-28">
-        <Title text="Products" className={"text-5xl font-bold"} />
-        <p className="mt-8">
+      <div className="w-full border-b-4 border-slate-30000 h-60 pt-16 max-sm:pt-6 md:px-28 max-md:px-4">
+        <Title
+          text="Products"
+          className={"max-md:text-3xl md:text-5xl font-bold"}
+        />
+        <p className="mt-8 max-sm:mt-4 text-base [font-weight:400]">
           Choose your products from our catalog and start benefiting from the
           quality of Pioneer inoculants. Make your selection, complete your
           purchase and receive your shipment comfortably at the address you
@@ -341,7 +344,7 @@ function SilageAdditives() {
       </div>
 
       {/* FILTER SECTION */}
-      <section className="px-28 grid grid-cols-[.7fr_2.2fr] py-12 gap-x-8 bg-gray-50">
+      <section className="md:px-28 max-md:px-4 grid md:grid-cols-[.7fr_2.2fr] max-md:grid-rows-[1fr] py-12 gap-x-8 bg-gray-50">
         {/* SORT */}
         <div>
           {filter && (
@@ -544,7 +547,7 @@ function SilageAdditives() {
           </div>
         </div>
         {/* PRODUCT LIST */}
-        <div className="grid grid-cols-[1fr_1fr_1fr] gap-y-4">
+        <div className="md:grid md:grid-cols-[1fr_1fr_1fr] max-md:flex max-md:flex-wrap max-md:gap-x-4 max-md:justify-center max-md:mt-8 gap-y-4">
           <ProductCard products={products} />
         </div>
       </section>

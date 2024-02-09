@@ -23,13 +23,22 @@ function SilageAdditives() {
   const [technology, setTechnology] = useState(true);
   //Filter States
   const [corn, setCorn] = useState(false);
-  const [multiforage, setMultiForage] = useState(false);
+  const [multiforage, setMultiforage] = useState(false);
   const [grass, setGrass] = useState(false);
   const [pastone, setPastone] = useState(false);
   const [alfalfa, setAlfalfa] = useState(false);
   const [fiberTechnology, setFiberTechnology] = useState(false);
   const [standard, setStandard] = useState(false);
   const [rapidReact, setRapidReact] = useState(false);
+
+  //Utility Function
+  function toCamelCase(str) {
+    // Make the first letter lowercase
+    return str.charAt(0).toLowerCase() + str.slice(1);
+  }
+
+  // Example usage:
+  console.log(toCamelCase("FiberTechnology")); // Outputs: fiberTechnology
 
   //Functions
   const handleUsedFor = () => {
@@ -38,8 +47,165 @@ function SilageAdditives() {
   const handleTechnology = () => {
     setTechnology(!technology);
   };
+  const handleClearFilter = () => {
+    const filters = {
+      corn: false,
+      multiforage: false,
+      grass: false,
+      pastone: false,
+      alfalfa: false,
+      fiberTechnology: false,
+      standard: false,
+      rapidReact: false,
+    };
+
+    // Reset filter states
+    Object.keys(filters).forEach((filter) => {
+      // Reset individual filter state
+      eval(`set${filter.charAt(0).toUpperCase() + filter.slice(1)}(false)`);
+      // Reset checkbox
+      const checkbox = document.getElementById(filter);
+      if (checkbox) checkbox.checked = false;
+    });
+
+    // Reset filteredItems
+    setFilteredItems([]);
+  };
+
+  // Handle Close Icon Click
+  const handleCloseItemClick = (item) => {
+    // Remove the item from filteredItems list
+    setFilteredItems(
+      filteredItems.filter((filteredItem) => filteredItem !== item)
+    );
+
+    // Reset the state of the corresponding option to false
+    switch (item.toLowerCase()) {
+      case "corn":
+        setCorn(false);
+        break;
+      case "multiforage":
+        setMultiforage(false);
+        break;
+      case "grass":
+        setGrass(false);
+        break;
+      case "pastone":
+        setPastone(false);
+        break;
+      case "alfalfa":
+        setAlfalfa(false);
+        break;
+      case "fibertechnology":
+        setFiberTechnology(false);
+        break;
+      case "standard":
+        setStandard(false);
+        break;
+      case "rapidreact":
+        setRapidReact(false);
+        break;
+      default:
+        break;
+    }
+
+    console.log(item);
+
+    // Uncheck the checkbox associated with the selected option
+    const checkbox = document.getElementById(toCamelCase(item));
+    if (checkbox) checkbox.checked = false;
+  };
 
   // console.log(corn);
+
+  //UseEffect for setting Items to Filter on checking out the option
+  useEffect(() => {
+    const selectedOptions = {
+      corn,
+      multiforage,
+      grass,
+      pastone,
+      alfalfa,
+      fiberTechnology,
+      standard,
+      rapidReact,
+    };
+
+    // Check if any filter option is true
+    const anyFilterOptionSelected = Object.values(selectedOptions).some(
+      (value) => value
+    );
+
+    // Update the filter state based on the condition
+    setFilter(anyFilterOptionSelected);
+
+    Promise.all(
+      Object.keys(selectedOptions).map((itemKey) => {
+        const item = selectedOptions[itemKey];
+        // Check if item is a boolean value and is true
+        if (typeof item === "boolean" && item) {
+          const itemName = `${itemKey.charAt(0).toUpperCase()}${itemKey.slice(
+            1
+          )}`;
+
+          return setFilteredItems((prevItems) => {
+            if (!prevItems.includes(itemName)) {
+              return [...prevItems, itemName];
+            }
+            return prevItems;
+          });
+        }
+        return Promise.resolve(); // Resolve promise for non-boolean or false items
+      })
+    );
+  }, [
+    corn,
+    multiforage,
+    grass,
+    pastone,
+    alfalfa,
+    fiberTechnology,
+    standard,
+    rapidReact,
+  ]);
+
+  //UseEffect For removing Options from FilteredItem List on Unchecking it
+  useEffect(() => {
+    const selectedOptions = {
+      corn,
+      multiforage,
+      grass,
+      pastone,
+      alfalfa,
+      fiberTechnology,
+      standard,
+      rapidReact,
+    };
+
+    // Check if any filter option is true
+    const anyFilterOptionSelected = Object.values(selectedOptions).some(
+      (value) => value
+    );
+
+    // Update the filter state based on the condition
+    setFilter(anyFilterOptionSelected);
+
+    const newFilteredItems = Object.entries(selectedOptions)
+      .filter(([_, value]) => value)
+      .map(([key]) => key.charAt(0).toUpperCase() + key.slice(1));
+
+    // Update filteredItems state
+    setFilteredItems(newFilteredItems);
+  }, [
+    corn,
+    multiforage,
+    grass,
+    pastone,
+    alfalfa,
+    fiberTechnology,
+    standard,
+    rapidReact,
+  ]);
 
   useEffect(() => {
     try {
@@ -140,6 +306,7 @@ function SilageAdditives() {
     } catch (error) {
       console.log(":: error while loading products");
     }
+    setFilter(false);
   }, []);
 
   if (isLoading) {
@@ -178,21 +345,30 @@ function SilageAdditives() {
         {/* SORT */}
         <div>
           {filter && (
-            <div>
-              <div>
-                <h3>Filters</h3>
-                <span>
-                  <p>Clear All</p>
-                  <CgCloseO />
+            <div className="mb-4">
+              <div className="flex flex-row justify-between">
+                <h3 className="font-bold text-xl">Filters</h3>
+                <span
+                  className="flex items-center gap-2 text-[#0073cf] cursor-pointer"
+                  onClick={() => handleClearFilter()}
+                >
+                  <p className="text-sm font-semibold">Clear All</p>
+                  <CgCloseO className="text-2xl" />
                 </span>
               </div>
               {/* Filter Selected Items */}
               <div>
                 {filteredItems.map((item, index) => {
                   return (
-                    <div id={index}>
-                      <span>Used for: {item}</span>
-                      <CgClose />
+                    <div key={index} className="flex justify-between mt-4">
+                      <span className="flex gap-2">
+                        <p>Used for: </p>
+                        <h3 className="font-semibold">{item}</h3>
+                      </span>
+                      <CgClose
+                        className="text-gray-500 cursor-pointer"
+                        onClick={() => handleCloseItemClick(item)}
+                      />
                     </div>
                   );
                 })}
@@ -226,7 +402,7 @@ function SilageAdditives() {
                     name="used_for"
                     id="corn"
                     className="size-6 cursor-pointer"
-                    onClick={() => setCorn(!corn)}
+                    onChange={(e) => setCorn(e.target.checked)}
                   />{" "}
                   <label htmlFor={"corn"} className="cursor-pointer">
                     Corn
@@ -242,7 +418,7 @@ function SilageAdditives() {
                     name="used_for"
                     id="multiforage"
                     className="size-6 cursor-pointer"
-                    onClick={() => setMultiForage(!multiforage)}
+                    onChange={(e) => setMultiforage(e.target.checked)}
                   />{" "}
                   <label htmlFor={"multiforage"} className="cursor-pointer">
                     Multiforage
@@ -256,7 +432,7 @@ function SilageAdditives() {
                     name="used_for"
                     id="grass"
                     className="size-6 cursor-pointer"
-                    onClick={() => setGrass(!grass)}
+                    onChange={(e) => setGrass(e.target.checked)}
                   />{" "}
                   <label htmlFor={"grass"} className="cursor-pointer">
                     Grass
@@ -272,7 +448,7 @@ function SilageAdditives() {
                     name="used_for"
                     id="pastone"
                     className="size-6 cursor-pointer"
-                    onClick={() => setPastone(!pastone)}
+                    onChange={(e) => setPastone(e.target.checked)}
                   />{" "}
                   <label htmlFor={"pastone"} className="cursor-pointer">
                     Pastone
@@ -288,7 +464,7 @@ function SilageAdditives() {
                     name="used_for"
                     id="alfalfa"
                     className="size-6 cursor-pointer"
-                    onClick={() => setAlfalfa(!alfalfa)}
+                    onChange={(e) => setAlfalfa(e.target.checked)}
                   />{" "}
                   <label htmlFor={"alfalfa"} className="cursor-pointer">
                     Alfalfa
@@ -323,11 +499,11 @@ function SilageAdditives() {
                   <input
                     type="checkbox"
                     name="technology"
-                    id="fiber"
+                    id="fiberTechnology"
                     className="size-6 cursor-pointer"
-                    onClick={() => setFiberTechnology(!fiberTechnology)}
+                    onChange={(e) => setFiberTechnology(e.target.checked)}
                   />{" "}
-                  <label htmlFor={"fiber"} className="cursor-pointer">
+                  <label htmlFor={"fiberTechnology"} className="cursor-pointer">
                     Fiber Technology
                   </label>
                 </li>
@@ -341,7 +517,7 @@ function SilageAdditives() {
                     name="technology"
                     id="standard"
                     className="size-6 cursor-pointer"
-                    onClick={() => setStandard(!standard)}
+                    onChange={(e) => setStandard(e.target.checked)}
                   />{" "}
                   <label htmlFor={"standard"} className="cursor-pointer">
                     Standard
@@ -355,11 +531,11 @@ function SilageAdditives() {
                   <input
                     type="checkbox"
                     name="technology"
-                    id="rapid"
+                    id="rapidReact"
                     className="size-6 cursor-pointer"
-                    onClick={() => setRapidReact(!rapidReact)}
+                    onChange={(e) => setRapidReact(e.target.checked)}
                   />{" "}
-                  <label htmlFor={"rapid"} className="cursor-pointer">
+                  <label htmlFor={"rapidReact"} className="cursor-pointer">
                     Rapid React
                   </label>
                 </li>

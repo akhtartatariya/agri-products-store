@@ -19,11 +19,11 @@ class StorageService {
       // Get download URL
       const downloadURL = await getDownloadURL(snapshot.ref);
       console.log("File available at", downloadURL);
-      return downloadURL;
+      return downloadURL ;
     } catch (error) {
       // Handle errors
       console.error("Error uploading image:", error);
-      throw error; // Re-throw the error to handle it in the calling component
+      return false
     }
   }
 
@@ -31,9 +31,11 @@ class StorageService {
     try {
       const storageRef = ref(this.storage, imagePath);
       await deleteObject(storageRef);
-      console.log("File deleted successfully");
+      return true
+      // console.log("File deleted successfully");
     } catch (error) {
       console.error("Error deleting file: ", error);
+      return false;
     }
   }
 }

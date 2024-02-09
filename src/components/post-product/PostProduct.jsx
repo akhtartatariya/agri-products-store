@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import Button from "../FormStuff/Button";
-import Input from "../FormStuff/Input";
 import storageService from "../../firebase/storage_service";
 import productService from "../../firebase/product_service";
 import { useNavigate } from "react-router-dom";
 import Select from "../FormStuff/Select";
+import { toast } from "react-toastify";
 const PostProduct = ({ product }) => {
   console.log(product);
   const [weight_50, setWeight_50] = useState("");
@@ -17,7 +16,7 @@ const PostProduct = ({ product }) => {
 
   const navigate = useNavigate();
 
-  const { register, handleSubmit, setValue, watch } = useForm({
+  const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
       product_name: product?.product_name || "",
       product_desc: product?.product_desc || "",
@@ -46,25 +45,39 @@ const PostProduct = ({ product }) => {
     }
   }, [product, setValue]);
   const submit = async (data) => {
-    console.log(data);
+    // console.log(data);
+    const hasImage = data.image && data.image.length > 0;
     if (product) {
-      const file =
-        data.image[0]
-          ? await storageService.uploadFile(data.image[0])
-          : null;
-      if (file) {
-        await storageService.deleteFile(product.product_img);
+      let updatedData = { ...data };
+
+      if (hasImage) {
+        // Upload the new image file
+        const file = data.image[0];
+        const downloadURL = await storageService.uploadFile(file);
+
+        // Delete the previous product image
+        if (product.product_img) {
+          await storageService.deleteFile(product.product_img);
+        }
+
+        // Update the product with the new image URL
+        updatedData = { ...updatedData, product_img: downloadURL };
       }
-      const dbProduct = await productService.updateProduct(product.id, {
-        ...data,
-        product_img: file,
-      });
+
+      // Update the product in the database
+      const dbProduct = await productService.updateProduct(
+        product.id,
+        updatedData
+      );
 
       if (dbProduct) {
-        navigate("/");
+        toast.success("Product Updated Successfully");
+        navigate("/all-products");
+      } else {
+        toast.error("Failed to update product");
       }
     } else {
-      const file = data.image[0]
+      const file = hasImage
         ? await storageService.uploadFile(data.image[0])
         : null;
       if (file) {
@@ -73,7 +86,8 @@ const PostProduct = ({ product }) => {
           product_img: file,
         });
         if (newProduct) {
-          navigate("/");
+          toast.success("Product Added Successfully");
+          navigate("/all-products");
         }
       }
     }
@@ -292,17 +306,3 @@ const PostProduct = ({ product }) => {
 };
 
 export default PostProduct;
-
-{
-  /*
-        {imagePreview && (
-                <img
-                  src={imagePreview}
-                  alt="Img Preview"
-                  className=" max-w-[200px] max-h-[200px]"
-                />
-              )}
-        <br />
-
-          */
-}

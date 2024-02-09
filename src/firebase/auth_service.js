@@ -60,8 +60,10 @@ class AuthService {
   async logout() {
     try {
       await auth.signOut();
+      return true
     } catch (error) {
       console.log("error while logging out user:", error);
+      return false
     }
   }
 }

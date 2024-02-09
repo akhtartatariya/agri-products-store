@@ -32,11 +32,13 @@ import AddProduct from "./routes/AddProduct";
 import Protected from "./components/ProtectedRoute/Protected";
 import AllProducts from "./routes/AllProducts";
 import EditProduct from "./routes/EditProduct";
+import UserProfile from "./routes/UserProfile";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="" element={<Home />} />
       <Route path="/cart" element={<Cart />} />
+      <Route path="/user-profile/:name" element={<UserProfile />} />
       <Route path="/silage_additives" element={<SilageAdditives />} />
       <Route path="/about" element={<About />} />
       <Route path="/faqs" element={<FAQs />} />

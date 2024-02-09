@@ -14,9 +14,10 @@ import "animate.css";
 import { MdOutlineShoppingCart, MdOutlineSearch } from "react-icons/md";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { CgCloseO } from "react-icons/cg";
+import { BiSolidUser } from "react-icons/bi";
 
 //React-Router-Dom
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 
 // Redux
 import { useSelector } from "react-redux";
@@ -144,7 +145,13 @@ function Nav() {
         className={` flex px-[2%] w-full bg-white h-20 items-center justify-between gap-8`}
       >
         <div className="w-[10rem] z-30">
-          <img src="../Corteva_logo.png" alt="Corteva logo" className="w-40" />
+          <Link to={"/"}>
+            <img
+              src="../Corteva_logo.png"
+              alt="Corteva logo"
+              className="w-40 cursor-pointer"
+            />
+          </Link>
         </div>
         <div className={`w-[45rem] h-full max-lg:hidden`}>
           <ul
@@ -192,6 +199,7 @@ function Nav() {
           </ul>
         </div>
         <div className="w-[10rem] flex text-2xl text-[#0073cf] justify-end gap-3 md:gap-8 z-30">
+          <Link to={`/user-profile/${userName}`}><BiSolidUser className="cursor-pointer" /></Link>
           {userEmail !== "a@gmail.com" && userEmail !== "sanaya@gmail.com" ? (
             <div className="relative flex">
               <MdOutlineShoppingCart

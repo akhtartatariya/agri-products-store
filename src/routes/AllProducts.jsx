@@ -4,6 +4,7 @@ import productService from "../firebase/product_service";
 import { FiEdit } from "react-icons/fi";
 import { FiDelete } from "react-icons/fi";
 import adminLogo from "../components/FormStuff/admin-user-web-svgrepo-com.svg"
+import { toast } from "react-toastify";
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
@@ -12,6 +13,18 @@ const AllProducts = () => {
       console.log(product);
     });
   }, []);
+  const deleteProduct = async (productId) => {
+
+   const deletedProduct = await productService.deleteProduct(productId);
+
+    // Update the state to remove the deleted product
+    setProducts((prevProducts) =>
+      prevProducts.filter((product) => product.id !== productId)
+    );  
+    if(deletedProduct){
+      toast.success("Product Deleted Successfully");
+    }
+  };
   return (
     <div className="min-h-screen">
       <div className="h-14 w-full text-white text-sm pl-[3%] md:pl-[7%] bg-[#0073cf] flex flex-row items-center">
@@ -27,13 +40,13 @@ const AllProducts = () => {
           <h1 className="text-3xl text-center my-4">All Products</h1>
         </div>
         <div>
-          <div className="logo p-3">
-            <Link to={"/"}>
-              <img src={adminLogo} alt="" className="max-w-[150px]"/>
+          <div className="logo p-3 ">
+            <Link to={"/"} >
+              <img src={adminLogo} alt="" className="max-w-[150px] inline" />
             </Link>
           </div>
           <div className="  ">
-            <div className="parent-container bg-gray-100">
+            <div className="parent-container bg-gray-100 rounded-xl">
               <div className=" p-8 grid grid-rows-1 md:grid-cols-4 gap-[1fr] place-content-center">
                 <h3 className="font-semibold uppercase">Id</h3>
                 <h3 className="font-semibold uppercase">Product Image</h3>
@@ -72,7 +85,7 @@ const AllProducts = () => {
                         />
                       </button>
                     </Link>
-                    <button className="p-2  border-2 border-gray-600 rounded-md text-base text-gray-600/100 font-semibold hover:bg-gray-600 hover:text-white" onClick={() => productService.deleteProduct(product.id)}>
+                    <button className="p-2  border-2 border-gray-600 rounded-md text-base text-gray-600/100 font-semibold hover:bg-gray-600 hover:text-white" onClick={()=>deleteProduct(product.id)}>
                       <FiDelete />
                     </button>
                   </div>

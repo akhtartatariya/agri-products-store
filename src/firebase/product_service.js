@@ -29,8 +29,8 @@ class ProductService {
         technology,
         used_for,
       };
-      const docRef = await addDoc(productRef, newProduct);
-      console.log("Product added with ID: ", docRef.id);
+      return await addDoc(productRef, newProduct);
+      // console.log("Product added with ID: ", docRef.id);
     } catch (error) {
       console.error("Error adding product: ", error);
     }
@@ -49,7 +49,7 @@ class ProductService {
   ) {
     try {
       const productRef = doc(fireDB, "products", productId);
-      await updateDoc(productRef, {
+      const updatedProduct = await updateDoc(productRef, {
         product_name,
         product_desc,
         product_img,
@@ -58,9 +58,13 @@ class ProductService {
         price,
         weight,
       });
+      console.log(updatedProduct);
       console.log("Product updated successfully");
+
+      return updatedProduct; // Return the updated product here
     } catch (error) {
       console.error("Error updating product: ", error);
+      return null; // Return null in case of an error
     }
   }
   async deleteProduct(productId) {

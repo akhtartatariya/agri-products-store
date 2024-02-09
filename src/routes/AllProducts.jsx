@@ -46,8 +46,8 @@ const AllProducts = () => {
             </Link>
           </div>
           <div className="  ">
-            <div className="parent-container bg-gray-100 rounded-xl">
-              <div className=" p-8 grid grid-rows-1 md:grid-cols-4 gap-[1fr] place-content-center">
+            <div className="parent-container rounded-xl bg-gray-50  ">
+              <div className=" p-8 grid grid-rows-1 md:grid-cols-4 gap-[1fr] place-content-center bg-gray-300">
                 <h3 className="font-semibold uppercase">Id</h3>
                 <h3 className="font-semibold uppercase">Product Image</h3>
                 <h3 className="font-semibold uppercase">product Name</h3>

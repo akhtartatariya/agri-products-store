@@ -330,7 +330,7 @@ function SilageAdditives() {
         <Link to={"/"}>Home</Link> &nbsp;/ Silage additives
       </div>
       {/* PRODUCTS */}
-      <div className="w-full border-b-4 border-slate-30000 h-60 pt-16 max-sm:pt-6 md:px-28 max-md:px-4">
+      <div className="w-full border-b-4 border-slate-30000 h-60 pt-16 max-sm:pt-6 max-lg:px-10 lg:px-28 max-md:px-4">
         <Title
           text="Products"
           className={"max-md:text-3xl md:text-5xl font-bold"}
@@ -344,7 +344,7 @@ function SilageAdditives() {
       </div>
 
       {/* FILTER SECTION */}
-      <section className="md:px-28 max-md:px-4 grid md:grid-cols-[.7fr_2.2fr] max-md:grid-rows-[1fr] py-12 gap-x-8 bg-gray-50">
+      <section className="lg:px-28 max-lg:px-10 max-md:px-4 grid lg:grid-cols-[.7fr_2.2fr] max-md:grid-rows-[1fr] py-12 gap-x-8 bg-gray-50">
         {/* SORT */}
         <div>
           {filter && (
@@ -547,7 +547,7 @@ function SilageAdditives() {
           </div>
         </div>
         {/* PRODUCT LIST */}
-        <div className="md:grid md:grid-cols-[1fr_1fr_1fr] max-md:flex max-md:flex-wrap max-md:gap-x-4 max-md:justify-center max-md:mt-8 gap-y-4">
+        <div className="lg:grid lg:grid-cols-[1fr_1fr_1fr] max-lg:flex max-lg:flex-wrap max-lg:gap-x-4 max-md:justify-center max-lg:mt-8 gap-y-4">
           <ProductCard products={products} />
         </div>
       </section>

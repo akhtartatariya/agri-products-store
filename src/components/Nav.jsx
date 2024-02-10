@@ -199,9 +199,11 @@ function Nav() {
           </ul>
         </div>
         <div className="w-[12rem] flex text-2xl text-[#0073cf] justify-end gap-3 md:gap-8 z-30">
-          <Link to={`/user-profile/${userName}`}>
-            <BiSolidUser className="cursor-pointer" />
-          </Link>
+          {userStatus && (
+            <Link to={`/user-profile/${userName}`}>
+              <BiSolidUser className="cursor-pointer" />
+            </Link>
+          )}
           {userEmail !== "a@gmail.com" && userEmail !== "sanaya@gmail.com" ? (
             <div className="relative flex">
               <MdOutlineShoppingCart

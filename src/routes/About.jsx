@@ -2,7 +2,6 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-
 function About() {
   return (
     <>
@@ -10,12 +9,14 @@ function About() {
         <Link to={"/"}>Home</Link> &nbsp;/ About us
       </div>
       <div>
-       <img src="./img/about/aboutbanner.jpg" alt="about banner" className="h-72 w-full object-cover object-bottom"/>
+        <img
+          src="./img/about/aboutus_hero.webp"
+          alt="about banner"
+          className="h-72 w-full object-cover object-center"
+        />
       </div>
     </>
   );
 }
 
 export default About;
-
-

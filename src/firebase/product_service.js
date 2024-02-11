@@ -1,15 +1,16 @@
 import {
   collection,
-  addDoc,
   getDocs,
   doc,
   updateDoc,
   deleteDoc,
   getDoc,
+  setDoc,
 } from "firebase/firestore";
 import { fireDB } from "./config";
 class ProductService {
   async addProduct({
+    productId, // Specify productId when calling this method
     product_name,
     product_desc,
     product_img,
@@ -20,7 +21,9 @@ class ProductService {
   }) {
     try {
       const productRef = collection(fireDB, "products");
+
       const newProduct = {
+        productId,
         product_name,
         product_desc,
         product_img,
@@ -29,12 +32,17 @@ class ProductService {
         technology,
         used_for,
       };
-      return await addDoc(productRef, newProduct);
-      // console.log("Product added with ID: ", docRef.id);
+
+      // Use setDoc with a specified document ID
+      const docRef = await setDoc(doc(productRef, productId), newProduct);
+
+      console.log("Product added with ID: ", productId);
+      return docRef;
     } catch (error) {
       console.error("Error adding product: ", error);
     }
   }
+
   async updateProduct(
     productId,
     {

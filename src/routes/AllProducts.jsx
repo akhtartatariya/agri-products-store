@@ -12,7 +12,7 @@ const AllProducts = () => {
       setProducts(product);
       console.log(product);
     });
-  }, []);
+  }, [products]);
   const deleteProduct = async (productId) => {
 
    const deletedProduct = await productService.deleteProduct(productId);

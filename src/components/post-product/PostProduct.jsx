@@ -5,8 +5,10 @@ import productService from "../../firebase/product_service";
 import { useNavigate } from "react-router-dom";
 import Select from "../FormStuff/Select";
 import { toast } from "react-toastify";
+import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
+import { fireDB } from "../../firebase/config";
 const PostProduct = ({ product }) => {
-  console.log(product);
+  // console.log(product);
   const [weight_50, setWeight_50] = useState("");
   const [weight_250, setWeight_250] = useState("");
   useEffect(() => {
@@ -44,6 +46,43 @@ const PostProduct = ({ product }) => {
       setValue("weight._250g", product.weight?._250g || "");
     }
   }, [product, setValue]);
+
+  async function getMaxProductId() {
+    try {
+      const productRef = collection(fireDB, "products");
+      // console.log(productRef)
+      const maxIdQuery = query(
+        productRef,
+        orderBy("productId", "desc"),
+        limit(1)
+      );
+      // console.log(maxIdQuery)
+      const querySnapshot = await getDocs(maxIdQuery);
+      console.log("Query Snapshot:", querySnapshot.docs);
+      if (querySnapshot.empty) {
+        // No products in the collection yet
+        // console.log(querySnapshot)
+        return 0;
+      } else {
+        // Get the current maximum product ID
+        const maxProductId = querySnapshot.docs[0].data().productId;
+        console.log(maxProductId)
+        return maxProductId;
+      }
+    } catch (error) {
+      console.error("Error getting max product ID:", error);
+      throw error;
+    }
+  }
+
+  // Function to generate a new product ID
+  async function generateNewProductId() {
+    const maxProductId = await getMaxProductId();
+    // console.log(maxProductId)
+    let newProductId = Number(maxProductId) + 1;
+    // console.log(newProductId)
+    return String(newProductId);
+  }
   const submit = async (data) => {
     // console.log(data);
     const hasImage = data.image && data.image.length > 0;
@@ -81,10 +120,15 @@ const PostProduct = ({ product }) => {
         ? await storageService.uploadFile(data.image[0])
         : null;
       if (file) {
+        // Add the new product to the database
+        // Generate a new product ID
+        const newProductId = await generateNewProductId();
         const newProduct = await productService.addProduct({
           ...data,
           product_img: file,
+          productId: newProductId,
         });
+        console.log(newProduct);
         if (newProduct) {
           toast.success("Product Added Successfully");
           navigate("/all-products");

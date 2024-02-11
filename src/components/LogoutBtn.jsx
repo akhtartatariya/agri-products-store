@@ -9,6 +9,7 @@ const LogoutBtn = ({ logoutHandle }) => {
     authService.logout().then(() => {
       dispatch(logout());
       localStorage.clear('user')
+      window.location.href='/';
     });
     logoutHandle();
   };

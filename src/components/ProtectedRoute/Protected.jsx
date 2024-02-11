@@ -5,7 +5,7 @@ const Protected = ({ children }) => {
   if (admin.email === "sanaya@gmail.com" || admin.email==='a@gmail.com') {
     return children;
   } else {
-    return <Navigate to={"/login"} />;
+    return <Navigate to={"/"} />;
   }
 };
 

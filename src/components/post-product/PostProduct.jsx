@@ -66,7 +66,7 @@ const PostProduct = ({ product }) => {
       } else {
         // Get the current maximum product ID
         const maxProductId = querySnapshot.docs[0].data().productId;
-        console.log(maxProductId)
+        console.log(maxProductId);
         return maxProductId;
       }
     } catch (error) {
@@ -90,17 +90,27 @@ const PostProduct = ({ product }) => {
       let updatedData = { ...data };
 
       if (hasImage) {
-        // Upload the new image file
-        const file = data.image[0];
-        const downloadURL = await storageService.uploadFile(file);
+        // Check if the image URL already exists
+        const existingImageUrl = await storageService.checkExistingImage(
+          data.image[0].name
+        );
 
-        // Delete the previous product image
-        if (product.product_img) {
-          await storageService.deleteFile(product.product_img);
+        if (existingImageUrl) {
+          // Image already exists, use the existing URL
+          updatedData = { ...updatedData, product_img: existingImageUrl };
+        } else {
+          // Upload the new image file
+          const file = data.image[0];
+          const downloadURL = await storageService.uploadFile(file);
+
+          // Delete the previous product image
+          if (product.product_img) {
+            await storageService.deleteFile(product.product_img);
+          }
+
+          // Update the product with the new image URL
+          updatedData = { ...updatedData, product_img: downloadURL };
         }
-
-        // Update the product with the new image URL
-        updatedData = { ...updatedData, product_img: downloadURL };
       }
 
       // Update the product in the database
@@ -112,8 +122,6 @@ const PostProduct = ({ product }) => {
       if (dbProduct) {
         toast.success("Product Updated Successfully");
         navigate("/all-products");
-      } else {
-        toast.error("Failed to update product");
       }
     } else {
       const file = hasImage
@@ -307,7 +315,6 @@ const PostProduct = ({ product }) => {
                 ></Select>
               </div>
             </div>
-
             <div className="sm:col-span-6">
               <label
                 htmlFor="product-image"
@@ -315,30 +322,29 @@ const PostProduct = ({ product }) => {
               >
                 Choose Image
               </label>
-              <div className="mt-2">
+              <div className="mt-2 flex flex-col items-center sm:flex-row sm:items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4">
                 <input
                   type="file"
                   name="product-image"
                   id="product-image"
                   accept="image/*"
-                  className="block w-full rounded-md border-gray-300 py-2 placeholder-gray-400 focus:ring focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50 sm:text-sm"
+                  className="w-full max-w-xs p-2 border rounded-md focus:ring focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50"
                   {...register("image", { required: true })}
                 />
+                {product && (
+                  <img
+                    src={product.product_img}
+                    alt=""
+                    className="max-w-[200px] max-h-[200px] rounded-md"
+                  />
+                )}
               </div>
-              {product && (
-                <img
-                  src={product.product_img}
-                  alt=""
-                  className=" max-w-[200px] max-h-[200px]"
-                />
-              )}
             </div>
           </div>
-
           <div className="col-span-full">
             <button
               type="submit"
-              className="bg-[#0073cf] text-white px-4 py-2 rounded-md hover:bg-sky-500 focus:outline-none focus:ring focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50"
+              className=" w-full  bg-[#0073cf] text-white px-4 py-2 rounded-md hover:bg-sky-500 focus:outline-none focus:ring focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50"
             >
               {product ? "Update Product" : "Add Product "}
             </button>

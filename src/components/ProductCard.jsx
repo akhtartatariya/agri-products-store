@@ -131,7 +131,7 @@ function ProductCard({ products }) {
                 <img
                   src={product.product_img}
                   alt={product.product_name}
-                  className=" w-44"
+                  className="max-w-44 max-h-36"
                 />
               </div>
               <div className="flex flex-col justify-between h-20">

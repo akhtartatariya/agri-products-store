@@ -153,7 +153,9 @@ function Nav() {
             />
           </Link>
         </div>
-        <div className={`w-[45rem] h-full max-lg:hidden`}>
+        <div
+          className={`w-full max-w-[45rem] h-full lg:max-w-[60rem] lg:flex lg:items-center hidden`}
+        >
           <ul
             className={`flex justify-between items-center text-[#0073cf] font-bold text-sm h-full w-full bg-white`}
           >
@@ -231,7 +233,7 @@ function Nav() {
       </nav>
       {toggle && (
         <div
-          className={`w-full fixed top-20 z-20 animate__animated animate__fadeInDownBig [--animate-duration:.5s]`}
+          className={`w-full fixed top-20 z-20 animate__animated animate__fadeInDownBig [--animate-duration:.5s] lg:hidden`}
         >
           <ul
             className={`flex flex-col items-center p-2 gap-4 text-[#0073cf] font-bold text-sm bg-white`}

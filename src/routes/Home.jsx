@@ -40,7 +40,7 @@ function Home() {
               (item) =>
                 item.technology === "RapidReact" &&
                 (item.used_for === "Corn" || "Grass") &&
-                item.product_name !== "Pioneer® 11CH4"
+                item.product_name !== "Pioneer® 11C33"
             )}
           />
         </div>
@@ -51,7 +51,7 @@ function Home() {
               (item) =>
                 item.technology === "FiberTechnology" &&
                 (item.used_for === "Corn" || "Grass") &&
-                item.product_name !== "Pioneer® 11F79"
+                item.product_name !== "Pioneer® 11AFT"
             )}
           />
         </div>

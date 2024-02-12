@@ -43,33 +43,25 @@ class ProductService {
     }
   }
 
-  async updateProduct(
-    productId,
-    {
-      product_name,
-      product_desc,
-      product_img,
-      technology,
-      used_for,
-      price,
-      weight,
-    }
-  ) {
+  async updateProduct(productId, updateData) {
     try {
       const productRef = doc(fireDB, "products", productId);
-      const updatedProduct = await updateDoc(productRef, {
-        product_name,
-        product_desc,
-        product_img,
-        technology,
-        used_for,
-        price,
-        weight,
-      });
+      const fieldsToUpdate = {};
+
+      if (updateData.product_name)
+        fieldsToUpdate.product_name = updateData.product_name;
+      if (updateData.product_desc)
+        fieldsToUpdate.product_desc = updateData.product_desc;
+      if (updateData.product_img)
+        fieldsToUpdate.product_img = updateData.product_img;
+      if (updateData.technology)
+        fieldsToUpdate.technology = updateData.technology;
+      if (updateData.used_for) fieldsToUpdate.used_for = updateData.used_for;
+      if (updateData.price) fieldsToUpdate.price = updateData.price;
+      const updatedProduct = await updateDoc(productRef, fieldsToUpdate);
       console.log(updatedProduct);
       console.log("Product updated successfully");
-
-      return updatedProduct; // Return the updated product here
+      return updatedProduct;
     } catch (error) {
       console.error("Error updating product: ", error);
       return null; // Return null in case of an error

@@ -39,8 +39,9 @@ function Home() {
             products={products.filter(
               (item) =>
                 item.technology === "RapidReact" &&
-                (item.used_for === "Corn" || "Grass") &&
-                item.product_name !== "Pioneer® 11CH4"
+                (item.used_for === "Corn" || item.used_for === "Grass") &&
+                (item.product_name === "Pioneer® 11C33" ||
+                  item.product_name === "Pioneer® 11G22")
             )}
           />
         </div>
@@ -50,8 +51,9 @@ function Home() {
             products={products.filter(
               (item) =>
                 item.technology === "FiberTechnology" &&
-                (item.used_for === "Corn" || "Grass") &&
-                item.product_name !== "Pioneer® 11F79"
+                (item.used_for === "Corn" || item.used_for === "Grass") &&
+                (item.product_name === "Pioneer® 11CFT" ||
+                  item.product_name === "Pioneer® 11GFT")
             )}
           />
         </div>
@@ -63,7 +65,7 @@ function Home() {
 thanks to the most advanced technology"
           className="text-3xl font-bold text-center whitespace-pre-line mb-8"
         />
-        {/* Youtube card Box */}
+        {/* Youtube card Box Start */}
         <div className="grid grid-cols-[1fr_1fr] px-20 pb-12">
           {/* Youtube Card */}
           <div className="flex flex-col justify-between border-r-2 pr-10 border-gray-200">
@@ -73,9 +75,9 @@ thanks to the most advanced technology"
                 height="100%"
                 src="https://www.youtube.com/embed/s-aHf8t1WOc?si=PFsDP2hnu-sEY98q"
                 title="YouTube video player"
-                frameBorder="0"
+                frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
+                allowfullscreen
               ></iframe>
             </div>
             <div className="px-4 py-6">
@@ -118,6 +120,7 @@ thanks to the most advanced technology"
             </div>
           </div>
         </div>
+        {/* Youtube Card Box End */}
       </div>
     </>
   );

@@ -10,7 +10,8 @@ import {
 import { fireDB } from "./config";
 class ProductService {
   async addProduct({
-    productId, // Specify productId when calling this method
+    userId,
+    productId, 
     product_name,
     product_desc,
     product_img,
@@ -23,6 +24,7 @@ class ProductService {
       const productRef = collection(fireDB, "products");
 
       const newProduct = {
+        userId,
         productId,
         product_name,
         product_desc,
@@ -64,7 +66,7 @@ class ProductService {
       return updatedProduct;
     } catch (error) {
       console.error("Error updating product: ", error);
-      return null; // Return null in case of an error
+      return null; 
     }
   }
   async deleteProduct(productId) {

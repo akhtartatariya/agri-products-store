@@ -7,6 +7,7 @@ import Select from "../FormStuff/Select";
 import { toast } from "react-toastify";
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import { fireDB } from "../../firebase/config";
+import { useSelector } from "react-redux";
 const PostProduct = ({ product }) => {
   // console.log(product);
   const [weight_50, setWeight_50] = useState("");
@@ -17,7 +18,8 @@ const PostProduct = ({ product }) => {
   }, []);
 
   const navigate = useNavigate();
-
+  const user = useSelector((state) => state.auth.userData?.uid);
+  console.log(user);
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
       product_name: product?.product_name || "",
@@ -135,6 +137,7 @@ const PostProduct = ({ product }) => {
           ...data,
           product_img: file,
           productId: newProductId,
+          userId: user,
         });
         console.log(newProduct);
         if (newProduct) {

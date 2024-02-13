@@ -11,7 +11,7 @@ import { fireDB } from "./config";
 class ProductService {
   async addProduct({
     userId,
-    productId, 
+    productId,
     product_name,
     product_desc,
     product_img,
@@ -35,13 +35,14 @@ class ProductService {
         used_for,
       };
 
+      console.log("Product added with ID: ", productId);
       // Use setDoc with a specified document ID
       const docRef = await setDoc(doc(productRef, productId), newProduct);
 
-      console.log("Product added with ID: ", productId);
       return docRef;
     } catch (error) {
       console.error("Error adding product: ", error);
+      console.log("Error stack trace: ", error.stack);
     }
   }
 
@@ -66,7 +67,7 @@ class ProductService {
       return updatedProduct;
     } catch (error) {
       console.error("Error updating product: ", error);
-      return null; 
+      return null;
     }
   }
   async deleteProduct(productId) {

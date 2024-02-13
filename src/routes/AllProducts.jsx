@@ -87,7 +87,7 @@ const AllProducts = () => {
                       </Link>
                       <button
                         className="p-2 m-2 border-2 border-gray-600 rounded-md text-base text-gray-600/100 font-semibold hover:bg-gray-600 hover:text-white"
-                        onClick={() => deleteProduct(product.id)}
+                        onClick={() => deleteProduct(product.id, product.product_img)}
                       >
                         <FiDelete />
                       </button>
@@ -101,7 +101,10 @@ const AllProducts = () => {
             ))}
           </div>
           <div className="p-4 text-center md:text-left">
-            <button className="p-4 border-2 border-gray-500 rounded-lg font-semibold text-gray-600/100">
+            <button
+              className="p-4 border-2 border-gray-500 rounded-lg font-semibold text-gray-600/100"
+              onClick={() => setProducts([])}
+            >
               Clear Products
             </button>
           </div>

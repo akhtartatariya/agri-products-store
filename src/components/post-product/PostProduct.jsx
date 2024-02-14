@@ -129,9 +129,13 @@ const PostProduct = ({ product }) => {
         updatedData
       );
 
-      if (dbProduct) {
-        toast.success("Product Updated Successfully");
+      if (dbProduct.success) {
+        const { docRef } = dbProduct;
+        console.log("New Product Document Reference:", docRef);
+        toast.success("Product Update Successfully");
         navigate("/all-products");
+      } else {
+        console.error("Error adding product:", dbProduct.error);
       }
     } else {
       const file = hasImage
@@ -150,9 +154,13 @@ const PostProduct = ({ product }) => {
           userId: user,
         });
         // console.log(newProduct);
-        if (newProduct) {
+        if (newProduct.success) {
+          const { docRef } = newProduct;
+          console.log("New Product Document Reference:", docRef);
           toast.success("Product Added Successfully");
           navigate("/all-products");
+        } else {
+          console.error("Error adding product:", newProduct.error);
         }
       }
     }

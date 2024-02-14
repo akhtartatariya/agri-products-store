@@ -32,8 +32,8 @@ function Home() {
             text={"Produce Tasty Silages and avoid reheating"}
           />
         </div>
-        {/* Products Below Carousel */}
-        <div className="grid grid-cols-[1fr_1fr] px-20 py-24">
+        {/* Products Below Carousel for large screen */}
+        <div className="max-md:hidden grid grid-cols-[1fr_1fr] md:px-[100px] px-[15px] py-24">
           {/* Product Category 1 */}
           <div className="flex justify-between border-r-2 pr-10 border-gray-200">
             <ProductCard
@@ -59,15 +59,15 @@ function Home() {
             />
           </div>
         </div>
-        {/* Youtube Embbed */}
-        <div>
+        {/* Youtube Embbed for large screen */}
+        <div className="max-md:hidden">
           <Title
             text="Get the best forage,
 thanks to the most advanced technology"
             className="text-3xl font-bold text-center whitespace-pre-line mb-8"
           />
           {/* Youtube card Box Start */}
-          <div className="grid grid-cols-[1fr_1fr] px-20 pb-12">
+          <div className="grid grid-cols-[1fr_1fr] md:px-[100px] px-[15px] pb-12">
             {/* Youtube Card */}
             <div className="flex flex-col justify-between border-r-2 pr-10 border-gray-200">
               <div className="w-full h-[18rem]">
@@ -124,15 +124,26 @@ thanks to the most advanced technology"
           {/* Youtube Card Box End */}
         </div>
 
+        {/* Products below carousel and youtube embbed for smaller screen */}
+        <section className="md:hidden">
+          <Title
+            text="Get the best forage,
+thanks to the most advanced technology"
+            className="text-2xl font-bold text-center whitespace-pre-line mb-8 mt-16"
+          />
+        </section>
+
         {/* Silo Banner Start */}
-        <div className="bg-white py-4 md:px-20 px-5 mt-20 w-full h-full flex flex-row justify-between items-center">
-          <h3 className="text-3xl font-bold">Know your silo better</h3>
-          <img src="./img/Services.png" alt="" className="w-[32rem]" />
+        <div className="bg-white py-4 md:px-20 px-5 md:pt-[12px] pt-[24px] max-md:pb-[18px] mt-20 w-full h-full flex flex-row flex-wrap justify-between items-center">
+          <h3 className="md:text-3xl text-2xl font-bold max-md:mb-[29px]">
+            Know your silo better
+          </h3>
+          <img src="./img/Services.png" alt="" className="w-[32rem] ml-auto" />
         </div>
         {/* Silo Banner End */}
 
         {/* Dry Matter Start */}
-        <div className="md:mx-[110px] mx-[15px] bg-white mt-8 shadow-[0_3px_10px_rgb(0,0,0,0.2)] md:p-[58px_30px_0] p-[30px_10px_0] flex flex-col gap-8">
+        <div className="md:mx-[100px] mx-[15px] bg-white mt-8 shadow-[0_3px_10px_rgb(0,0,0,0.2)] md:p-[58px_30px_0] p-[30px_10px_0] flex flex-col gap-8">
           <h3 className="md:text-3xl text-2xl font-bold max-md:p-[0_26px]">
             How much dry matter does your crop provide?
           </h3>

@@ -18,6 +18,8 @@ import {
 
 function Cart() {
   const cart = useSelector((state) => state.cart);
+  const userData = useSelector((state) => state.auth.userData);
+
   // console.log(cart)
   const dispatch = useDispatch();
 
@@ -40,6 +42,7 @@ function Cart() {
   useEffect(() => {
     dispatch(getTotals());
   }, [cart, dispatch]);
+
   return (
     <>
       <div className="min-h-[100vh]">
@@ -175,10 +178,13 @@ function Cart() {
                   <p className="text-sm font-light my-2">
                     Taxes and shipping calculated at checkout
                   </p>
-                  <Button
-                    children={"Checkout"}
-                    className="bg-[#0073cf] outline-none w-full h-12 font-semibold tracking-wide border-[0.5px] border-none text-white rounded-md"
-                  />
+                  <hr className="my-2" />
+                  <Link to={`/checkout/${userData?.uid}`}>
+                    <Button
+                      children={"Checkout"}
+                      className="bg-[#0073cf] outline-none w-full h-12 font-semibold tracking-wide border-[0.5px] border-none text-white rounded-md"
+                    />
+                  </Link>
                   <div className="mt-4">
                     <Link
                       to={"/silage_additives"}

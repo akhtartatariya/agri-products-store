@@ -45,7 +45,7 @@ const PostProduct = ({ product }) => {
       setValue("price._50g", product.price?._50g || "");
       setValue("price._250g", product.price?._250g || "");
       setValue("weight._50g", product.weight?._50g || "");
-      setValue("weight._250g", product.weight?._250g || "");
+      setValue("weight._250g", product.weight?._250g || "250g");
     }
   }, [product, setValue]);
 
@@ -55,7 +55,7 @@ const PostProduct = ({ product }) => {
       // console.log(productRef)
       const maxIdQuery = query(
         productRef,
-        orderBy("productId", 'desc'), // Adjust the condition based on your use case
+        orderBy("productId", "desc"),
         limit(1)
       );
       console.dir(

@@ -33,6 +33,7 @@ import Protected from "./components/ProtectedRoute/Protected";
 import AllProducts from "./routes/AllProducts";
 import EditProduct from "./routes/EditProduct";
 import UserProfile from "./routes/UserProfile";
+import Checkout from "./routes/Checkout";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -47,6 +48,7 @@ const router = createBrowserRouter(
       <Route path="/shipment" element={<Shipment />} />
       <Route path="/rightofwithdrawal" element={<RightOfWithdrawal />} />
       <Route path="/termsandconditions" element={<TermsAndCondition />} />
+      <Route path="/checkout/:id" element={<Checkout />} />
       <Route
         path="/add-product"
         element={

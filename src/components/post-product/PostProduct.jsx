@@ -7,6 +7,7 @@ import Select from "../FormStuff/Select";
 import { toast } from "react-toastify";
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import { fireDB } from "../../firebase/config";
+import { useSelector } from "react-redux";
 const PostProduct = ({ product }) => {
   // console.log(product);
   const [weight_50, setWeight_50] = useState("");
@@ -17,7 +18,8 @@ const PostProduct = ({ product }) => {
   }, []);
 
   const navigate = useNavigate();
-
+  const user = useSelector((state) => state.auth.userData?.uid);
+  // console.log(user);
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
       product_name: product?.product_name || "",
@@ -53,12 +55,16 @@ const PostProduct = ({ product }) => {
       // console.log(productRef)
       const maxIdQuery = query(
         productRef,
-        orderBy("productId", "desc"),
+        orderBy("productId", 'desc'), // Adjust the condition based on your use case
         limit(1)
       );
-      // console.log(maxIdQuery)
+      console.dir(
+        "Complete Query Object:",
+        { depth: null, colors: true },
+        maxIdQuery
+      );
       const querySnapshot = await getDocs(maxIdQuery);
-      console.log("Query Snapshot:", querySnapshot.docs);
+      // console.log("Query Snapshot:", querySnapshot.docs);
       if (querySnapshot.empty) {
         // No products in the collection yet
         // console.log(querySnapshot)
@@ -79,9 +85,13 @@ const PostProduct = ({ product }) => {
   async function generateNewProductId() {
     const maxProductId = await getMaxProductId();
     // console.log(maxProductId)
-    let newProductId = Number(maxProductId) + 1;
+    let newProductId = String(Number(maxProductId) + 1);
+    // if (newProductId <= 10) {
+    //   newProductId = '0' + newProductId;
+    // }
     // console.log(newProductId)
-    return String(newProductId);
+    newProductId = newProductId.padStart(2, "0");
+    return newProductId;
   }
   const submit = async (data) => {
     // console.log(data);
@@ -131,12 +141,15 @@ const PostProduct = ({ product }) => {
         // Add the new product to the database
         // Generate a new product ID
         const newProductId = await generateNewProductId();
+
+        console.log(newProductId);
         const newProduct = await productService.addProduct({
           ...data,
           product_img: file,
           productId: newProductId,
+          userId: user,
         });
-        console.log(newProduct);
+        // console.log(newProduct);
         if (newProduct) {
           toast.success("Product Added Successfully");
           navigate("/all-products");

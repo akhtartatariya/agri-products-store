@@ -20,12 +20,12 @@ class StorageService {
       await getDownloadURL(existingImageRef);
 
       // If the getDownloadURL doesn't throw an error, it means the file exists.
-      // You can return the existing URL or handle it accordingly.
+      // return the existing URL 
       const existingURL = await getDownloadURL(existingImageRef);
       console.log("File already exists. URL:", existingURL);
       return existingURL;
     } catch (error) {
-      // The file doesn't exist, proceed with the upload
+      // proceed with the upload
       console.log("File doesn't exist. Uploading...");
 
       try {

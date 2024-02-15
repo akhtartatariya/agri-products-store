@@ -77,7 +77,7 @@ const AllProducts = () => {
                   </div>
                   {user && product && user.uid === product.userId ? (
                     <div className="product-actions flex justify-center md:justify-start">
-                      <Link to={`/edit-product/${product.id}`}>
+                      <Link to={`/admin/edit-product/${product.id}`}>
                         <button className="p-2 m-2 border-2 border-gray-600 rounded-md text-base text-gray-600/100 font-semibold hover:bg-gray-600 hover:text-white">
                           <FiEdit
                             data-ripple-light="true"

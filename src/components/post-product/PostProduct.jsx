@@ -133,7 +133,7 @@ const PostProduct = ({ product }) => {
         const { docRef } = dbProduct;
         console.log("New Product Document Reference:", docRef);
         toast.success("Product Update Successfully");
-        navigate("/all-products");
+        navigate("/admin/all-products");
       } else {
         console.error("Error adding product:", dbProduct.error);
       }
@@ -158,7 +158,7 @@ const PostProduct = ({ product }) => {
           const { docRef } = newProduct;
           console.log("New Product Document Reference:", docRef);
           toast.success("Product Added Successfully");
-          navigate("/all-products");
+          navigate("/admin/all-products");
         } else {
           console.error("Error adding product:", newProduct.error);
         }

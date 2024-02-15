@@ -111,7 +111,7 @@ function Nav() {
           : "SILAGE ADDITIVES",
       slug:
         userEmail === "a@gmail.com" || userEmail === "sanaya@gmail.com"
-          ? "/all-products"
+          ? "/admin/all-products"
           : "/silage_additives",
       active: true,
     },
@@ -132,7 +132,7 @@ function Nav() {
     },
     {
       name: "ADD PRODUCT",
-      slug: "/add-product",
+      slug: "/admin/add-product",
       active: userEmail === "sanaya@gmail.com" || userEmail === "a@gmail.com",
     },
   ];

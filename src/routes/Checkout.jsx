@@ -60,7 +60,9 @@ const Checkout = () => {
             <button className="bg-[#0073cf] text-white p-2 rounded-lg w-full my-2 font-semibold">Review the order</button>
           </div>
         </div>
-        <div className=" w-5/12"></div>
+        <div className=" w-5/12">
+          
+        </div>
       </div>
     </>
   );

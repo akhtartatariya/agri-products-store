@@ -31,16 +31,26 @@ const AllProducts = () => {
       toast.success("Product Deleted Successfully");
     }
   };
+  const deleteAll = async () => {
+    try {
+      await productService
+        .deleteAllDocuments()
+        .then(() => {
+          setProducts([]);
+          toast.success("All Product Deleted Successfully");
+        })
+        .catch((error) => {
+          console.log(":: error while deleting all products" + error);
+        });
+    } catch (error) {
+      console.log(":: error while deleting all products" + error);
+    }
+  };
   return (
     <div className="min-h-screen">
       <div className="h-14 w-full text-white text-sm pl-[3%] md:pl-[7%] bg-[#0073cf] flex flex-row items-center">
         <Link to={"/"}>Home</Link> &nbsp;/ All Products
       </div>
-      {!products ? (
-        <div className="mx-4 md:mx-10">
-          <div className="text-3xl text-center my-10">No Products Found</div>
-        </div>
-      ) : null}
       <div className="mx-4 md:mx-10 transition-all">
         <div>
           <h1 className="text-3xl text-center my-4">All Products</h1>
@@ -58,6 +68,10 @@ const AllProducts = () => {
               <h3 className="font-semibold uppercase">Product Name</h3>
               <h3 className="font-semibold uppercase">Actions</h3>
             </div>
+
+            {products.length===0 && <div className=" text-center text-3xl text-gray-500 font-semibold py-10">
+              Product not found please add some products
+              </div>}
             {products?.map((product) => (
               <React.Fragment key={product.id}>
                 <div className="p-4 grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
@@ -87,13 +101,15 @@ const AllProducts = () => {
                       </Link>
                       <button
                         className="p-2 m-2 border-2 border-gray-600 rounded-md text-base text-gray-600/100 font-semibold hover:bg-gray-600 hover:text-white"
-                        onClick={() => deleteProduct(product.id, product.product_img)}
+                        onClick={() =>
+                          deleteProduct(product.id, product.product_img)
+                        }
                       >
                         <FiDelete />
                       </button>
                     </div>
                   ) : (
-                    false
+                   false
                   )}
                 </div>
                 <hr className="md:hidden" />
@@ -103,7 +119,7 @@ const AllProducts = () => {
           <div className="p-4 text-center md:text-left">
             <button
               className="p-4 border-2 border-gray-500 rounded-lg font-semibold text-gray-600/100"
-              onClick={() => setProducts([])}
+              onClick={() => deleteAll()}
             >
               Clear Products
             </button>

@@ -7,14 +7,17 @@ import productService from "../firebase/product_service";
 import ProductCard from "../components/ProductCard";
 import Title from "../components/Title";
 import { Link } from "react-router-dom";
+import ProductCarousel from "../components/page-components/ProductCarousel";
 
 function Home() {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     try {
       productService.getAllProducts().then((products) => {
         setProducts(products);
+        setIsLoading(false);
         console.log(products);
       });
     } catch (error) {
@@ -131,6 +134,101 @@ thanks to the most advanced technology"
 thanks to the most advanced technology"
             className="text-2xl font-bold text-center whitespace-pre-line mb-8 mt-16"
           />
+
+          {isLoading ? (
+            <div className="flex justify-center w-full">
+              <div className="animate__animated animate__pulse animate__infinite my-8 text-white text-sm h-11 flex items-center justify-center w-3/4 bg-[#0073cf] shadow-lg border-solid border-2 border-opacity-30 border-gray-600 rounded-lg">
+                Loading...
+              </div>
+            </div>
+          ) : (
+            <div>
+              {/* Rapid React */}
+              <div className="my-16">
+                <div className="mb-16">
+                  <ProductCarousel
+                    products={products.filter(
+                      (item) =>
+                        item.technology === "RapidReact" &&
+                        (item.used_for === "Corn" ||
+                          item.used_for === "Grass") &&
+                        (item.product_name === "Pioneer® 11C33" ||
+                          item.product_name === "Pioneer® 11G22")
+                    )}
+                  />
+                </div>
+                {/* Youtube Card */}
+                <div className="flex flex-col justify-between  sm:px-8 px-4">
+                  <div className="w-full sm:h-[18rem] h-[12rem]">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src="https://www.youtube.com/embed/s-aHf8t1WOc?si=PFsDP2hnu-sEY98q"
+                      title="YouTube video player"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                  <div className="px-4 py-8 bg-white">
+                    <h1 className="text-2xl font-bold text-[#0073cf] mb-6">
+                      Pioneer Rapid React
+                    </h1>
+                    <p className="text-sm">
+                      Click here to see our full range of products to improve
+                      the stability of your silos.{" "}
+                      <Link to={"/silage_additives"}>
+                        <span className="text-[#0073cf]">Buy inoculants</span>
+                      </Link>
+                    </p>
+                  </div>
+                </div>
+                <hr className="sm:mx-8 mx-4 my-8 bg-gray-200 h-[4px]" />
+              </div>
+              {/* Fiber Technology */}
+              <div className="my-16">
+                <div className="mb-16">
+                  <ProductCarousel
+                    products={products.filter(
+                      (item) =>
+                        item.technology === "FiberTechnology" &&
+                        (item.used_for === "Corn" ||
+                          item.used_for === "Grass") &&
+                        (item.product_name === "Pioneer® 11CFT" ||
+                          item.product_name === "Pioneer® 11GFT")
+                    )}
+                  />
+                </div>
+                {/* Youtube Card */}
+                <div className="flex flex-col justify-between sm:px-8 px-4">
+                  <div className="w-full sm:h-[18rem] h-[12rem]">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src="https://www.youtube.com/embed/w3tIuZA2F8U?si=liYpCNqDy3moSu8S"
+                      title="YouTube video player"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                  <div className="px-4 py-8 bg-white">
+                    <h1 className="text-2xl font-bold text-[#0073cf] mb-6">
+                      Pioneer Fiber Technology
+                    </h1>
+                    <p className="text-sm">
+                      Click here to see our full range of products to improve
+                      the stability of your silos.{" "}
+                      <Link to={"/silage_additives"}>
+                        <span className="text-[#0073cf]">Buy inoculants</span>
+                      </Link>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <hr className="sm:mx-8 mx-4 my-8 bg-gray-200 h-[4px]" />
+            </div>
+          )}
         </section>
 
         {/* Silo Banner Start */}

@@ -96,7 +96,7 @@ function RegistrationForm({
         <div className="">
           <Title
             text="Register"
-            classes={"text-center mb-10 text-green-800 font-bold"}
+            className={"text-4xl text-center mb-10 text-green-800 font-bold"}
           />
           <form onSubmit={handleRegistration}>
             <FormGroup

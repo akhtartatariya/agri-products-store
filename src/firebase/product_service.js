@@ -1,36 +1,73 @@
 import {
   collection,
-  addDoc,
   getDocs,
   doc,
   updateDoc,
   deleteDoc,
+  getDoc,
+  setDoc,
 } from "firebase/firestore";
 import { fireDB } from "./config";
 class ProductService {
-  async addProduct({ product_name, product_desc, product_img, price, weight }) {
+  async addProduct({
+    userId,
+    productId,
+    product_name,
+    product_desc,
+    product_img,
+    technology,
+    used_for,
+    price,
+    weight,
+  }) {
     try {
       const productRef = collection(fireDB, "products");
+
       const newProduct = {
+        userId,
+        productId,
         product_name,
         product_desc,
         product_img,
         price,
         weight,
+        technology,
+        used_for,
       };
-      const docRef = await addDoc(productRef, newProduct);
-      console.log("Product added with ID: ", docRef.id);
+
+      console.log("Product added with ID: ", productId);
+      // Use setDoc with a specified document ID
+      const docRef = await setDoc(doc(productRef, productId), newProduct);
+
+      return docRef;
     } catch (error) {
       console.error("Error adding product: ", error);
+      console.log("Error stack trace: ", error.stack);
     }
   }
-  async updateProduct(productId, { updatedData }) {
+
+  async updateProduct(productId, updateData) {
     try {
       const productRef = doc(fireDB, "products", productId);
-      await updateDoc(productRef, updatedData);
+      const fieldsToUpdate = {};
+
+      if (updateData.product_name)
+        fieldsToUpdate.product_name = updateData.product_name;
+      if (updateData.product_desc)
+        fieldsToUpdate.product_desc = updateData.product_desc;
+      if (updateData.product_img)
+        fieldsToUpdate.product_img = updateData.product_img;
+      if (updateData.technology)
+        fieldsToUpdate.technology = updateData.technology;
+      if (updateData.used_for) fieldsToUpdate.used_for = updateData.used_for;
+      if (updateData.price) fieldsToUpdate.price = updateData.price;
+      const updatedProduct = await updateDoc(productRef, fieldsToUpdate);
+      console.log(updatedProduct);
       console.log("Product updated successfully");
+      return updatedProduct;
     } catch (error) {
       console.error("Error updating product: ", error);
+      return null;
     }
   }
   async deleteProduct(productId) {
@@ -56,6 +93,24 @@ class ProductService {
     } catch (error) {
       console.log(":: error while getting all products", error);
       return [];
+    }
+  }
+  async getProduct(productId) {
+    try {
+      const productDoc = await getDoc(doc(fireDB, "products", productId));
+      if (productDoc.exists) {
+        const productData = {
+          id: productDoc.id,
+          ...productDoc.data(),
+        };
+        return productData;
+      } else {
+        console.error("Product not found");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching product:", error);
+      return null;
     }
   }
 }

@@ -8,6 +8,8 @@ const LogoutBtn = ({ logoutHandle }) => {
   const handleCllck = () => {
     authService.logout().then(() => {
       dispatch(logout());
+      localStorage.clear('user')
+      window.location.href='/';
     });
     logoutHandle();
   };

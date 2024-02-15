@@ -14,9 +14,10 @@ import "animate.css";
 import { MdOutlineShoppingCart, MdOutlineSearch } from "react-icons/md";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { CgCloseO } from "react-icons/cg";
+import { BiSolidUser } from "react-icons/bi";
 
 //React-Router-Dom
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 
 // Redux
 import { useSelector } from "react-redux";
@@ -42,10 +43,8 @@ function Nav() {
   const [login, setLogin] = useState(false);
   //Location
   const location = useLocation();
-
   //References
   let searchRef = useRef();
-
   //Navigator
   const navigate = useNavigate();
 
@@ -106,29 +105,35 @@ function Nav() {
   }, [location.pathname]);
   const navItems = [
     {
-      name: "SILAGE ADDITIVES",
-      slug: "/silage_additives",
+      name:
+        userEmail === "a@gmail.com" || userEmail === "sanaya@gmail.com"
+          ? "ALL PRODUCTS"
+          : "SILAGE ADDITIVES",
+      slug:
+        userEmail === "a@gmail.com" || userEmail === "sanaya@gmail.com"
+          ? "/all-products"
+          : "/silage_additives",
       active: true,
     },
     {
       name: "ABOUT US",
       slug: "/about",
-      active: true,
+      active: userEmail !== "sanaya@gmail.com" && userEmail !== "a@gmail.com",
     },
     {
       name: "FAQs",
       slug: "/faqs",
-      active: true,
+      active: userEmail !== "sanaya@gmail.com" && userEmail !== "a@gmail.com",
     },
     {
       name: "CONTACT",
       slug: "/contact",
-      active: true,
+      active: userEmail !== "sanaya@gmail.com" && userEmail !== "a@gmail.com",
     },
     {
-      name: "ADMIN",
-      slug: "/admin",
-      active: userEmail == "a@gmail.com", //here add admin email ID
+      name: "ADD PRODUCT",
+      slug: "/add-product",
+      active: userEmail === "sanaya@gmail.com" || userEmail === "a@gmail.com",
     },
   ];
   // console.log(isHomePage); For Debugging
@@ -140,9 +145,17 @@ function Nav() {
         className={` flex px-[2%] w-full bg-white h-20 items-center justify-between gap-8`}
       >
         <div className="w-[10rem] z-30">
-          <img src="../Corteva_logo.png" alt="Corteva logo" className="w-40" />
+          <Link to={"/"}>
+            <img
+              src="../Corteva_logo.png"
+              alt="Corteva logo"
+              className="w-40 cursor-pointer"
+            />
+          </Link>
         </div>
-        <div className={`w-[45rem] h-full max-lg:hidden`}>
+        <div
+          className={`w-full max-w-[45rem] h-full lg:max-w-[60rem] lg:flex lg:items-center hidden`}
+        >
           <ul
             className={`flex justify-between items-center text-[#0073cf] font-bold text-sm h-full w-full bg-white`}
           >
@@ -187,16 +200,23 @@ function Nav() {
             )}
           </ul>
         </div>
-        <div className="w-[10rem] flex text-2xl text-[#0073cf] justify-end gap-3 md:gap-8 z-30">
-          <div className="relative flex">
-            <MdOutlineShoppingCart
-              className="cursor-pointer"
-              onClick={() => handleOpenCart()}
-            />
-            <div className="bg-[#0073cf] rounded-full text-white h-4 w-4 text-xs flex justify-center items-center absolute left-4 -top-2">
-              {cartTotalQuantity}
+        <div className="w-[12rem] flex text-2xl text-[#0073cf] justify-end gap-3 md:gap-8 z-30">
+          {userStatus && (
+            <Link to={`/user-profile/${userName}`}>
+              <BiSolidUser className="cursor-pointer" />
+            </Link>
+          )}
+          {userEmail !== "a@gmail.com" && userEmail !== "sanaya@gmail.com" ? (
+            <div className="relative flex">
+              <MdOutlineShoppingCart
+                className="cursor-pointer"
+                onClick={() => handleOpenCart()}
+              />
+              <div className="bg-[#0073cf] rounded-full text-white h-4 w-4 text-xs flex justify-center items-center absolute left-4 -top-2">
+                {cartTotalQuantity}
+              </div>
             </div>
-          </div>
+          ) : null}
           <MdOutlineSearch className="cursor-pointer" onClick={activeSearch} />
           {!toggle ? (
             <HiOutlineMenuAlt3
@@ -213,55 +233,28 @@ function Nav() {
       </nav>
       {toggle && (
         <div
-          className={`w-full fixed top-20 z-20 animate__animated animate__fadeInDownBig [--animate-duration:.5s]`}
+          className={`w-full fixed top-20 z-20 animate__animated animate__fadeInDownBig [--animate-duration:.5s] lg:hidden`}
         >
           <ul
             className={`flex flex-col items-center p-2 gap-4 text-[#0073cf] font-bold text-sm bg-white`}
           >
-            <NavLink
-              to="/silage_additives"
-              onClick={deactiveToggle}
-              className={({ isActive }) =>
-                `${
-                  isActive ? "border-[#0073cf]" : "border-transparent"
-                } border-b-4 hover:border-[#0073cf] h-full flex items-center`
-              }
-            >
-              SILAGE ADDITIVES
-            </NavLink>
-            <NavLink
-              to="/about"
-              onClick={deactiveToggle}
-              className={({ isActive }) =>
-                `${
-                  isActive ? "border-[#0073cf]" : "border-transparent"
-                } border-b-4 hover:border-[#0073cf] h-full flex items-center`
-              }
-            >
-              ABOUT US
-            </NavLink>
-            <NavLink
-              to="/faqs"
-              onClick={deactiveToggle}
-              className={({ isActive }) =>
-                `${
-                  isActive ? "border-[#0073cf]" : "border-transparent"
-                } border-b-4 hover:border-[#0073cf] h-full flex items-center`
-              }
-            >
-              FAQs
-            </NavLink>
-            <NavLink
-              to="/contact"
-              onClick={deactiveToggle}
-              className={({ isActive }) =>
-                `${
-                  isActive ? "border-[#0073cf]" : "border-transparent"
-                } border-b-4 hover:border-[#0073cf] h-full flex items-center`
-              }
-            >
-              CONTACT
-            </NavLink>
+            {navItems.map((item) =>
+              item.active ? (
+                <NavLink
+                  onClick={deactiveToggle}
+                  to={item.slug}
+                  key={item.name}
+                  className={({ isActive }) =>
+                    `${
+                      isActive ? "border-[#0073cf]" : "border-transparent"
+                    } border-b-4 hover:border-[#0073cf] h-full flex items-center`
+                  }
+                >
+                  {item.name}
+                </NavLink>
+              ) : null
+            )}
+
             {!userStatus ? (
               <li className="flex gap-4">
                 <Button

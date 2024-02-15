@@ -38,11 +38,11 @@ class ProductService {
       console.log("Product added with ID: ", productId);
       // Use setDoc with a specified document ID
       const docRef = await setDoc(doc(productRef, productId), newProduct);
-
-      return docRef;
+      return { success: true, docRef };
     } catch (error) {
       console.error("Error adding product: ", error);
       console.log("Error stack trace: ", error.stack);
+      return { success: false, error };
     }
   }
 
@@ -64,10 +64,10 @@ class ProductService {
       const updatedProduct = await updateDoc(productRef, fieldsToUpdate);
       console.log(updatedProduct);
       console.log("Product updated successfully");
-      return updatedProduct;
+      return { success: true, updatedProduct };
     } catch (error) {
       console.error("Error updating product: ", error);
-      return null;
+      return { success: false, error };
     }
   }
   async deleteProduct(productId) {
@@ -113,6 +113,26 @@ class ProductService {
       return null;
     }
   }
+
+  async deleteAllDocuments () {
+    
+
+    try {
+      // Get all documents in the collection
+      const querySnapshot = await getDocs(collection(fireDB, 'products'));
+
+      // Delete each document
+      querySnapshot.forEach(async (doc) => {
+        await deleteDoc(doc.ref);
+      });
+
+      console.log('All documents deleted successfully!');
+       return true
+    } catch (error) {
+      console.error('Error deleting documents:', error);
+      return false;
+    }
+  };
 }
 
 const productService = new ProductService();

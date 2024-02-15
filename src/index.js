@@ -34,6 +34,7 @@ import AllProducts from "./routes/AllProducts";
 import EditProduct from "./routes/EditProduct";
 import UserProfile from "./routes/UserProfile";
 import Checkout from "./routes/Checkout";
+import Dashboard from "./admin/Dashboard";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -49,30 +50,34 @@ const router = createBrowserRouter(
       <Route path="/rightofwithdrawal" element={<RightOfWithdrawal />} />
       <Route path="/termsandconditions" element={<TermsAndCondition />} />
       <Route path="/checkout/:id" element={<Checkout />} />
-      <Route
-        path="/add-product"
-        element={
-          <Protected>
-            <AddProduct />
-          </Protected>
-        }
-      />
-      <Route
-        path="/edit-product/:slug"
-        element={
-          <Protected>
-            <EditProduct />
-          </Protected>
-        }
-      />
-      <Route
-        path="/all-products"
-        element={
-          <Protected>
-            <AllProducts />
-          </Protected>
-        }
-      />
+
+      <Route path="/admin" element={<Dashboard />}>
+        
+        <Route
+          path="/admin/add-product"
+          element={
+            <Protected>
+              <AddProduct />
+            </Protected>
+          }
+        />
+        <Route
+          path="/admin/edit-product/:slug"
+          element={
+            <Protected>
+              <EditProduct />
+            </Protected>
+          }
+        />
+        <Route
+          path="/admin/all-products"
+          element={
+            <Protected>
+              <AllProducts />
+            </Protected>
+          }
+        />
+      </Route>
     </Route>
   )
 );

@@ -18,6 +18,7 @@ import {
 
 function Cart() {
   const cart = useSelector((state) => state.cart);
+  console.log(cart);
   const userData = useSelector((state) => state.auth.userData);
 
   // console.log(cart)

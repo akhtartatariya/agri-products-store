@@ -36,9 +36,9 @@ function Home() {
           />
         </div>
         {/* Products Below Carousel for large screen */}
-        <div className="max-md:hidden grid grid-cols-[1fr_1fr] md:px-[100px] px-[15px] py-24">
+        <div className="max-md:hidden grid grid-cols-[1fr_1fr] xl:px-[100px] max-xl:md:px-[10px] py-24 w-full">
           {/* Product Category 1 */}
-          <div className="flex justify-between border-r-2 pr-10 border-gray-200">
+          <div className="flex max-[1140px]:flex-col justify-between max-[1140px]:items-center max-[1140px]:gap-4 border-r-2 max-xl:lg:pr-10 md:pr-4 border-gray-200">
             <ProductCard
               products={products.filter(
                 (item) =>
@@ -50,7 +50,7 @@ function Home() {
             />
           </div>
           {/* Product Category 2 */}
-          <div className="flex justify-between border-l-2 pl-10 border-gray-200">
+          <div className="flex max-[1140px]:flex-col justify-between max-[1140px]:items-center max-[1140px]:gap-4 border-l-2 max-xl:lg:pl-10 md:pl-4 border-gray-200">
             <ProductCard
               products={products.filter(
                 (item) =>
@@ -70,7 +70,7 @@ thanks to the most advanced technology"
             className="text-3xl font-bold text-center whitespace-pre-line mb-8"
           />
           {/* Youtube card Box Start */}
-          <div className="grid grid-cols-[1fr_1fr] md:px-[100px] px-[15px] pb-12">
+          <div className="grid grid-cols-2 xl:px-[100px] max-xl:md:px-[40px] pb-12">
             {/* Youtube Card */}
             <div className="flex flex-col justify-between border-r-2 pr-10 border-gray-200">
               <div className="w-full h-[18rem]">
@@ -88,7 +88,7 @@ thanks to the most advanced technology"
                 <h1 className="text-3xl font-bold text-[#0073cf] mb-6">
                   Pioneer Rapid React
                 </h1>
-                <p className="text-sm w-[24rem]">
+                <p className="text-sm lg:w-[24rem]">
                   Click here to see our full range of products to improve the
                   stability of your silos.{" "}
                   <Link to={"/silage_additives"}>
@@ -114,7 +114,7 @@ thanks to the most advanced technology"
                 <h1 className="text-3xl font-bold text-[#0073cf] mb-6">
                   Pioneer Fiber Technology
                 </h1>
-                <p className="text-sm w-[24rem]">
+                <p className="text-sm lg:w-[24rem]">
                   Click here to see our full range of products to improve the
                   stability of your silos.{" "}
                   <Link to={"/silage_additives"}>
@@ -232,7 +232,7 @@ thanks to the most advanced technology"
         </section>
 
         {/* Silo Banner Start */}
-        <div className="bg-white py-4 md:px-20 px-5 md:pt-[12px] pt-[24px] max-md:pb-[18px] mt-20 w-full h-full flex flex-row flex-wrap justify-between items-center">
+        <div className="bg-white py-4 xl:px-20 px-5 md:pt-[12px] pt-[24px] max-md:pb-[18px] mt-20 w-full h-full flex flex-row flex-wrap justify-between items-center">
           <h3 className="md:text-3xl text-2xl font-bold max-md:mb-[29px]">
             Know your silo better
           </h3>
@@ -241,7 +241,7 @@ thanks to the most advanced technology"
         {/* Silo Banner End */}
 
         {/* Dry Matter Start */}
-        <div className="md:mx-[100px] mx-[15px] bg-white mt-8 shadow-[0_3px_10px_rgb(0,0,0,0.2)] md:p-[58px_30px_0] p-[30px_10px_0] flex flex-col gap-8">
+        <div className="xl:mx-[100px] max-xl:md:mx-[40px] bg-white mt-8 shadow-[0_3px_10px_rgb(0,0,0,0.2)] md:p-[58px_30px_0] p-[30px_10px_0] flex flex-col gap-8">
           <h3 className="md:text-3xl text-2xl font-bold max-md:p-[0_26px]">
             How much dry matter does your crop provide?
           </h3>

@@ -249,12 +249,13 @@ thanks to the most advanced technology"
         {/* Silo Banner End */}
 
         {/* Dry Matter Start */}
-        <div className="xl:mx-[100px] max-xl:md:mx-[40px] bg-white mt-8 shadow-[0_3px_10px_rgb(0,0,0,0.2)] md:p-[58px_30px_0] p-[30px_10px_0] flex flex-col gap-8">
+        <div className="xl:mx-[100px] max-xl:md:mx-[40px] max-md:sm:mx-8 mx-4 bg-white mt-8 shadow-[0_3px_10px_rgb(0,0,0,0.2)] md:p-[58px_30px_0] p-[30px_10px_0] flex flex-col gap-8 mb-[27px]">
           <h3 className="md:text-3xl text-2xl font-bold max-md:p-[0_26px]">
             How much dry matter does your crop provide?
           </h3>
-          <div className="flex flex-row flex-wrap w-full md:justify-between justify-start">
-            <h5 className="max-md:p-[0_26px] mb-4 md:text-2xl text-base">
+          {/* Materials Start */}
+          <div className="flex flex-col gap-8 flex-wrap w-full md:justify-between justify-start">
+            <h5 className="max-md:p-[0_26px] md:text-2xl text-base">
               Materials:
             </h5>
             <div className="flex flex-row flex-wrap w-full md:justify-between justify-start">
@@ -319,9 +320,198 @@ thanks to the most advanced technology"
                 </span>
               </div>
             </div>
+            <p className="max-md:p-[0_26px] md:text-2xl text-base">
+              Weigh 300g of chopped corn, place it together with the ¾ glass of
+              water in the microwave for 5 minutes at maximum power, and weigh
+              it when finished.
+            </p>
+            {/* Process Start */}
+            <div className="md:p-[40px_94px] p-[11px_20px] m-[0_-10px_18px] bg-[#25722b] flex flex-wrap justify-between rounded-[2px]">
+              <div className="w-[15%] relative before:bg-[url('../public/img/MaterialsInHome/plus.png')] before:bg-center before:bg-cover before:bg-no-repeat before:content-[''] before:w-[20px] before:h-[20px] before:block before:absolute before:top-[calc(50%-10px)] before:right-[-30%] before:max-md:max-h-[8px] before:max-md:max-w-[8px]">
+                <div className="md:m-[0] m-[17px_auto_0] flex flex-wrap justify-center items-center">
+                  <img
+                    src="./img/MaterialsInHome/001-plate.webp"
+                    alt="Plate"
+                    className="max-md:max-h-[27px] max-md:max-w-[28px] max-w-full"
+                  />
+                </div>
+              </div>
+              <div className="w-[15%] relative before:bg-[url('../public/img/MaterialsInHome/plus.png')] before:bg-center before:bg-cover before:bg-no-repeat before:content-[''] before:w-[20px] before:h-[20px] before:block before:absolute before:top-[calc(50%-10px)] before:right-[-30%] before:max-md:max-h-[8px] before:max-md:max-w-[8px]">
+                <div className="md:m-[0] m-[17px_auto_0] flex flex-col flex-wrap justify-center items-center">
+                  <img
+                    src="./img/MaterialsInHome/corn.webp"
+                    alt="Corn"
+                    className="max-md:max-h-[27px] max-md:max-w-[28px] max-w-full"
+                  />
+                  <span className="p-[10px_0_0] md:text-sm text-xs font-bold text-white text-center">
+                    300g
+                  </span>
+                </div>
+              </div>
+              <div className="w-[15%] relative before:bg-[url('../public/img/MaterialsInHome/next.png')] before:bg-center before:bg-cover before:bg-no-repeat before:content-[''] before:w-[20px] before:h-[20px] before:block before:absolute before:top-[calc(50%-10px)] before:right-[-30%] before:max-md:max-h-[8px] before:max-md:max-w-[8px]">
+                <div className="md:m-[0] m-[17px_auto_0] flex flex-wrap justify-center items-center">
+                  <img
+                    src="./img/MaterialsInHome/005-water.webp"
+                    alt="Water"
+                    className="max-md:max-h-[27px] max-md:max-w-[28px] max-w-full"
+                  />
+                </div>
+              </div>
+              <div className="w-[15%] relative before:bg-[url('../public/img/MaterialsInHome/next.png')] before:bg-center before:bg-cover before:bg-no-repeat before:content-[''] before:w-[20px] before:h-[20px] before:block before:absolute before:top-[calc(50%-10px)] before:right-[-30%] before:max-md:max-h-[8px] before:max-md:max-w-[8px]">
+                <div className="md:m-[0] m-[17px_auto_0] flex flex-col flex-wrap justify-center items-center">
+                  <img
+                    src="./img/MaterialsInHome/003-microwave.webp"
+                    alt="Microwave"
+                    className="max-md:max-h-[27px] max-md:max-w-[28px] max-w-full"
+                  />
+                  <span className="p-[10px_0_0] md:text-sm text-xs font-bold text-white text-center">
+                    5min
+                  </span>
+                </div>
+              </div>
+              <div className="w-[15%] relative">
+                <div className="md:m-[0] m-[17px_auto_0] flex flex-wrap justify-center items-center">
+                  <img
+                    src="./img/MaterialsInHome/002-scale.webp"
+                    alt="Scale"
+                    className="max-md:max-h-[27px] max-md:max-w-[28px] max-w-full"
+                  />
+                </div>
+              </div>
+            </div>
+            {/* Process End */}
+            <p className="max-md:p-[0_26px] md:text-2xl text-base mb-8">
+              Repeat the process in shorter periods until the weight does not
+              change.
+            </p>
           </div>
+          {/* Materials End */}
+
+          {/* Calculation Dry Start */}
+          <div className="flex flex-wrap justify-between relative items-baseline md:p-[37px_50px_0] md:m-[60px_0_0] bg-white m-[40px_0_0] p-[20px_12px_0] before:content-[''] before:w-[calc(100%+60px)] before:[border-top:1px_solid_#dddddd;] before:absolute before:left-[-30px] before:top-0">
+            <h3 className="md:text-3xl text-2xl font-bold text-center md:mb-[60px] block w-full md:max-w-none max-w-[266px] m-[0_auto_50px]">
+              Enter your details here!
+            </h3>
+            {/* Inputs Start */}
+            <div className="mb-[25px] md:w-[40%] w-full font-medium flex flex-wrap transition-[all_.1s_ease-out]">
+              <span className="w-full block mb-[8px]">
+                Initial sample weight
+              </span>
+              <div className="flex flex-wrap items-center w-full">
+                <input
+                  type="number"
+                  className="md:w-[53%] md:min-w-[266px] md:max-w-[266px] md:h-[53px] min-[750px]:p-[10px_18px] w-full [border:1px_solid_#c4c9d4] rounded-[2.5px] h-[45px] min-w-[220px] max-w-[220px] bg-white p-[8px_15px]"
+                />
+                <span className="ml-auto w-auto">grams</span>
+              </div>
+            </div>
+            <div className="mb-[25px] md:w-[40%] w-full font-medium flex flex-wrap transition-[all_.1s_ease-out]">
+              <span className="w-full block mb-[8px]">Final sample weight</span>
+              <div className="flex flex-wrap items-center w-full">
+                <input
+                  type="number"
+                  className="md:w-[53%] md:min-w-[266px] md:max-w-[266px] md:h-[53px] md:p-[10px_18px] w-full [border:1px_solid_#c4c9d4] rounded-[2.5px] h-[45px] min-w-[220px] max-w-[220px] bg-white p-[8px_15px]"
+                />
+                <span className="ml-auto w-auto">grams</span>
+              </div>
+            </div>
+            {/* Inputs End */}
+            {/* Calculation Block Start */}
+            <div className="w-full bg-[#f8f8f8] mt-[38px] p-[25px_0_32px] relative font-medium flex flex-wrap transition-[all_.1s_ease-out] md:before:left-[-80px] before:left-[-22px] md:before:w-[80px] before:content-[''] before:w-[22px] before:absolute before:top-0 before:bg-inherit before:block before:z-[2] before:h-full md:after:right-[-80px] after:right-[-22px] md:after:w-[80px] after:content-['']  after:w-[22px] after:absolute after:top-0 after:bg-inherit after:block after:z-[2] after:h-full ">
+              <div className="md:w-[34%] w-full">
+                <span className="w-full block mb-[8px]">% dry matter</span>
+                <div className="flex flex-wrap items-center w-full">
+                  <textarea
+                    disabled="disabled"
+                    className="bg-white min-w-[260px] max-w-[260px] h-[53px] [border:1px_solid_#c4c9d4] rounded-[2.5px] resize-none pt-[16px] min-[750px]:p-[10px_18px] p-[8px_15px] touch-manipulation overflow-auto"
+                  ></textarea>
+                </div>
+              </div>
+              <div className="md:w-[66%] md:mt-0 w-full flex flex-wrap mt-[20px] ">
+                <div className="w-[65%] pr-[20px]">
+                  <span>Label</span>
+                  <div className="font-normal text-sm mt-[10px]"></div>
+                </div>
+                <div className="w-[35%] pr-[20px]">
+                  <span>Inoculant</span>
+                  <div className="font-normal text-sm mt-[10px]">
+                    <Link className="text-[#0073cf] font-bold p-[20px] bg-white mt-[16px] block text-center transition-[opacity_.1s_ease-out] rounded-[4px] shadow-[0_6px_34px_#00000014] touch-manipulation"></Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* Calculation Block End */}
+          </div>
+          {/* Calculation Dry End */}
         </div>
         {/* Dry Matter End */}
+
+        {/* Video Section Start */}
+        <div className="xl:mx-[100px] max-xl:md:mx-[40px] max-md:sm:mx-8 mx-4 bg-transparent mt-8 md:p-[58px_30px_0] p-[30px_10px_0] flex flex-col gap-8 mb-[27px]">
+          <div className="m-[38px_0_0] p-[0_0_84px]">
+            <Link
+              className="block p-[0_0_20px_27px] touch-manipulation"
+              to={
+                "https://www.corteva.es/agronomia-y-servicios/granular-link.html"
+              }
+              target="_blank"
+            >
+              <img
+                src="./img/MaterialsInHome/granularLink.avif"
+                alt="Granular Link"
+                className="max-w-full border-0 w-[275px] "
+              />
+            </Link>
+            <span className="md:text-3xl text-2xl md:mb-0 mb-[30px] font-bold relative block pl-[27px] before:content-[''] before:h-[85%] before:w-[5px] before:absolute before:left-0 before:top-[50%] before:bg-[#00dc78] before:[transform:translateY(-50%)]">
+              Download our app for free and enjoy the most advanced management
+              tools for your farm.
+            </span>
+            <iframe
+              width="100%"
+              height="315"
+              src="https://www.youtube.com/embed/ck-CJY2keI0?si=5hX6ZTMcuUyUUKpW"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              className="md:mt-[35px] mt-[31px] md:h-[492px] h-[173px]"
+            ></iframe>
+            <div className="md:mt-[45px] mt-[25px] flex justify-center items-center flex-wrap gap-x-[30px] gap-y-[20px]">
+              <p className="md:text-right text-center md:text-[28px] text-[20px] font-bold m-0 ">
+                Download the free app here
+              </p>
+              <div className="flex items-center gap-x-[25px] ">
+                <Link
+                  to={
+                    "https://play.google.com/store/apps/details?id=com.corteva.glink"
+                  }
+                  target="_blank"
+                  className="md:w-auto w-[120px] flex"
+                >
+                  <img
+                    src="./img/MaterialsInHome/googlePlay.png"
+                    alt="Google Play"
+                    className="max-w-full w-[172px]"
+                  />
+                </Link>
+                <Link
+                  to={
+                    "https://apps.apple.com/es/app/granular-link/id1587732677"
+                  }
+                  target="_blank"
+                  className="md:w-auto w-[120px] flex"
+                >
+                  <img
+                    src="./img/MaterialsInHome/appStore.png"
+                    alt="App Store"
+                    className="max-w-full w-[172px]"
+                  />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* Video Section End */}
       </div>
     </>
   );

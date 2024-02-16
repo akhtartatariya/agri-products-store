@@ -6,6 +6,8 @@ import {
   deleteDoc,
   getDoc,
   setDoc,
+  serverTimestamp,
+  addDoc,
 } from "firebase/firestore";
 import { fireDB } from "./config";
 class ProductService {
@@ -33,6 +35,7 @@ class ProductService {
         weight,
         technology,
         used_for,
+        timestamp: serverTimestamp(),
       };
 
       console.log("Product added with ID: ", productId);
@@ -114,25 +117,61 @@ class ProductService {
     }
   }
 
-  async deleteAllDocuments () {
-    
-
+  async deleteAllDocuments() {
     try {
       // Get all documents in the collection
-      const querySnapshot = await getDocs(collection(fireDB, 'products'));
+      const querySnapshot = await getDocs(collection(fireDB, "products"));
 
       // Delete each document
       querySnapshot.forEach(async (doc) => {
         await deleteDoc(doc.ref);
       });
 
-      console.log('All documents deleted successfully!');
-       return true
+      console.log("All documents deleted successfully!");
+      return true;
     } catch (error) {
-      console.error('Error deleting documents:', error);
+      console.error("Error deleting documents:", error);
       return false;
     }
-  };
+  }
+  async orderProduct({
+    userId,
+    name,
+    email,
+    address,
+    pincode,
+    city,
+    state,
+    phone,
+    country,
+    items,
+    totalAmount,
+  }) {
+    try {
+      const orderData = {
+        userId,
+        name,
+        email,
+        address,
+        pincode,
+        city,
+        state,
+        phone,
+        country,
+        items,
+        totalAmount,
+        timestamp: serverTimestamp(),
+      };
+      const orderRef = await addDoc(collection(fireDB, "orders"), {
+        ...orderData,
+      });
+      console.log("Order placed successfully! Order ID:", orderRef.id);
+      return true;
+    } catch (error) {
+      console.log(":: error while placing order", error);
+      return false;
+    }
+  }
 }
 
 const productService = new ProductService();

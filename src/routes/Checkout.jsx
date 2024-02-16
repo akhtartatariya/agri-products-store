@@ -1,13 +1,40 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-
+import productService from "../firebase/product_service";
 const Checkout = () => {
   const cart = useSelector((state) => state.cart);
+  const userId=useSelector((state)=>state.auth.userData?.uid);
   const { register, handleSubmit } = useForm();
-
   const placeOrder = async (data) => {
-    console.log(data);
+    try {
+      const order = {
+        
+        contact: { email: data.email, name: data.name, phone: data.phone },
+        delivery: {
+          country: data.country,
+          state: data.state,
+          city: data.city,
+          address: data.address,
+          pincode: data.pincode,
+        },
+        items: cart.cartItems.map((cartItem) => ({
+          productId: cartItem.id,
+          name: cartItem.product_name,
+          price: cartItem.price[cartItem.id],
+          quantity: cartItem.cartQuantity,
+          weight: cartItem.weight[cartItem.id],
+        })),
+        totalAmount: cart.cartTotalAmount,
+
+      };
+      const orderPlaced = await productService.orderProduct({
+        userId: userId, // You need to replace this with the actual user ID
+        ...order,
+      });
+    } catch (error) {
+      console.log(":: error while placing order" + error);
+    }
   };
 
   return (

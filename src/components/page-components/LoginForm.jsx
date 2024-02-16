@@ -32,10 +32,8 @@ function LoginForm({ handleCancel, loggedIn, showRegister }) {
 
     try {
       const account = await authService.login(email, password);
-      console.log(account.user.displayName);
       if (account) {
         const user = await authService.getCurrentUser();
-        console.log(user);
         const userData = {
           uid: account.user.uid,
           email: account.user.email,

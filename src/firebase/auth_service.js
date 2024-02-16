@@ -15,7 +15,6 @@ class AuthService {
         email,
         password
       );
-      console.log(userAccount);
       let user = {
         name: name,
         email: userAccount.user.email,

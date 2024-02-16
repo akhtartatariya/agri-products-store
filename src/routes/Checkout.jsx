@@ -1,5 +1,4 @@
 import React from "react";
-import cartSlice from "../store/cartSlice";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 
@@ -7,17 +6,16 @@ const Checkout = () => {
   const cart = useSelector((state) => state.cart);
   const { register, handleSubmit } = useForm();
 
-  console.log(cart);
   const placeOrder = async (data) => {
     console.log(data);
   };
 
   return (
     <>
-      <div className="flex flex-col md:flex-row h-screen bg-white border border-t-gray-300">
-        <div className="md:w-7/12 border border-r-gray-300 border-t-0 p-5 flex flex-col ml-0 md:ml-52 border-l-0 h-[10rem]">
+      <div className="min-h-screen flex flex-col md:flex-row bg-white border border-t-gray-300">
+        <div className="md:w-7/12 p-5 flex flex-col md:ml-52 border border-r-gray-300 border-t-0 border-l-0">
           <form onSubmit={handleSubmit(placeOrder)}>
-            <div className="w-full ">
+            <div className="w-full">
               <label htmlFor="contact" className="text-2xl font-semibold block">
                 Contact
               </label>
@@ -104,41 +102,41 @@ const Checkout = () => {
                 className="border border-gray-300 p-2 w-full rounded my-2"
                 {...register("phone", { required: true })}
               />
-              <button
-                type="submit"
-                className="bg-[#0073cf] text-white p-2 rounded-lg w-full my-2 font-semibold"
-              >
-                Review the order
-              </button>
             </div>
+            <button
+              type="submit"
+              className="bg-[#0073cf] text-white p-2 rounded-lg w-full my-2 font-semibold"
+            >
+              Review the order
+            </button>
           </form>
         </div>
-        <div className=" md:w-5/12 bg-gray-100 p-5">
+        <div className="md:w-5/12 p-5 bg-gray-100 ">
           {cart.cartItems.map((cartItem) => (
             <div
-              className="w-full flex flex-row border-b-gray-300 p-5 "
               key={cartItem.id}
+              className="flex flex-row items-center w-full border-b-gray-300 p-5"
             >
-              <div className=" flex justify-center items-center image w-1/5 rounded border border-gray-300 max-w-16 max-h-16 relative">
-                <img src={cartItem.product_img} alt={cartItem.product_name} />
-                <span className="absolute top-0 right-0 w-4 h-4 rounded-sm bg-gray-500 text-center text-white text-xs font-semibold leading-4 ">
+              <div className="w-1/5 relative md:max-w-16 md:max-h-16 ">
+                <img
+                  src={cartItem.product_img}
+                  alt={cartItem.product_name}
+                  className="  rounded border border-gray-300 w-full h-full"
+                />
+                <span className="absolute top-0 right-0  w-4 h-4 rounded-sm bg-gray-500 text-center text-white text-xs font-semibold leading-4">
                   {cartItem.cartQuantity}
                 </span>
               </div>
-              <div className="w-2/5 flex flex-col h-full ml-5 ">
-                <div>
-                  <p className=" text-base font-semibold text-gray-600 ">
-                    {cartItem.product_name}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500  ">
-                    {cartItem.weight[cartItem.id]}
-                  </p>
-                </div>
+              <div className="w-2/5 flex flex-col h-full ml-5">
+                <p className="text-base font-semibold text-gray-600">
+                  {cartItem.product_name}
+                </p>
+                <p className="text-sm text-gray-500">
+                  {cartItem.weight[cartItem.id]}
+                </p>
               </div>
               <div className="w-2/5">
-                <p className="text-base font-semibold text-gray-600 ">
+                <p className="text-base font-semibold text-gray-600">
                   €{cartItem.price[cartItem.id] * cartItem.cartQuantity}
                 </p>
               </div>
@@ -146,10 +144,9 @@ const Checkout = () => {
           ))}
 
           {/* Total amount  */}
-
-          <div className="flex justify-between mt-5 p-5 w-[70%]">
-            <p className=" text-lg font-semibold text-gray-600 "> Total </p>
-            <p className=" text-lg font-semibold text-gray-600 ">
+          <div className="flex md:justify-between justify-end mt-5 p-5 w-[70%]">
+            <p className="text-lg font-semibold text-gray-600 mr-3">Total</p>
+            <p className="text-lg font-semibold text-gray-600">
               €{cart.cartTotalAmount.toFixed(2)}
             </p>
           </div>

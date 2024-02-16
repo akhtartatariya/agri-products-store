@@ -18,7 +18,6 @@ function Home() {
       productService.getAllProducts().then((products) => {
         setProducts(products);
         setIsLoading(false);
-        console.log(products);
       });
     } catch (error) {
       console.log("Error while loading products:", error);

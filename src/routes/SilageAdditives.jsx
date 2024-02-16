@@ -12,7 +12,6 @@ import { CgClose, CgCloseO } from "react-icons/cg";
 import { IoIosArrowDropupCircle } from "react-icons/io";
 
 function SilageAdditives() {
-  // console.log(products.products);
 
   //States
   const [products, setProducts] = useState([]);
@@ -109,14 +108,12 @@ function SilageAdditives() {
         break;
     }
 
-    console.log(item);
 
     // Uncheck the checkbox associated with the selected option
     const checkbox = document.getElementById(toCamelCase(item));
     if (checkbox) checkbox.checked = false;
   };
 
-  // console.log(corn);
 
   //UseEffect for setting Items to Filter on checking out the option
   useEffect(() => {
@@ -299,7 +296,6 @@ function SilageAdditives() {
     try {
       setIsLoading(true);
       productService.getAllProducts().then((product) => {
-        // console.log(product);
         setProducts(product);
         setIsLoading(false);
       });

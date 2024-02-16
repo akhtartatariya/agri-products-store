@@ -3,7 +3,6 @@ import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 import Button from "./FormStuff/Button";
 
 function Carousel({ data, text }) {
-  //   console.log(data);
 
   const [slide, setSlide] = useState(1);
 

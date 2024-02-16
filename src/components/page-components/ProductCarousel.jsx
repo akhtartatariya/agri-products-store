@@ -6,7 +6,6 @@ import ProductCard from "../ProductCard";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 const ProductCarousel = ({ products }) => {
-  console.log(products);
 
   const settings = {
     dots: true,

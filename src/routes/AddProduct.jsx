@@ -9,9 +9,6 @@ const AddProduct = () => {
         <Link to={"/"}>Home</Link> &nbsp;/ Add Product
       </div>
       <PostProduct />
-
-
-      
     </>
   );
 };

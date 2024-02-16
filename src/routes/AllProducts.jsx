@@ -14,7 +14,6 @@ const AllProducts = () => {
   useEffect(() => {
     productService.getAllProducts().then((product) => {
       setProducts(product);
-      console.log(product);
     });
   }, []);
   const deleteProduct = async (productId, productImage) => {

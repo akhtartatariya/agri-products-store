@@ -34,7 +34,6 @@ function Nav() {
   const userEmail = useSelector((state) => state.auth.userData?.email);
   const { cartTotalQuantity } = useSelector((state) => state.cart);
 
-  // console.log(userName);
   //Form State
   const [forms, setForms] = useState({
     loginForm: false,
@@ -136,7 +135,6 @@ function Nav() {
       active: userEmail === "sanaya@gmail.com" || userEmail === "a@gmail.com",
     },
   ];
-  // console.log(isHomePage); For Debugging
 
   return (
     <>

@@ -18,10 +18,8 @@ import {
 
 function Cart() {
   const cart = useSelector((state) => state.cart);
-  console.log(cart);
   const userData = useSelector((state) => state.auth.userData);
 
-  // console.log(cart)
   const dispatch = useDispatch();
 
   const handleRemoveFromCart = (cartItem) => {
@@ -131,7 +129,6 @@ function Cart() {
                           <div className="max-md:flex max-md:justify-end">
                             €{cartItem.price[cartItem.id]}
                           </div>
-                          {/* {console.log(cartItem.price[cartItem.id])} */}
                           <div className="max-md:flex max-md:justify-end">
                             <div className="flex items-start justify-center w-32 max-w-full border-[0.5px] border-slate-600 rounded-sm">
                               <Button

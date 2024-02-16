@@ -10,7 +10,6 @@ const EditProduct = () => {
   useEffect(() => {
     productService.getProduct(slug).then((product)=>{
       setProduct(product);
-    //   console.log(product)
     })
   }, [navigate, slug]);
   return (

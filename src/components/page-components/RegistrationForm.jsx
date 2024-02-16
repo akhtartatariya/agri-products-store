@@ -41,7 +41,6 @@ function RegistrationForm({
       id: Math.floor(Math.random() * 1000),
     };
     const validateRegistrationForm = (obj) => {
-      console.log(obj);
       if (
         Object.values(obj).every(
           (value) => value || (typeof value === "number" && value === 0)

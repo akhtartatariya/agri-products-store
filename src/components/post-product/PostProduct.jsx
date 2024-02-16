@@ -9,7 +9,6 @@ import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import { fireDB } from "../../firebase/config";
 import { useSelector } from "react-redux";
 const PostProduct = ({ product }) => {
-  // console.log(product);
   const [weight_50, setWeight_50] = useState("");
   const [weight_250, setWeight_250] = useState("");
   useEffect(() => {
@@ -19,7 +18,6 @@ const PostProduct = ({ product }) => {
 
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.userData?.uid);
-  // console.log(user);
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
       product_name: product?.product_name || "",
@@ -52,27 +50,19 @@ const PostProduct = ({ product }) => {
   async function getMaxProductId() {
     try {
       const productRef = collection(fireDB, "products");
-      // console.log(productRef)
       const maxIdQuery = query(
         productRef,
         orderBy("productId", "desc"),
         limit(1)
       );
-      console.dir(
-        "Complete Query Object:",
-        { depth: null, colors: true },
-        maxIdQuery
-      );
+      
       const querySnapshot = await getDocs(maxIdQuery);
-      // console.log("Query Snapshot:", querySnapshot.docs);
       if (querySnapshot.empty) {
         // No products in the collection yet
-        // console.log(querySnapshot)
         return 0;
       } else {
         // Get the current maximum product ID
         const maxProductId = querySnapshot.docs[0].data().productId;
-        console.log(maxProductId);
         return maxProductId;
       }
     } catch (error) {
@@ -84,17 +74,14 @@ const PostProduct = ({ product }) => {
   // Function to generate a new product ID
   async function generateNewProductId() {
     const maxProductId = await getMaxProductId();
-    // console.log(maxProductId)
     let newProductId = String(Number(maxProductId) + 1);
     // if (newProductId <= 10) {
     //   newProductId = '0' + newProductId;
     // }
-    // console.log(newProductId)
     newProductId = newProductId.padStart(2, "0");
     return newProductId;
   }
   const submit = async (data) => {
-    // console.log(data);
     const hasImage = data.image && data.image.length > 0;
     if (product) {
       let updatedData = { ...data };
@@ -146,14 +133,12 @@ const PostProduct = ({ product }) => {
         // Generate a new product ID
         const newProductId = await generateNewProductId();
 
-        console.log(newProductId);
         const newProduct = await productService.addProduct({
           ...data,
           product_img: file,
           productId: newProductId,
           userId: user,
         });
-        // console.log(newProduct);
         if (newProduct.success) {
           const { docRef } = newProduct;
           console.log("New Product Document Reference:", docRef);

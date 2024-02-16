@@ -35,32 +35,40 @@ function Home() {
           />
         </div>
         {/* Products Below Carousel for large screen */}
-        <div className="max-md:hidden grid grid-cols-[1fr_1fr] xl:px-[100px] max-xl:md:px-[10px] py-24 w-full">
-          {/* Product Category 1 */}
-          <div className="flex max-[1140px]:flex-col justify-between max-[1140px]:items-center max-[1140px]:gap-4 border-r-2 max-xl:lg:pr-10 md:pr-4 border-gray-200">
-            <ProductCard
-              products={products.filter(
-                (item) =>
-                  item.technology === "RapidReact" &&
-                  (item.used_for === "Corn" || item.used_for === "Grass") &&
-                  (item.product_name === "Pioneer® 11C33" ||
-                    item.product_name === "Pioneer® 11G22")
-              )}
-            />
+        {isLoading ? (
+          <div className="flex justify-center w-full">
+            <div className="animate__animated animate__pulse animate__infinite my-8 text-white text-sm h-11 flex items-center justify-center w-3/4 bg-[#0073cf] shadow-lg border-solid border-2 border-opacity-30 border-gray-600 rounded-lg">
+              Loading...
+            </div>
           </div>
-          {/* Product Category 2 */}
-          <div className="flex max-[1140px]:flex-col justify-between max-[1140px]:items-center max-[1140px]:gap-4 border-l-2 max-xl:lg:pl-10 md:pl-4 border-gray-200">
-            <ProductCard
-              products={products.filter(
-                (item) =>
-                  item.technology === "FiberTechnology" &&
-                  (item.used_for === "Corn" || item.used_for === "Grass") &&
-                  (item.product_name === "Pioneer® 11CFT" ||
-                    item.product_name === "Pioneer® 11GFT")
-              )}
-            />
+        ) : (
+          <div className="max-md:hidden grid grid-cols-[1fr_1fr] xl:px-[100px] max-xl:md:px-[10px] py-24 w-full">
+            {/* Product Category 1 */}
+            <div className="flex max-[1140px]:flex-col justify-between max-[1140px]:items-center max-[1140px]:gap-4 border-r-2 max-xl:lg:pr-10 md:pr-4 border-gray-200">
+              <ProductCard
+                products={products.filter(
+                  (item) =>
+                    item.technology === "RapidReact" &&
+                    (item.used_for === "Corn" || item.used_for === "Grass") &&
+                    (item.product_name === "Pioneer® 11C33" ||
+                      item.product_name === "Pioneer® 11G22")
+                )}
+              />
+            </div>
+            {/* Product Category 2 */}
+            <div className="flex max-[1140px]:flex-col justify-between max-[1140px]:items-center max-[1140px]:gap-4 border-l-2 max-xl:lg:pl-10 md:pl-4 border-gray-200">
+              <ProductCard
+                products={products.filter(
+                  (item) =>
+                    item.technology === "FiberTechnology" &&
+                    (item.used_for === "Corn" || item.used_for === "Grass") &&
+                    (item.product_name === "Pioneer® 11CFT" ||
+                      item.product_name === "Pioneer® 11GFT")
+                )}
+              />
+            </div>
           </div>
-        </div>
+        )}
         {/* Youtube Embbed for large screen */}
         <div className="max-md:hidden">
           <Title

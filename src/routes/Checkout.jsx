@@ -39,7 +39,7 @@ const Checkout = () => {
       });
       if (orderPlaced) {
         dispatch(clearCart());
-        navigate('/order-history')
+        navigate(`/order-history/${userId}`);
         console.log("Order placed successfully!");
         console.log(orderPlaced);
 

@@ -32,6 +32,7 @@ function Nav() {
   const userStatus = useSelector((state) => state.auth.status);
   const userName = useSelector((state) => state.auth.userData?.displayName);
   const userEmail = useSelector((state) => state.auth.userData?.email);
+  const userId=useSelector((state) => state.auth.userData?.uid);
   const { cartTotalQuantity } = useSelector((state) => state.cart);
 
   //Form State
@@ -131,7 +132,7 @@ function Nav() {
     },
     {
       name:'ORDER HISTORY',
-      slug: "/order-history",
+      slug: "/order-history/"+userId,
       active: userEmail !== "sanaya@gmail.com" && userEmail !== "a@gmail.com",
     },
     {

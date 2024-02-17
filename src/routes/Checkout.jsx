@@ -1,20 +1,26 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import productService from "../firebase/product_service";
+import { clearCart } from "../store/cartSlice";
+import { useNavigate } from "react-router-dom";
+
 const Checkout = () => {
+  const [total, setTotal] = useState(true);
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const userId=useSelector((state)=>state.auth.userData?.uid);
+  const userId = useSelector((state) => state.auth.userData?.uid);
   const { register, handleSubmit } = useForm();
+  const navigate=useNavigate()
   const placeOrder = async (data) => {
     try {
       const order = {
-        
         contact: { email: data.email, name: data.name, phone: data.phone },
         delivery: {
           country: data.country,
           state: data.state,
           city: data.city,
+          company: data.company,
           address: data.address,
           pincode: data.pincode,
         },
@@ -26,12 +32,19 @@ const Checkout = () => {
           weight: cartItem.weight[cartItem.id],
         })),
         totalAmount: cart.cartTotalAmount,
-
       };
       const orderPlaced = await productService.orderProduct({
-        userId: userId, // You need to replace this with the actual user ID
+        userId: userId,
         ...order,
       });
+      if (orderPlaced) {
+        dispatch(clearCart());
+        navigate('/order-history')
+        console.log("Order placed successfully!");
+        console.log(orderPlaced);
+
+        setTotal(false);
+      }
     } catch (error) {
       console.log(":: error while placing order" + error);
     }
@@ -171,12 +184,14 @@ const Checkout = () => {
           ))}
 
           {/* Total amount  */}
-          <div className="flex md:justify-between justify-end mt-5 p-5 w-[70%]">
-            <p className="text-lg font-semibold text-gray-600 mr-3">Total</p>
-            <p className="text-lg font-semibold text-gray-600">
-              €{cart.cartTotalAmount.toFixed(2)}
-            </p>
-          </div>
+          {total && (
+            <div className="flex md:justify-between justify-end mt-5 p-5 w-[70%]">
+              <p className="text-lg font-semibold text-gray-600 mr-3">Total</p>
+              <p className="text-lg font-semibold text-gray-600">
+                €{cart.cartTotalAmount.toFixed(2)}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </>

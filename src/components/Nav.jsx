@@ -130,6 +130,11 @@ function Nav() {
       active: userEmail !== "sanaya@gmail.com" && userEmail !== "a@gmail.com",
     },
     {
+      name:'ORDER HISTORY',
+      slug: "/order-history",
+      active: userEmail !== "sanaya@gmail.com" && userEmail !== "a@gmail.com",
+    },
+    {
       name: "ADD PRODUCT",
       slug: "/admin/add-product",
       active: userEmail === "sanaya@gmail.com" || userEmail === "a@gmail.com",

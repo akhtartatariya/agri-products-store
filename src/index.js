@@ -35,6 +35,7 @@ import EditProduct from "./routes/EditProduct";
 import UserProfile from "./routes/UserProfile";
 import Checkout from "./routes/Checkout";
 import Dashboard from "./admin/Dashboard";
+import OrderHistory from "./routes/OrderHistory";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -45,6 +46,7 @@ const router = createBrowserRouter(
       <Route path="/about" element={<About />} />
       <Route path="/faqs" element={<FAQs />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/order-history" element={<OrderHistory />} />
       <Route path="/payment" element={<Payment />} />
       <Route path="/shipment" element={<Shipment />} />
       <Route path="/rightofwithdrawal" element={<RightOfWithdrawal />} />

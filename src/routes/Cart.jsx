@@ -49,8 +49,8 @@ function Cart() {
           <Link to={"/"}>Home</Link> &nbsp;/ Cart
         </div>
         {/* Cart Container */}
-        <div className="py-4 px-8 md:py-8 md:px-16 max-md:mt-4">
-          <h2 className="font-semibold text-3xl text-center max-md:mb-4">
+        <div className="p-4 px-8 md:p-8 md:px-16 max-md:mt-4">
+          <h2 className="font-semibold text-2xl md:text-3xl text-center max-md:mb-4">
             Shopping Cart
           </h2>
           {cart.cartItems.length === 0 ? (
@@ -164,29 +164,31 @@ function Cart() {
                 <Button
                   children={"Clear Cart"}
                   onClick={() => handleClearCart()}
-                  className="bg-none outline-none max-sm:w-24 sm:w-32 max-w-full h-12 font-semibold tracking-wide border-[0.5px] border-slate-400 text-gray-500 rounded-md"
+                  className="bg-none outline-none max-sm:w-24 sm:w-32 max-w-full h-12 font-semibold tracking-wide border-[0.5px] border-slate-400 text-gray-500 rounded-md text-sm md:text-base"
                 />
                 <div className="md:w-72 max-sm:w-48 max-w-full">
                   <div className="flex justify-between text-lg">
-                    <span>Subtotal</span>
+                    <span className="ml-2 font-semibold ">Subtotal</span>
                     <span className="font-bold">
                       €{cart.cartTotalAmount.toFixed(2)}
                     </span>
                   </div>
-                  <p className="text-sm font-light my-2">
+                  <p className="text-sm font-light my-2 text-right md:text-center">
                     Taxes and shipping calculated at checkout
                   </p>
                   <hr className="my-2" />
-                  <Link to={`/checkout/${userData?.uid}`}>
-                    <Button
-                      children={"Checkout"}
-                      className="bg-[#0073cf] outline-none w-full h-12 font-semibold tracking-wide border-[0.5px] border-none text-white rounded-md"
-                    />
-                  </Link>
+                  <div className="mb-2">
+                    <Link to={`/checkout/${userData?.uid}`}>
+                      <Button
+                        children={"Checkout"}
+                        className="bg-[#0073cf] outline-none w-full h-12 font-semibold tracking-wide border-[0.5px] border-none text-white rounded-md mb-2"
+                      />
+                    </Link>
+                  </div>
                   <div className="mt-4">
                     <Link
                       to={"/silage_additives"}
-                      className="text-gray-500 flex items-center"
+                      className="text-gray-500 flex items-center self-start"
                     >
                       <BsArrowLeft />
                       <span className="ml-2">Continue Shopping</span>

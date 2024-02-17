@@ -134,36 +134,11 @@ class ProductService {
       return false;
     }
   }
-  async orderProduct({
-    userId,
-    name,
-    email,
-    address,
-    pincode,
-    city,
-    state,
-    phone,
-    country,
-    items,
-    totalAmount,
-  }) {
+  async orderProduct(order) {
     try {
-      const orderData = {
-        userId,
-        name,
-        email,
-        address,
-        pincode,
-        city,
-        state,
-        phone,
-        country,
-        items,
-        totalAmount,
-        timestamp: serverTimestamp(),
-      };
       const orderRef = await addDoc(collection(fireDB, "orders"), {
-        ...orderData,
+        ...order,
+        timestamp: serverTimestamp(),
       });
       console.log("Order placed successfully! Order ID:", orderRef.id);
       return true;

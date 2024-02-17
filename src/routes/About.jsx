@@ -19,7 +19,7 @@ function About() {
               A commitment to increasing <div>Progress</div>
             </p>
           </div>
-          <div className="text-black text-base md:text-xl mt-4 md:mt-0">
+          <div className="text-black text-xs md:text-xl mt-4 md:mt-0 ">
             <p>
               We provide our global presence, deep knowledge and diverse
               resources so farms can thrive and move our world forward.
@@ -58,14 +58,14 @@ function About() {
             lives of those who produce and those who consume, ensuring progress
             for generations to come.
           </p>
-          <div className="relative pt-8 md:pt-16 grid grid-cols-1 md:grid-cols-4 gap-4 ">
+          <div className="relative pt-8 md:pt-16 grid grid-cols-1 md:grid-cols-4 gap-4">
             <img
               className="md:col-span-1 h-auto w-full md:w-[310px] object-cover"
               src="./img/about/aboutimg1.webp"
               alt=""
             />
-            <div className="md:col-span-3 mt-4 md:mt-0">
-              <p className="pt-2 md:pt-5 text-xl md:text-2xl font-bold pb-3 ">
+            <div className="md:col-span-3 mt-4 md:mt-0 text-center md:text-left">
+              <p className="pt-2 md:pt-5 text-xl md:text-2xl font-bold pb-3">
                 Enrich lives
               </p>
               <p className="text-base md:text-lg">
@@ -75,23 +75,25 @@ function About() {
               </p>
             </div>
           </div>
+          <hr className="my-5" />
           <div className="relative pt-8 md:pt-16 grid grid-cols-1 md:grid-cols-4 gap-4 ">
             <img
               className="md:col-span-1 h-auto w-full md:w-[310px] object-cover"
               src="./img/about/aboutimg2.jpg"
               alt=""
             />
-            <div className="md:col-span-3 mt-4 md:mt-0">
+            <div className="md:col-span-3 mt-4 md:mt-0 text-center md:text-left">
               <p className="pt-2 md:pt-5 text-xl md:text-2xl font-bold pb-3 ">
                 Stand
               </p>
-              <p className="text-base md:text-lg">
+              <p className="text-base md:text-lg ">
                 We are leaders who act boldly. We accept the challenges our
                 industry faces, and we will do so to ensure agriculture
                 progresses and prospers.
               </p>
             </div>
           </div>
+          <hr className="my-5" />
 
           <div className="relative pt-8 md:pt-16 grid grid-cols-1 md:grid-cols-4 gap-4 ">
             <img
@@ -99,7 +101,7 @@ function About() {
               src="./img/about/aboutimg3.jpg"
               alt=""
             />
-            <div className="md:col-span-3 mt-4 md:mt-0">
+            <div className="md:col-span-3 mt-4 md:mt-0 text-center md:text-left">
               <p className="pt-2 md:pt-5 text-xl md:text-2xl font-bold pb-3 ">
                 Be curious
               </p>
@@ -110,6 +112,7 @@ function About() {
               </p>
             </div>
           </div>
+          <hr className="my-5" />
 
           <div className="relative pt-8 md:pt-16 grid grid-cols-1 md:grid-cols-4 gap-4 ">
             <img
@@ -117,8 +120,8 @@ function About() {
               src="./img/about/aboutimg4.jpg"
               alt=""
             />
-            <div className="md:col-span-3 mt-4 md:mt-0">
-              <p className="pt-2 md:pt-5 text-xl md:text-2xl font-bold pb-3 ">
+            <div className="md:col-span-3 mt-4 md:mt-0 text-center md:text-left">
+              <p className="pt-2 md:pt-5 text-xl md:text-2xl font-bold pb-3">
                 Build together
               </p>
               <p className="text-base md:text-lg">
@@ -128,6 +131,7 @@ function About() {
               </p>
             </div>
           </div>
+          <hr className="my-5" />
 
           <div className="relative pt-8 md:pt-16 grid grid-cols-1 md:grid-cols-4 gap-4 ">
             <img
@@ -135,8 +139,8 @@ function About() {
               src="./img/about/aboutimg5.jpg"
               alt=""
             />
-            <div className="md:col-span-3 mt-4 md:mt-0">
-              <p className="pt-2 md:pt-5 text-xl md:text-2xl font-bold pb-3 ">
+            <div className="md:col-span-3 mt-4 md:mt-0 text-center md:text-left">
+              <p className="pt-2 md:pt-5 text-xl md:text-2xl font-bold pb-3">
                 Be outstanding
               </p>
               <p className="text-base md:text-lg">

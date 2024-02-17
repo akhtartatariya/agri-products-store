@@ -8,6 +8,8 @@ import {
   setDoc,
   serverTimestamp,
   addDoc,
+  query,
+  orderBy,
 } from "firebase/firestore";
 import { fireDB } from "./config";
 class ProductService {
@@ -145,6 +147,18 @@ class ProductService {
     } catch (error) {
       console.log(":: error while placing order", error);
       return false;
+    }
+  }
+
+  async getOrders() {
+    try {
+      const ordersQuery = query(collection(fireDB, 'orders'), orderBy('timestamp', 'desc'));
+      const ordersSnapshot = await getDocs(ordersQuery);
+      const ordersData = ordersSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      return ordersData;
+    }
+    catch (err) {
+      console.log(":: error while fetching orders",err);
     }
   }
 }

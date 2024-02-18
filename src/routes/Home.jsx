@@ -10,8 +10,12 @@ import { Link } from "react-router-dom";
 import ProductCarousel from "../components/page-components/ProductCarousel";
 
 function Home() {
+  //States
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  //dry matter
+  const [initialWeight, setInitialWeight] = useState("");
+  const [finalWeight, setFinalWeight] = useState("");
 
   useEffect(() => {
     try {
@@ -23,6 +27,67 @@ function Home() {
       console.log("Error while loading products:", error);
     }
   }, []);
+
+  const handleInitialValueChange = (e) => {
+    setInitialWeight(e.target.value);
+  };
+
+  const handleFinalValueChange = (e) => {
+    setFinalWeight(e.target.value);
+  };
+
+  useEffect(() => {
+    const dryPercent = (finalWeight / initialWeight) * 100;
+
+    const calcBlock = document.getElementById("calc");
+    const label = document.getElementById("label");
+    const percBlock = document.getElementById("drypercent");
+    const inoculant = document.getElementById("inoculant");
+
+    // Remove only bg-color classes
+    calcBlock.classList.forEach((className) => {
+      if (className.startsWith("bg-")) {
+        calcBlock.classList.remove(className);
+      }
+    });
+    if (isNaN(dryPercent) || !isFinite(dryPercent)) {
+      percBlock.innerText = NaN;
+      inoculant.innerText = "";
+    } else {
+      percBlock.innerText = dryPercent;
+    }
+
+    if (dryPercent === 0 || dryPercent > 999) {
+      calcBlock.classList.add("bg-[#f8f8f8]");
+      label.innerText = "";
+      inoculant.innerText = "";
+    } else if (dryPercent > 0 && dryPercent < 32) {
+      calcBlock.classList.add("bg-[#ff8352]");
+      label.innerText =
+        "Your silage is too wet! If your weather conditions allow, you should wait for the milk line to reach 2/3 and get the most out of your crop.";
+      inoculant.innerText = "Pioneer® 11C33";
+    } else if (dryPercent === 32) {
+      calcBlock.classList.add("bg-[#00dc78]");
+      label.innerText =
+        "Your field is at the optimal harvest point. If the weather conditions and the health of the plant allow it, you can wait a few more days to be able to add more starch.";
+      inoculant.innerText = "Pioneer® 11C33";
+    } else if (dryPercent > 32 && dryPercent < 36) {
+      calcBlock.classList.add("bg-[#00b25d]");
+      label.innerText =
+        "Your field is at the optimal harvest point! Don't wait any longer and get the most out of your crop!";
+      inoculant.innerText = "Pioneer® 11C33";
+    } else if (dryPercent > 35 && dryPercent < 38) {
+      calcBlock.classList.add("bg-[#00dc78]");
+      label.innerText =
+        "Your field is on the edge of the harvest point, you should pay particular attention to the compaction of the silo to reduce the risk of overheating.";
+      inoculant.innerText = "Pioneer® 11A44";
+    } else if (dryPercent > 37 && dryPercent < 1000) {
+      calcBlock.classList.add("bg-[#ff8352]");
+      label.innerText =
+        "You must harvest your silage as soon as possible, such high dry matter can lead to stability problems and reduced intake in animals.";
+      inoculant.innerText = "Pioneer® 11A44";
+    }
+  }, [initialWeight, finalWeight]);
 
   return (
     <>
@@ -399,6 +464,8 @@ thanks to the most advanced technology"
               <div className="flex flex-wrap items-center w-full">
                 <input
                   type="number"
+                  value={initialWeight}
+                  onChange={(e) => handleInitialValueChange(e)}
                   className="md:w-[53%] md:min-w-[266px] md:max-w-[266px] md:h-[53px] min-[750px]:p-[10px_18px] w-full [border:1px_solid_#c4c9d4] rounded-[2.5px] h-[45px] min-w-[220px] max-w-[220px] bg-white p-[8px_15px]"
                 />
                 <span className="ml-auto w-auto">grams</span>
@@ -409,6 +476,8 @@ thanks to the most advanced technology"
               <div className="flex flex-wrap items-center w-full">
                 <input
                   type="number"
+                  value={finalWeight}
+                  onChange={(e) => handleFinalValueChange(e)}
                   className="md:w-[53%] md:min-w-[266px] md:max-w-[266px] md:h-[53px] md:p-[10px_18px] w-full [border:1px_solid_#c4c9d4] rounded-[2.5px] h-[45px] min-w-[220px] max-w-[220px] bg-white p-[8px_15px]"
                 />
                 <span className="ml-auto w-auto">grams</span>
@@ -416,25 +485,35 @@ thanks to the most advanced technology"
             </div>
             {/* Inputs End */}
             {/* Calculation Block Start */}
-            <div className="w-full bg-[#f8f8f8] mt-[38px] p-[25px_0_32px] relative font-medium flex flex-wrap transition-[all_.1s_ease-out] md:before:left-[-80px] before:left-[-22px] md:before:w-[80px] before:content-[''] before:w-[22px] before:absolute before:top-0 before:bg-inherit before:block before:z-[2] before:h-full md:after:right-[-80px] after:right-[-22px] md:after:w-[80px] after:content-['']  after:w-[22px] after:absolute after:top-0 after:bg-inherit after:block after:z-[2] after:h-full ">
+            <div
+              id="calc"
+              className="w-full bg-[#f8f8f8] mt-[38px] p-[25px_0_32px] relative font-medium flex flex-wrap transition-[all_.1s_ease-out] md:before:left-[-80px] before:left-[-22px] md:before:w-[80px] before:content-[''] before:w-[22px] before:absolute before:top-0 before:bg-inherit before:block before:z-[2] before:h-full md:after:right-[-80px] after:right-[-22px] md:after:w-[80px] after:content-['']  after:w-[22px] after:absolute after:top-0 after:bg-inherit after:block after:z-[2] after:h-full "
+            >
               <div className="md:w-[34%] w-full">
                 <span className="w-full block mb-[8px]">% dry matter</span>
                 <div className="flex flex-wrap items-center w-full">
                   <textarea
+                    id="drypercent"
                     disabled="disabled"
                     className="bg-white min-w-[260px] max-w-[260px] h-[53px] [border:1px_solid_#c4c9d4] rounded-[2.5px] resize-none pt-[16px] min-[750px]:p-[10px_18px] p-[8px_15px] touch-manipulation overflow-auto"
                   ></textarea>
                 </div>
               </div>
               <div className="md:w-[66%] md:mt-0 w-full flex flex-wrap mt-[20px] ">
-                <div className="w-[65%] pr-[20px]">
+                <div className="w-[65%] pr-[30px]">
                   <span>Label</span>
-                  <div className="font-normal text-sm mt-[10px]"></div>
+                  <div
+                    id="label"
+                    className="font-normal text-sm mt-[10px]"
+                  ></div>
                 </div>
                 <div className="w-[35%] pr-[20px]">
                   <span>Inoculant</span>
                   <div className="font-normal text-sm mt-[10px]">
-                    <Link className="text-[#0073cf] font-bold p-[20px] bg-white mt-[16px] block text-center transition-[opacity_.1s_ease-out] rounded-[4px] shadow-[0_6px_34px_#00000014] touch-manipulation"></Link>
+                    <Link
+                      id="inoculant"
+                      className="text-[#0073cf] font-bold p-[20px] bg-white mt-[16px] block text-center transition-[opacity_.1s_ease-out] rounded-[4px] shadow-[0_6px_34px_#00000014] touch-manipulation"
+                    ></Link>
                   </div>
                 </div>
               </div>

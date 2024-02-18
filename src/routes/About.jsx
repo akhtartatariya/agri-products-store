@@ -11,11 +11,11 @@ function About() {
         <img
           src="./img/about/aboutus_hero.webp"
           alt="about banner"
-          className="h-72 w-full object-cover object-center"
+          className=" h-56 w-full object-cover object-center mb-32 md:mb-24 "
         />
         <div className="absolute bottom-32 md:bottom-44 top-32 left-4 md:left-16 right-4 md:right-16 h-56 bg-white opacity-100 shadow-lg grid grid-cols-1 md:grid-cols-2 place-items-center p-8">
           <div className="mb-4 md:mb-0">
-            <p className="text-black text-left font-bold md:text-3xl text-xl ">
+            <p className="text-black text-left font-bold md:text-3xl text-lg ">
               A commitment to increasing <div>Progress</div>
             </p>
           </div>
@@ -60,7 +60,7 @@ function About() {
           </p>
           <div className="relative pt-8 md:pt-16 grid grid-cols-1 md:grid-cols-4 gap-4">
             <img
-              className="md:col-span-1 h-auto w-full md:w-[310px] object-cover"
+              className="md:col-span-1 h-auto w-full md:w-[310px] object-cover md:my-auto"
               src="./img/about/aboutimg1.webp"
               alt=""
             />
@@ -78,7 +78,7 @@ function About() {
           <hr className="my-5" />
           <div className="relative pt-8 md:pt-16 grid grid-cols-1 md:grid-cols-4 gap-4 ">
             <img
-              className="md:col-span-1 h-auto w-full md:w-[310px] object-cover"
+              className="md:col-span-1 h-auto w-full md:w-[310px] object-cover md:my-auto"
               src="./img/about/aboutimg2.jpg"
               alt=""
             />
@@ -97,7 +97,7 @@ function About() {
 
           <div className="relative pt-8 md:pt-16 grid grid-cols-1 md:grid-cols-4 gap-4 ">
             <img
-              className="md:col-span-1 h-auto w-full md:w-[310px] object-cover"
+              className="md:col-span-1 h-auto w-full md:w-[310px] object-cover md:my-auto"
               src="./img/about/aboutimg3.jpg"
               alt=""
             />
@@ -116,7 +116,7 @@ function About() {
 
           <div className="relative pt-8 md:pt-16 grid grid-cols-1 md:grid-cols-4 gap-4 ">
             <img
-              className="md:col-span-1 h-auto w-full md:w-[310px] object-cover"
+              className="md:col-span-1 h-auto w-full md:w-[310px] object-cover md:my-auto"
               src="./img/about/aboutimg4.jpg"
               alt=""
             />
@@ -135,7 +135,7 @@ function About() {
 
           <div className="relative pt-8 md:pt-16 grid grid-cols-1 md:grid-cols-4 gap-4 ">
             <img
-              className="md:col-span-1 h-auto w-full md:w-[310px] object-cover"
+              className="md:col-span-1 h-auto w-full md:w-[310px] object-cover md:my-auto"
               src="./img/about/aboutimg5.jpg"
               alt=""
             />

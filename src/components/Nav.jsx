@@ -133,7 +133,7 @@ function Nav() {
     {
       name:'ORDER HISTORY',
       slug: "/order-history/"+userId,
-      active: userEmail !== "sanaya@gmail.com" && userEmail !== "a@gmail.com",
+      active: userEmail !== "sanaya@gmail.com" && userEmail !== "a@gmail.com" && userStatus
     },
     {
       name: "ADD PRODUCT",

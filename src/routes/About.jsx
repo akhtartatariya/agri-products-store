@@ -44,9 +44,9 @@ function About() {
             ensuring progress for generations to come.
           </p>
         </div>
-        <div className="pb-12 w-full">
+        <div className="max-sm:mb-12 w-full ml-[calc(-50vw+50%)] mr-[calc(-50vw+50%)] h-[280px]">
           <img
-            className="h-full max-w-full object-cover"
+            className="h-full w-full object-cover"
             src="./img/about/aboutus_Is.webp"
             alt="about banner"
           />

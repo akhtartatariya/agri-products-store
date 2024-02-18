@@ -11,7 +11,7 @@ function About() {
         <img
           src="./img/about/aboutus_hero.webp"
           alt="about banner"
-          className=" h-56 w-full object-cover object-center mb-32 md:mb-24 "
+          className=" h-72 w-full object-cover object-center mb-16 md:mb-24 "
         />
         <div className="absolute bottom-32 md:bottom-44 top-32 left-4 md:left-16 right-4 md:right-16 h-56 bg-white opacity-100 shadow-lg grid grid-cols-1 md:grid-cols-2 place-items-center p-8">
           <div className="mb-4 md:mb-0">
@@ -44,9 +44,9 @@ function About() {
             ensuring progress for generations to come.
           </p>
         </div>
-        <div className="pb-12 md:pb-28 w-full">
+        <div className="pb-12 w-full">
           <img
-            className="h-[280px] md:h-[400px] w-full object-cover"
+            className="h-full max-w-full object-cover"
             src="./img/about/aboutus_Is.webp"
             alt="about banner"
           />

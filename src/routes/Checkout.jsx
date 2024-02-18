@@ -27,7 +27,7 @@ const Checkout = () => {
         items: cart.cartItems.map((cartItem) => ({
           productId: cartItem.id,
           name: cartItem.product_name,
-          price: cartItem.price[cartItem.id],
+          price: Number(cartItem.price[cartItem.id],),
           quantity: cartItem.cartQuantity,
           weight: cartItem.weight[cartItem.id],
         })),

@@ -512,6 +512,7 @@ thanks to the most advanced technology"
                   <div className="font-normal text-sm mt-[10px]">
                     <Link
                       id="inoculant"
+                      to={"/silage_additives"}
                       className="text-[#0073cf] font-bold p-[20px] bg-white mt-[16px] block text-center transition-[opacity_.1s_ease-out] rounded-[4px] shadow-[0_6px_34px_#00000014] touch-manipulation"
                     ></Link>
                   </div>

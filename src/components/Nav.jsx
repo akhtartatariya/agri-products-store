@@ -21,18 +21,20 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 
 // Redux
 import { useSelector } from "react-redux";
+import { useSearch } from "./context/SearchContext";
 
 function Nav() {
   //States
   const [toggle, setToggle] = useState(false);
   const [search, setSearch] = useState(false);
   const [isHomePage, setIsHomePage] = useState(false);
+  const { searchTerm, updateSearchTerm } = useSearch();
 
   //Fetch data From Store
   const userStatus = useSelector((state) => state.auth.status);
   const userName = useSelector((state) => state.auth.userData?.displayName);
   const userEmail = useSelector((state) => state.auth.userData?.email);
-  const userId=useSelector((state) => state.auth.userData?.uid);
+  const userId = useSelector((state) => state.auth.userData?.uid);
   const { cartTotalQuantity } = useSelector((state) => state.cart);
 
   //Form State
@@ -65,6 +67,10 @@ function Nav() {
   };
   const deactiveSearch = () => {
     setSearch(false);
+  };
+
+  const handleSearchChange = (e) => {
+    updateSearchTerm(e.target.value);
   };
 
   //Form Handle
@@ -131,9 +137,12 @@ function Nav() {
       active: userEmail !== "sanaya@gmail.com" && userEmail !== "a@gmail.com",
     },
     {
-      name:'ORDER HISTORY',
-      slug: "/order-history/"+userId,
-      active: userEmail !== "sanaya@gmail.com" && userEmail !== "a@gmail.com" && userStatus
+      name: "ORDER HISTORY",
+      slug: "/order-history/" + userId,
+      active:
+        userEmail !== "sanaya@gmail.com" &&
+        userEmail !== "a@gmail.com" &&
+        userStatus,
     },
     {
       name: "ADD PRODUCT",
@@ -292,6 +301,8 @@ function Nav() {
               placeholder="Search"
               className="animate__animated animate__fadeIn border border-black w-[60%] h-11 rounded outline-none px-4"
               ref={searchRef}
+              value={searchTerm}
+              onChange={handleSearchChange}
             />
             <MdOutlineSearch
               className="animate__animated animate__fadeIn cursor-pointer text-2xl text-[#0073cf] -ml-16"

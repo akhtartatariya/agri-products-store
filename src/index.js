@@ -36,6 +36,7 @@ import UserProfile from "./routes/UserProfile";
 import Checkout from "./routes/Checkout";
 import Dashboard from "./admin/Dashboard";
 import OrderHistory from "./routes/OrderHistory";
+import { SearchProvider } from "./components/context/SearchContext";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -89,9 +90,11 @@ store.dispatch(getTotals());
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <SearchProvider>
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
+    </SearchProvider>
   </React.StrictMode>
 );
 

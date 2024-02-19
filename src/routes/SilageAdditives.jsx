@@ -10,9 +10,9 @@ import Title from "../components/Title";
 //Icons
 import { CgClose, CgCloseO } from "react-icons/cg";
 import { IoIosArrowDropupCircle } from "react-icons/io";
+import { useSearch } from "../components/context/SearchContext";
 
 function SilageAdditives() {
-
   //States
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -20,6 +20,7 @@ function SilageAdditives() {
   const [filteredItems, setFilteredItems] = useState([]);
   const [usedFor, setUsedFor] = useState(true);
   const [technology, setTechnology] = useState(true);
+  const { searchTerm } = useSearch();
   //Filter States
   const [corn, setCorn] = useState(false);
   const [multiforage, setMultiforage] = useState(false);
@@ -108,12 +109,10 @@ function SilageAdditives() {
         break;
     }
 
-
     // Uncheck the checkbox associated with the selected option
     const checkbox = document.getElementById(toCamelCase(item));
     if (checkbox) checkbox.checked = false;
   };
-
 
   //UseEffect for setting Items to Filter on checking out the option
   useEffect(() => {
@@ -304,12 +303,24 @@ function SilageAdditives() {
     }
     setFilter(false);
   }, []);
-
+  const filteredProducts = products.filter((product) =>
+    product.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <div className="min-h-[100vh]">
       <div className="h-14 w-full text-white text-sm pl-[3%] md:pl-[7%] bg-[#0073cf] flex flex-row items-center">
         <Link to={"/"}>Home</Link> &nbsp;/ Silage additives
       </div>
+      {/* SEARCH SECTION */}
+      {/* <div className="p-4">
+        <input
+          type="text"
+          placeholder="Search Products"
+          className="w-full p-2 border border-gray-300 rounded-md"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+      </div> */}
       {/* PRODUCTS */}
       <div className="w-full border-b-4 border-slate-30000 h-60 pt-16 max-sm:pt-6 max-lg:px-10 lg:px-28 max-md:px-4">
         <Title
@@ -536,7 +547,7 @@ function SilageAdditives() {
           </div>
         ) : (
           <div className="lg:grid lg:grid-cols-[1fr_1fr_1fr] max-lg:flex max-lg:flex-wrap max-lg:gap-x-4 max-md:justify-center max-lg:mt-8 gap-y-4">
-            <ProductCard products={products} />
+            <ProductCard products={filteredProducts} />
           </div>
         )}
       </section>

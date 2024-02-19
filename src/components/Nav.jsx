@@ -64,15 +64,19 @@ function Nav() {
 
   const activeSearch = () => {
     setSearch(true);
+    navigate('/silage_additives')
   };
   const deactiveSearch = () => {
     setSearch(false);
+    updateSearchTerm('')
   };
 
   const handleSearchChange = (e) => {
     updateSearchTerm(e.target.value);
   };
-
+  const handleSubmit = () => {
+    setSearch(false)
+  }
   //Form Handle
   //LogIn Form Handle
   const handleShowLoginForm = () => {
@@ -292,7 +296,7 @@ function Nav() {
         </div>
       )}
       {search && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-35 backdrop-blur-sm z-30 ">
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-35 z-30 ">
           <div
             className={`absolute flex flex-row gap-8 justify-center items-center  p-2 h-20 shadow w-full bg-white`}
           >
@@ -306,7 +310,7 @@ function Nav() {
             />
             <MdOutlineSearch
               className="animate__animated animate__fadeIn cursor-pointer text-2xl text-[#0073cf] -ml-16"
-              onClick={null}
+              onClick={handleSubmit}
             />
             <CgCloseO
               className="animate__animated animate__fadeIn cursor-pointer text-2xl text-[#0073cf] "

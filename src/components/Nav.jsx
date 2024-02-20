@@ -64,15 +64,15 @@ function Nav() {
 
   const activeSearch = () => {
     setSearch(true);
-    navigate('/silage_additives')
+    navigate("/silage_additives");
   };
   const deactiveSearch = () => {
     setSearch(false);
-    updateSearchTerm('')
+    updateSearchTerm("");
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSubmit();
     }
   };
@@ -80,8 +80,8 @@ function Nav() {
     updateSearchTerm(e.target.value);
   };
   const handleSubmit = () => {
-    setSearch(false)
-  }
+    setSearch(false);
+  };
   //Form Handle
   //LogIn Form Handle
   const handleShowLoginForm = () => {
@@ -119,6 +119,11 @@ function Nav() {
     setIsHomePage(location.pathname === "/");
   }, [location.pathname]);
   const navItems = [
+    {
+      name: "DASHBOARD",
+      slug: "/admin",
+      active: userEmail === "sanaya@gmail.com" || userEmail === "a@gmail.com",
+    },
     {
       name:
         userEmail === "a@gmail.com" || userEmail === "sanaya@gmail.com"
@@ -320,7 +325,7 @@ function Nav() {
             />
             <CgCloseO
               className="animate__animated animate__fadeIn cursor-pointer text-2xl text-[#0073cf] "
-              onClick={deactiveSearch}              
+              onClick={deactiveSearch}
             />
           </div>
         </div>

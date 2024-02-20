@@ -20,7 +20,7 @@ function SilageAdditives() {
   const [filteredItems, setFilteredItems] = useState([]);
   const [usedFor, setUsedFor] = useState(true);
   const [technology, setTechnology] = useState(true);
-  const { searchTerm ,updateSearchTerm} = useSearch();
+  const { searchTerm, updateSearchTerm } = useSearch();
   //Filter States
   const [corn, setCorn] = useState(false);
   const [multiforage, setMultiforage] = useState(false);
@@ -305,21 +305,22 @@ function SilageAdditives() {
   }, []);
 
   // search section functionality
-  const filteredProducts = products.filter(
-    (product) =>
-      product.product_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.technology.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.used_for.toLowerCase().includes(searchTerm.toLowerCase()) ? true : false
+  const filteredProducts = products.filter((product) =>
+    product.product_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    product.technology.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    product.used_for.toLowerCase().includes(searchTerm.toLowerCase())
+      ? true
+      : false
   );
-  const closeSearch=()=>{
-    updateSearchTerm("")
-  }
+  const closeSearch = () => {
+    updateSearchTerm("");
+  };
   return (
     <div className="min-h-[100vh]">
       <div className="h-14 w-full text-white text-sm pl-[3%] md:pl-[7%] bg-[#0073cf] flex flex-row items-center">
         <Link to={"/"}>Home</Link> &nbsp;/ Silage additives
       </div>
-      
+
       {/* PRODUCTS */}
       <div className="w-full border-b-4 border-slate-30000 h-60 pt-16 max-sm:pt-6 max-lg:px-10 lg:px-28 max-md:px-4">
         <Title
@@ -546,11 +547,19 @@ function SilageAdditives() {
           </div>
         ) : (
           <div className="lg:grid lg:grid-cols-[1fr_1fr_1fr] max-lg:flex max-lg:flex-wrap max-lg:gap-x-4 max-md:justify-center max-lg:mt-8 gap-y-4 ">
-            {filteredProducts && searchTerm &&
-            <div className="w-full text-center text-lg text-gray-500 font-bold mb-4 ">{filteredProducts.length} results found for "{searchTerm}" <CgCloseO className="cursor-pointer underline inline-block ml-1 text-xl" onClick={closeSearch}>X</CgCloseO> </div>}
+            {filteredProducts && searchTerm && (
+              <div className="w-full text-center text-lg text-gray-500 font-bold mb-4 ">
+                {filteredProducts.length} results found for "{searchTerm}"{" "}
+                <CgCloseO
+                  className="cursor-pointer inline-block ml-1 text-xl"
+                  onClick={closeSearch}
+                >
+                  X
+                </CgCloseO>{" "}
+              </div>
+            )}
             <ProductCard products={filteredProducts} />
           </div>
-          
         )}
       </section>
 

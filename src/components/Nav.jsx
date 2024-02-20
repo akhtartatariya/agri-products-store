@@ -3,9 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Button from "./FormStuff/Button";
 import LogoutBtn from "./LogoutBtn";
 
-//FORMS
-import LoginForm from "./page-components/LoginForm";
-import RegistrationForm from "./page-components/RegistrationForm";
+
 
 //Animate.css
 import "animate.css";
@@ -37,12 +35,7 @@ function Nav() {
   const userId = useSelector((state) => state.auth.userData?.uid);
   const { cartTotalQuantity } = useSelector((state) => state.cart);
 
-  //Form State
-  const [forms, setForms] = useState({
-    loginForm: false,
-    registrationForm: false,
-  });
-  const [login, setLogin] = useState(false);
+ 
   //Location
   const location = useLocation();
   //References
@@ -81,30 +74,6 @@ function Nav() {
   };
   const handleSubmit = () => {
     setSearch(false);
-  };
-  //Form Handle
-  //LogIn Form Handle
-  const handleShowLoginForm = () => {
-    setForms({ ...forms, registrationForm: false, loginForm: true });
-  };
-  const handleCancelLoginForm = () => {
-    setForms({ ...forms, loginForm: false });
-  };
-  function handleLoginFormValidation() {
-    setForms({ ...forms, loginForm: false });
-    setLogin(true);
-  }
-  //Registration Form Handle
-  function handleShowRegisterFrom() {
-    setForms({ ...forms, loginForm: false, registrationForm: true });
-  }
-  const handleCancelRegistrationForm = () => {
-    setForms({ ...forms, registrationForm: false });
-  };
-
-  //Logout Handle
-  const logoutHandle = () => {
-    setLogin(false);
   };
 
   //Effects
@@ -204,25 +173,23 @@ function Nav() {
 
             {!userStatus ? (
               <li className="flex gap-4">
-                <NavLink>
+                <NavLink to={"/login"}>
                   <Button
                     children={"Login"}
                     className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
-                    onClick={!login ? handleShowLoginForm : undefined}
                   />
                 </NavLink>
-                <NavLink>
+                <NavLink to={'/signup'}>
                   <Button
                     children={"SignUp"}
                     className="px-3 py-2 bg-green-800 text-white rounded hover:bg-green-600"
-                    onClick={!login ? handleShowRegisterFrom : undefined}
                   />
                 </NavLink>
               </li>
             ) : null}
             {userStatus && (
               <li className="flex gap-2 items-center">
-                <LogoutBtn logoutHandle={logoutHandle} /> {`(${userName})`}
+                <LogoutBtn /> {`(${userName})`}
               </li>
             )}
           </ul>
@@ -287,19 +254,17 @@ function Nav() {
                 <Button
                   children={"Login"}
                   className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
-                  onClick={!login ? handleShowLoginForm : undefined}
                 />
 
                 <Button
                   children={"SignUp"}
                   className="px-3 py-2 bg-green-800 text-white rounded hover:bg-green-600"
-                  onClick={!login ? handleShowRegisterFrom : undefined}
                 />
               </li>
             ) : null}
             {userStatus && (
               <li className="flex gap-2 items-center">
-                <LogoutBtn logoutHandle={logoutHandle} /> {`(${userName})`}
+                <LogoutBtn /> {`(${userName})`}
               </li>
             )}
           </ul>
@@ -330,22 +295,7 @@ function Nav() {
           </div>
         </div>
       )}
-      {/* UTILITIES */}
-      {/* FORMS */}
-      {/* Login Form */}
-      {forms.loginForm && (
-        <LoginForm
-          handleCancel={handleCancelLoginForm}
-          showRegister={handleShowRegisterFrom}
-          loggedIn={handleLoginFormValidation}
-        />
-      )}
-      {forms.registrationForm && (
-        <RegistrationForm
-          handleCancel={handleCancelRegistrationForm}
-          showLogin={handleShowLoginForm}
-        />
-      )}
+      
     </>
   );
 }

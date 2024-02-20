@@ -31,7 +31,7 @@ class AuthService {
       console.log(":: error creating user", error);
     }
   }
-  async login(email, password) {
+  async login({email, password}) {
     try {
       return await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {

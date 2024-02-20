@@ -38,6 +38,8 @@ import Dashboard from "./admin/Dashboard";
 import OrderHistory from "./routes/OrderHistory";
 import { SearchProvider } from "./components/context/SearchContext";
 import Admin from "./admin/Admin";
+import Login from "./routes/Login";
+import Signup from "./routes/Signup";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -48,6 +50,8 @@ const router = createBrowserRouter(
       <Route path="/about" element={<About />} />
       <Route path="/faqs" element={<FAQs />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
       <Route path="/order-history/:id" element={<OrderHistory />} />
       <Route path="/payment" element={<Payment />} />
       <Route path="/shipment" element={<Shipment />} />

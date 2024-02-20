@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../store/authSlice";
 import { useNavigate } from "react-router-dom";
 
-const LogoutBtn = ({ logoutHandle }) => {
+const LogoutBtn = () => {
   const dispatch = useDispatch();
   const navigate=useNavigate()
   const handleCllck = () => {
@@ -13,7 +13,6 @@ const LogoutBtn = ({ logoutHandle }) => {
       localStorage.clear('user')
       navigate('/')
     });
-    logoutHandle();
   };
   return (
     <button

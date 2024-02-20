@@ -71,6 +71,11 @@ function Nav() {
     updateSearchTerm('')
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSubmit();
+    }
+  };
   const handleSearchChange = (e) => {
     updateSearchTerm(e.target.value);
   };
@@ -307,6 +312,7 @@ function Nav() {
               ref={searchRef}
               value={searchTerm}
               onChange={handleSearchChange}
+              onKeyDown={handleKeyDown}
             />
             <MdOutlineSearch
               className="animate__animated animate__fadeIn cursor-pointer text-2xl text-[#0073cf] -ml-16"
@@ -314,7 +320,7 @@ function Nav() {
             />
             <CgCloseO
               className="animate__animated animate__fadeIn cursor-pointer text-2xl text-[#0073cf] "
-              onClick={deactiveSearch}
+              onClick={deactiveSearch}              
             />
           </div>
         </div>

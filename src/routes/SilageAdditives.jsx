@@ -20,7 +20,7 @@ function SilageAdditives() {
   const [filteredItems, setFilteredItems] = useState([]);
   const [usedFor, setUsedFor] = useState(true);
   const [technology, setTechnology] = useState(true);
-  const { searchTerm } = useSearch();
+  const { searchTerm ,updateSearchTerm} = useSearch();
   //Filter States
   const [corn, setCorn] = useState(false);
   const [multiforage, setMultiforage] = useState(false);
@@ -30,7 +30,7 @@ function SilageAdditives() {
   const [fiberTechnology, setFiberTechnology] = useState(false);
   const [standard, setStandard] = useState(false);
   const [rapidReact, setRapidReact] = useState(false);
-
+  console.log(products);
   //Utility Function
   function toCamelCase(str) {
     // Make the first letter lowercase
@@ -303,31 +303,30 @@ function SilageAdditives() {
     }
     setFilter(false);
   }, []);
-  const filteredProducts = products.filter((product) =>
-    product.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+
+  // search section functionality
+  const filteredProducts = products.filter(
+    (product) =>
+      product.product_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.technology.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.used_for.toLowerCase().includes(searchTerm.toLowerCase()) ? true : false
   );
+  const closeSearch=()=>{
+    updateSearchTerm("")
+  }
   return (
     <div className="min-h-[100vh]">
       <div className="h-14 w-full text-white text-sm pl-[3%] md:pl-[7%] bg-[#0073cf] flex flex-row items-center">
         <Link to={"/"}>Home</Link> &nbsp;/ Silage additives
       </div>
-      {/* SEARCH SECTION */}
-      {/* <div className="p-4">
-        <input
-          type="text"
-          placeholder="Search Products"
-          className="w-full p-2 border border-gray-300 rounded-md"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-        />
-      </div> */}
+      
       {/* PRODUCTS */}
       <div className="w-full border-b-4 border-slate-30000 h-60 pt-16 max-sm:pt-6 max-lg:px-10 lg:px-28 max-md:px-4">
         <Title
           text="Products"
-          className={"max-md:text-3xl md:text-5xl font-bold"}
+          className={"max-md:text-3xl md:text-5xl font-bold "}
         />
-        <p className="mt-8 max-sm:mt-4 text-base [font-weight:400]">
+        <p className="mt-8 max-sm:mt-4 text-base [font-weight:400] ">
           Choose your products from our catalog and start benefiting from the
           quality of Pioneer inoculants. Make your selection, complete your
           purchase and receive your shipment comfortably at the address you
@@ -540,15 +539,18 @@ function SilageAdditives() {
         </div>
         {/* PRODUCT LIST */}
         {isLoading ? (
-          <div className="flex justify-center w-full">
-            <div className="animate__animated animate__pulse animate__infinite my-8 text-white text-sm h-11 flex items-center justify-center w-3/4 bg-[#0073cf] shadow-lg border-solid border-2 border-opacity-30 border-gray-600 rounded-lg">
+          <div className="flex justify-center w-full ">
+            <div className="animate__animated animate__pulse animate__infinite my-8 text-white text-sm h-11 flex items-center justify-center w-3/4 bg-[#0073cf] shadow-lg border-solid border-2 border-opacity-30 border-gray-600 rounded-lg ">
               Loading...
             </div>
           </div>
         ) : (
-          <div className="lg:grid lg:grid-cols-[1fr_1fr_1fr] max-lg:flex max-lg:flex-wrap max-lg:gap-x-4 max-md:justify-center max-lg:mt-8 gap-y-4">
+          <div className="lg:grid lg:grid-cols-[1fr_1fr_1fr] max-lg:flex max-lg:flex-wrap max-lg:gap-x-4 max-md:justify-center max-lg:mt-8 gap-y-4 ">
+            {filteredProducts && searchTerm &&
+            <div className="w-full text-center text-lg text-gray-500 font-bold mb-4 ">{filteredProducts.length} results found for "{searchTerm}" <CgCloseO className="cursor-pointer underline inline-block ml-1 text-xl" onClick={closeSearch}>X</CgCloseO> </div>}
             <ProductCard products={filteredProducts} />
           </div>
+          
         )}
       </section>
 

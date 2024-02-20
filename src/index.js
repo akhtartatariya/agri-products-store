@@ -37,6 +37,7 @@ import Checkout from "./routes/Checkout";
 import Dashboard from "./admin/Dashboard";
 import OrderHistory from "./routes/OrderHistory";
 import { SearchProvider } from "./components/context/SearchContext";
+import Admin from "./admin/Admin";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -53,9 +54,8 @@ const router = createBrowserRouter(
       <Route path="/rightofwithdrawal" element={<RightOfWithdrawal />} />
       <Route path="/termsandconditions" element={<TermsAndCondition />} />
       <Route path="/checkout/:id" element={<Checkout />} />
-
-      <Route path="/admin" element={<Dashboard />}>
-        
+      <Route path="/admin" element={<Admin />} >
+      <Route path="/admin/dashboard" element={<Dashboard />}/>
         <Route
           path="/admin/add-product"
           element={
@@ -91,9 +91,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <SearchProvider>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </SearchProvider>
   </React.StrictMode>
 );

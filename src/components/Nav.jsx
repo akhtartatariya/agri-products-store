@@ -121,7 +121,7 @@ function Nav() {
   const navItems = [
     {
       name: "DASHBOARD",
-      slug: "/admin",
+      slug: "/admin/dashboard",
       active: userEmail === "sanaya@gmail.com" || userEmail === "a@gmail.com",
     },
     {

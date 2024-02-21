@@ -16,7 +16,7 @@ const Protected = ({ children, authentication = true }) => {
       navigate("/");
     }
     setLoader(false);
-  }, [navigate, authentication, authStatus]);
+  }, [navigate, authentication, authStatus,adminEmail]);
 
   return loader ? <h1>Loading...</h1> : <>{children}</>;
 };

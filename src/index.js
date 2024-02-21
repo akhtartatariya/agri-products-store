@@ -28,6 +28,8 @@ import Cart from "./routes/Cart";
 
 //Reducer
 import { getTotals } from "./store/cartSlice";
+
+//Routes
 import AddProduct from "./routes/AddProduct";
 import Protected from "./components/ProtectedRoute/Protected";
 import AllProducts from "./routes/AllProducts";
@@ -45,12 +47,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="" element={<Home />} />
-      <Route
-        path="/cart"
-        element={
-            <Cart />
-        }
-      />
+      <Route path="/cart" element={<Cart />} />
       <Route
         path="/user-profile/:name"
         element={
@@ -102,7 +99,7 @@ const router = createBrowserRouter(
       <Route
         path="/admin"
         element={
-          <Protected authentication>
+          <Protected>
             <Admin />
           </Protected>
         }
@@ -110,7 +107,7 @@ const router = createBrowserRouter(
         <Route
           path="/admin/dashboard"
           element={
-            <Protected authentication>
+            <Protected >
               <Dashboard />
             </Protected>
           }
@@ -118,7 +115,7 @@ const router = createBrowserRouter(
         <Route
           path="/admin/add-product"
           element={
-            <Protected authentication>
+            <Protected >
               <AddProduct />
             </Protected>
           }
@@ -126,7 +123,7 @@ const router = createBrowserRouter(
         <Route
           path="/admin/edit-product/:slug"
           element={
-            <Protected authentication>
+            <Protected >
               <EditProduct />
             </Protected>
           }
@@ -134,7 +131,7 @@ const router = createBrowserRouter(
         <Route
           path="/admin/all-products"
           element={
-            <Protected authentication>
+            <Protected >
               <AllProducts />
             </Protected>
           }

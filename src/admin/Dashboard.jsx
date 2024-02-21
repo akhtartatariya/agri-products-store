@@ -34,25 +34,27 @@ const Dashboard = () => {
         <Link to={"/"}>Home</Link> &nbsp;/ Dashboard
       </div>
       <div className="container mx-auto p-4">
-      <h2 className="text-3xl font-bold mb-6">Dashboard</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Orders */}
-        <div className="bg-white rounded-md p-6 shadow-md">
-          <p className="text-xl font-bold mb-3">Total Orders</p>
-          <p className="text-4xl text-blue-500">{ordersCount}</p>
-        </div>
-        {/* Products */}
-        <div className="bg-white rounded-md p-6 shadow-md">
-          <p className="text-xl font-bold mb-3">Total Products</p>
-          <p className="text-4xl text-green-500">{productsCount}</p>
-        </div>
-        {/* Users */}
-        <div className="bg-white rounded-md p-6 shadow-md">
-          <p className="text-xl font-bold mb-3">Total Users</p>
-          <p className="text-4xl text-purple-500">{usersCount}</p>
+        <h2 className="text-3xl font-bold mb-6 text-center sm:text-left">
+          Dashboard
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Orders */}
+          <div className="bg-white rounded-md p-6 shadow-md">
+            <p className="text-xl font-bold mb-3">Total Orders</p>
+            <p className="text-4xl text-blue-500">{ordersCount}</p>
+          </div>
+          {/* Products */}
+          <div className="bg-white rounded-md p-6 shadow-md">
+            <p className="text-xl font-bold mb-3">Total Products</p>
+            <p className="text-4xl text-green-500">{productsCount}</p>
+          </div>
+          {/* Users */}
+          <div className="bg-white rounded-md p-6 shadow-md">
+            <p className="text-xl font-bold mb-3">Total Users</p>
+            <p className="text-4xl text-purple-500">{usersCount}</p>
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

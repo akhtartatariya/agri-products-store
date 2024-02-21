@@ -12,7 +12,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         // Ignore specific action types causing the warning
-        ignoredActions: ['auth/login'], // Replace with your actual action type
+        ignoredActions: ["auth/login"], // Replace with your actual action type
       },
     }),
 });

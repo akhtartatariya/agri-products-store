@@ -40,30 +40,85 @@ import { SearchProvider } from "./components/context/SearchContext";
 import Admin from "./admin/Admin";
 import Login from "./routes/Login";
 import Signup from "./routes/Signup";
+import ProtectedUser from "./components/ProtectedRoute/ProtectedUser";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="" element={<Home />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="/user-profile/:name" element={<UserProfile />} />
+      <Route
+        path="/cart"
+        element={
+            <Cart />
+        }
+      />
+      <Route
+        path="/user-profile/:name"
+        element={
+          <ProtectedUser authentication>
+            <UserProfile />
+          </ProtectedUser>
+        }
+      />
       <Route path="/silage_additives" element={<SilageAdditives />} />
       <Route path="/about" element={<About />} />
       <Route path="/faqs" element={<FAQs />} />
       <Route path="/contact" element={<Contact />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/order-history/:id" element={<OrderHistory />} />
+      <Route
+        path="/login"
+        element={
+          <ProtectedUser authentication={false}>
+            <Login />
+          </ProtectedUser>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <ProtectedUser authentication={false}>
+            <Signup />
+          </ProtectedUser>
+        }
+      />
+      <Route
+        path="/order-history/:id"
+        element={
+          <ProtectedUser authentication>
+            <OrderHistory />
+          </ProtectedUser>
+        }
+      />
       <Route path="/payment" element={<Payment />} />
       <Route path="/shipment" element={<Shipment />} />
       <Route path="/rightofwithdrawal" element={<RightOfWithdrawal />} />
       <Route path="/termsandconditions" element={<TermsAndCondition />} />
-      <Route path="/checkout/:id" element={<Checkout />} />
-      <Route path="/admin" element={<Admin />} >
-      <Route path="/admin/dashboard" element={<Dashboard />}/>
+      <Route
+        path="/checkout/:id"
+        element={
+          <ProtectedUser authentication>
+            <Checkout />
+          </ProtectedUser>
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          <Protected authentication>
+            <Admin />
+          </Protected>
+        }
+      >
+        <Route
+          path="/admin/dashboard"
+          element={
+            <Protected authentication>
+              <Dashboard />
+            </Protected>
+          }
+        />
         <Route
           path="/admin/add-product"
           element={
-            <Protected>
+            <Protected authentication>
               <AddProduct />
             </Protected>
           }
@@ -71,7 +126,7 @@ const router = createBrowserRouter(
         <Route
           path="/admin/edit-product/:slug"
           element={
-            <Protected>
+            <Protected authentication>
               <EditProduct />
             </Protected>
           }
@@ -79,7 +134,7 @@ const router = createBrowserRouter(
         <Route
           path="/admin/all-products"
           element={
-            <Protected>
+            <Protected authentication>
               <AllProducts />
             </Protected>
           }

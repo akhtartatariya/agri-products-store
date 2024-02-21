@@ -55,7 +55,7 @@ const PostProduct = ({ product }) => {
         orderBy("productId", "desc"),
         limit(1)
       );
-      
+
       const querySnapshot = await getDocs(maxIdQuery);
       if (querySnapshot.empty) {
         // No products in the collection yet
@@ -153,15 +153,15 @@ const PostProduct = ({ product }) => {
 
   return (
     <>
+      <h2 className="text-3xl font-bold my-4 mb-6 mx-6 text-center sm:text-left">
+        {product ? "Edit Product" : "Add Product"}
+      </h2>
       <form
         className="bg-gray-100 text-gray-800 p-8 rounded-lg max-w-3xl mx-auto"
         onSubmit={handleSubmit(submit)}
       >
         <div className="space-y-8">
           <div className="border-b border-gray-400 pb-8">
-            <h2 className="text-2xl font-semibold mb-2">
-              {product ? "Edit Product" : "Add Product"}
-            </h2>
             <p className="text-sm text-gray-600">
               Provide details about the product.
             </p>
@@ -328,7 +328,7 @@ const PostProduct = ({ product }) => {
               >
                 Choose Image
               </label>
-              <div className="mt-2 flex flex-col items-center sm:flex-row sm:items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4">
+              <div className="mt-2 flex flex-col space-y-2 sm:space-y-0 sm:space-x-4">
                 <input
                   type="file"
                   name="product-image"

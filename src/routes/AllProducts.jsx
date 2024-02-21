@@ -52,7 +52,7 @@ const AllProducts = () => {
       </div>
       <div className="mx-4 md:mx-10 transition-all">
         <div>
-          <h1 className="text-3xl text-center my-4">All Products</h1>
+          <h2 className="text-3xl font-bold mb-6 my-4 text-center sm:text-left">All Products</h2>
         </div>
         <div>
           <div className="logo p-3 text-center">

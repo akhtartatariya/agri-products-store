@@ -11,7 +11,7 @@ const LogoutBtn = () => {
     authService.logout().then(() => {
       dispatch(logout());
       localStorage.clear('user')
-      navigate('/')
+      navigate('/login')
     });
   };
   return (

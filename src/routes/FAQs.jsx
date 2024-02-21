@@ -37,9 +37,9 @@ function FAQs() {
       <div className="h-14 w-full text-white text-sm pl-[3%] md:pl-[7%] bg-[#0073cf] flex flex-row items-center">
         <Link to={"/"}>Home</Link> &nbsp;/ Frequently Asked Questions (FAQs)
       </div>
-      <div className="max-w-[1100px] px-[40px] m-[0_auto]">
+      <div className="px-[40px] m-[0_auto]">
         <div className="ml-[-30px]">
-          <div className="relative md:left-[8.33333%] md:w-[83.33333%] float-left pl-[30px] w-full ">
+          <div className="relative md:left-[8.33333%] md:w-[83.33333%] float-left pl-[30px] ">
             <div className="bg-[url('../public/img/hero_faq.webp')] mx-[calc(-50vw_+_50%)] min-h-[310px] mb-[30px] md:pt-[104px] bg-center bg-cover bg-no-repeat"></div>
             <div className="m-[0_0_30px]">
               <h1 className="mt-0 text-[56px] leading-[60px] max-[981px]:text-[40px] max-[981px]:leading-[42px] font-bold m-[20px_0]">

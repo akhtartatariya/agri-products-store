@@ -174,10 +174,12 @@ function ProductCard({ products }) {
               onClick={
                 userStatus
                   ? () => handleAddToCart(product)
-                  : () =>
+                  : () => {
+                      navigate("/login");
                       toast.error("Please Login First", {
                         position: "top-right",
-                      })
+                      });
+                    }
               }
             >
               <h2>ADD TO CART</h2>

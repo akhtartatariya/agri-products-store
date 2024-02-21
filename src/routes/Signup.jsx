@@ -49,7 +49,7 @@ const Signup = () => {
               <LoginInput
                 label={"Name"}
                 placeholder={"Enter your name"}
-                classes={"mb-4 mt-8"}
+                classes={" mt-8"}
                 input_outline_color={"outline-green-800"}
                 {...register("fullName", { required: true })}
               />
@@ -58,7 +58,7 @@ const Signup = () => {
                 type={"email"}
                 placeholder={"Enter your email"}
                 input_outline_color={"outline-[#0073cf]"}
-                classes={"mb-4 mt-8"}
+                classes={"mb-4 mt-4"}
                 {...register("email", {
                   required: true,
                   validate: {

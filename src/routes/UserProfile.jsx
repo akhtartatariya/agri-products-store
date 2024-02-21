@@ -60,7 +60,7 @@ const UserProfile = () => {
                   Click{" "}
                   <Link
                     to={"https://www.corteva.es/"}
-                    className="text-[#0073cf] font-bold"
+                    className="text-[#0073cf] font-bold hover:underline"
                     target="blank"
                   >
                     here
@@ -73,7 +73,7 @@ const UserProfile = () => {
                     to={
                       "https://www.corteva.es/agronomia-y-servicios/granular-link.html"
                     }
-                    className="text-[#0073cf] font-bold"
+                    className="text-[#0073cf] font-bold hover:underline"
                     target="blank"
                   >
                     here

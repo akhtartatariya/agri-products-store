@@ -2,12 +2,12 @@
   "slides": [
     {
       "id": 1,
-      "src": "../img/Agriculture_Carousel_1.jpeg",
+      "src": "../img/carousel_silage.webp",
       "alt": "Image 1 for Carousel"
     },
     {
       "id": 2,
-      "src": "../img/Agriculture_Carousel_2.jpg",
+      "src": "../img/carousel_silage_next.webp",
       "alt": "Image 2 for Carousel"
     }
   ]

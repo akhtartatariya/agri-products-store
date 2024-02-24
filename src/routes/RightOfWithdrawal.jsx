@@ -49,7 +49,11 @@ function RightOfWithdrawal() {
             <p className="m-[0_0_19.44444px]">
               For returns of defective products, including broken, damaged or
               wrong products, you must contact Customer Service (
-              <a href="mailto:shop.es@corteva.com" className="text-[#0073cf]">
+              <a
+                href="mailto:shop.es@corteva.com"
+                target="_blank"
+                className="text-[#0073cf] [border-bottom:_1px_solid_currentColor] pb-[1px] touch-manipulation"
+              >
                 shop.es@corteva.com
               </a>{" "}
               ).
@@ -96,7 +100,11 @@ function RightOfWithdrawal() {
             <p className="m-[0_0_19.44444px]">
               If you have done all of this and still have not received your
               refund, please contact us at{" "}
-              <a href="mailto:shop.es@corteva.com" className="text-[#0073cf]">
+              <a
+                href="mailto:shop.es@corteva.com"
+                target="_blank"
+                className="text-[#0073cf] [border-bottom:_1px_solid_currentColor] pb-[1px] touch-manipulation"
+              >
                 shop.es@corteva.com
               </a>
               .

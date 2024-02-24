@@ -7,7 +7,7 @@ import Button from "../components/FormStuff/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { login as authLogin } from "../store/authSlice";
-const Login = () => {
+const AdminLogin = () => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const [error, setError] = useState("");
@@ -36,21 +36,21 @@ const Login = () => {
   return (
     <>
       <div className="h-14 w-full text-white text-sm pl-[3%] md:pl-[7%] bg-[#0073cf] flex flex-row items-center">
-        <Link to={"/"}>Home</Link> &nbsp;/ User Login
+        <Link to={"/"}>Home</Link> &nbsp;/ Admin Login
       </div>
       <div className=" sm:min-h-screen min-h-[500px] flex justify-center items-center bg-gray-50">
         <div className="bg-white p-6 md:p-10 sm:w-full max-w-md shadow rounded-lg">
           <div>
             <Title
-              text="User Login"
+              text="Admin Login"
               className=" sm:text-4xl text-3xl text-center mb-6 text-[#0073cf] font-bold"
             />
             <h4 className="text-center sm:text-2xl text-xl font-semibold">
               Enter Your Credentials
             </h4>
-            <Link to={"/login/admin"}>
+            <Link to={"/login/user"}>
               <span className="flex justify-center mt-4 font-medium cursor-pointer text-[#0073cf]">
-                login as admin, click here
+                login as user, click here
               </span>
             </Link>
             {error && <p className="text-red-600 mt-4 text-center">{error}</p>}
@@ -85,7 +85,7 @@ const Login = () => {
                   type="submit"
                   className="bg-[#0073cf] text-white px-4 py-2 rounded-md"
                 />
-                <Link to="/signup/user">
+                <Link to="/signup/admin">
                   <Button
                     children="SignUp"
                     type="button"
@@ -101,4 +101,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;

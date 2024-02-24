@@ -3,8 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import Button from "./FormStuff/Button";
 import LogoutBtn from "./LogoutBtn";
 
-
-
 //Animate.css
 import "animate.css";
 
@@ -35,7 +33,6 @@ function Nav() {
   const userId = useSelector((state) => state.auth.userData?.uid);
   const { cartTotalQuantity } = useSelector((state) => state.cart);
 
- 
   //Location
   const location = useLocation();
   //References
@@ -173,13 +170,13 @@ function Nav() {
 
             {!userStatus ? (
               <li className="flex gap-4">
-                <NavLink to={"/login"}>
+                <NavLink to={"/login/user"}>
                   <Button
                     children={"Login"}
                     className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
                   />
                 </NavLink>
-                <NavLink to={'/signup'}>
+                <NavLink to={"/signup/user"}>
                   <Button
                     children={"SignUp"}
                     className="px-3 py-2 bg-green-800 text-white rounded hover:bg-green-600"
@@ -295,7 +292,6 @@ function Nav() {
           </div>
         </div>
       )}
-      
     </>
   );
 }

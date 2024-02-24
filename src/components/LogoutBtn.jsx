@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 const LogoutBtn = () => {
   const dispatch = useDispatch();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const handleCllck = () => {
     authService.logout().then(() => {
       dispatch(logout());
-      localStorage.clear('user')
-      navigate('/login')
+      localStorage.clear("user");
+      navigate("/login/user");
     });
   };
   return (

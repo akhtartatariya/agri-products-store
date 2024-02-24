@@ -175,7 +175,7 @@ function ProductCard({ products }) {
                 userStatus
                   ? () => handleAddToCart(product)
                   : () => {
-                      navigate("/login");
+                      navigate("/login/user");
                       toast.error("Please Login First", {
                         position: "top-right",
                       });

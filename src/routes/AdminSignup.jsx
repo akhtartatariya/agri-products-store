@@ -5,7 +5,7 @@ import Button from "../components/FormStuff/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import authService from "../firebase/auth_service";
-const Signup = () => {
+const AdminSignup = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [Error, setError] = useState("");
@@ -35,21 +35,21 @@ const Signup = () => {
   return (
     <>
       <div className="h-14 w-full text-white text-sm pl-[3%] md:pl-[7%] bg-[#0073cf] flex flex-row items-center">
-        <Link to={"/"}>Home</Link> &nbsp;/ User Signup
+        <Link to={"/"}>Home</Link> &nbsp;/ Admin Signup
       </div>
       <div className="sm:min-h-screen min-h-[700px] flex justify-center items-center bg-gray-50">
         <div className="bg-white p-6 md:p-10 sm:w-full max-w-md shadow rounded-lg">
           <div>
             <Title
-              text="User Signup"
+              text="Admin Signup"
               className="sm:text-4xl text-3xl text-center mb-6 text-green-800 font-bold"
             />
             <h4 className="text-center sm:text-2xl text-xl font-semibold">
               Enter Your Credentials
             </h4>
-            <Link to={"/signup/admin"}>
+            <Link to={"/signup/user"}>
               <span className="flex justify-center mt-4 font-medium cursor-pointer text-green-800">
-                signup as admin, click here
+                signup as user, click here
               </span>
             </Link>
             {Error && <p className="text-red-600 mt-4 text-center">{Error}</p>}
@@ -100,7 +100,7 @@ const Signup = () => {
                   type="submit"
                   className=" bg-green-800 text-white px-4 py-2 rounded-md"
                 />
-                <Link to="/login/user">
+                <Link to="/login/admin">
                   <Button
                     children="Login"
                     type="button"
@@ -116,4 +116,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default AdminSignup;

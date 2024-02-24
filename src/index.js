@@ -43,6 +43,8 @@ import Admin from "./admin/Admin";
 import Login from "./routes/Login";
 import Signup from "./routes/Signup";
 import ProtectedUser from "./components/ProtectedRoute/ProtectedUser";
+import AdminLogin from "./routes/AdminLogin";
+import AdminSignup from "./routes/AdminSignup";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -60,22 +62,42 @@ const router = createBrowserRouter(
       <Route path="/about" element={<About />} />
       <Route path="/faqs" element={<FAQs />} />
       <Route path="/contact" element={<Contact />} />
-      <Route
-        path="/login"
-        element={
-          <ProtectedUser authentication={false}>
-            <Login />
-          </ProtectedUser>
-        }
-      />
-      <Route
-        path="/signup"
-        element={
-          <ProtectedUser authentication={false}>
-            <Signup />
-          </ProtectedUser>
-        }
-      />
+      <Route path="/login">
+        <Route
+          path="user"
+          element={
+            <ProtectedUser authentication={false}>
+              <Login />
+            </ProtectedUser>
+          }
+        />
+        <Route
+          path="admin"
+          element={
+            <ProtectedUser authentication={false}>
+              <AdminLogin />
+            </ProtectedUser>
+          }
+        />
+      </Route>
+      <Route path="/signup">
+        <Route
+          path="user"
+          element={
+            <ProtectedUser authentication={false}>
+              <Signup />
+            </ProtectedUser>
+          }
+        />
+        <Route
+          path="admin"
+          element={
+            <ProtectedUser authentication={false}>
+              <AdminSignup />
+            </ProtectedUser>
+          }
+        />
+      </Route>
       <Route
         path="/order-history/:id"
         element={
@@ -107,7 +129,7 @@ const router = createBrowserRouter(
         <Route
           path="/admin/dashboard"
           element={
-            <Protected >
+            <Protected>
               <Dashboard />
             </Protected>
           }
@@ -115,7 +137,7 @@ const router = createBrowserRouter(
         <Route
           path="/admin/add-product"
           element={
-            <Protected >
+            <Protected>
               <AddProduct />
             </Protected>
           }
@@ -123,7 +145,7 @@ const router = createBrowserRouter(
         <Route
           path="/admin/edit-product/:slug"
           element={
-            <Protected >
+            <Protected>
               <EditProduct />
             </Protected>
           }
@@ -131,7 +153,7 @@ const router = createBrowserRouter(
         <Route
           path="/admin/all-products"
           element={
-            <Protected >
+            <Protected>
               <AllProducts />
             </Protected>
           }

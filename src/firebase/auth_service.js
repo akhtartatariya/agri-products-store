@@ -29,9 +29,6 @@ class AuthService {
       return userAccount.user;
     } catch (error) {
       console.log(":: error creating user", error);
-      console.log('ullullu')
-
-
       return Promise.reject(error);
     }
   }

@@ -9,14 +9,13 @@ const LogoutBtn = () => {
   const navigate = useNavigate();
   const handleClick = async () => {
     try {
-      await authService.logout(); // Wait for logout to complete
-      dispatch(logout());
-      localStorage.clear("user");
-      navigate("/login/user");
+      authService.logout().then(() => {
+        dispatch(logout());//no need to  Wait for logout to complete
+        localStorage.clear("user");
+        navigate("/login/user");
+      });
     } catch (error) {
-      // Handle logout error
-      console.error("Error during logout:", error);
-
+      console.log(":: error while logging out user:", error);
     }
   };
   return (
@@ -28,4 +27,4 @@ const LogoutBtn = () => {
     </button>
   );
 };
-export default LogoutBtn
+export default LogoutBtn;

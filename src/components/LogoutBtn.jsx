@@ -7,19 +7,6 @@ import { useNavigate } from "react-router-dom";
 const LogoutBtn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const handleCllck = () => {
-    try{
-
-      authService.logout().then(() => {
-        dispatch(logout());
-        localStorage.clear("user");
-        navigate("/login/user");
-      });
-    }
-    catch(error){
-      console.log(":: error while logging out user:", error);
-
   const handleClick = async () => {
     try {
       await authService.logout(); // Wait for logout to complete
@@ -30,7 +17,7 @@ const LogoutBtn = () => {
       // Handle logout error
       console.error("Error during logout:", error);
 
-    }>
+    }
   };
   return (
     <button
@@ -41,5 +28,4 @@ const LogoutBtn = () => {
     </button>
   );
 };
-
-export default LogoutBtn;
+export default LogoutBtn

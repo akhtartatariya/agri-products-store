@@ -29,12 +29,10 @@ class AuthService {
       return userAccount.user;
     } catch (error) {
       console.log(":: error creating user", error);
-<<<<<<< HEAD
       console.log('ullullu')
 
-=======
+
       return Promise.reject(error);
->>>>>>> 2438d5545dafb5996b7a49babe871983487c0838
     }
   }
   async login({ email, password }) {

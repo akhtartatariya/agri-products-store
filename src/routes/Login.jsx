@@ -28,10 +28,8 @@ const Login = () => {
         navigate("/");
       }
     } catch (error) {
-<<<<<<< HEAD
       console.error("Error while submitting login form", error);
       setError(error.message || "unexpected error");
-=======
       // console.error("Error while submitting login form", error);
       if (error.code) {
         // Map Firebase error codes to custom error messages
@@ -46,7 +44,6 @@ const Login = () => {
         setError("An unexpected error occurred."); // Fallback error message
       }
       // throw error;
->>>>>>> 2438d5545dafb5996b7a49babe871983487c0838
     }
   };
   return (

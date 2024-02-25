@@ -151,9 +151,9 @@ thanks to the most advanced technology"
                   height="100%"
                   src="https://www.youtube.com/embed/s-aHf8t1WOc?si=PFsDP2hnu-sEY98q"
                   title="YouTube video player"
-                  frameborder="0"
+                  frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen
+                  allowFullScreen
                 ></iframe>
               </div>
               <div className="px-4 py-8 bg-white">
@@ -177,9 +177,9 @@ thanks to the most advanced technology"
                   height="100%"
                   src="https://www.youtube.com/embed/w3tIuZA2F8U?si=liYpCNqDy3moSu8S"
                   title="YouTube video player"
-                  frameborder="0"
+                  frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen
+                  allowFullScreen
                 ></iframe>
               </div>
               <div className="px-4 py-8 bg-white">
@@ -237,9 +237,9 @@ thanks to the most advanced technology"
                       height="100%"
                       src="https://www.youtube.com/embed/s-aHf8t1WOc?si=PFsDP2hnu-sEY98q"
                       title="YouTube video player"
-                      frameborder="0"
+                      frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowfullscreen
+                      allowFullScreen
                     ></iframe>
                   </div>
                   <div className="px-4 py-8 bg-white">
@@ -279,9 +279,9 @@ thanks to the most advanced technology"
                       height="100%"
                       src="https://www.youtube.com/embed/w3tIuZA2F8U?si=liYpCNqDy3moSu8S"
                       title="YouTube video player"
-                      frameborder="0"
+                      frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowfullscreen
+                      allowFullScreen
                     ></iframe>
                   </div>
                   <div className="px-4 py-8 bg-white">
@@ -550,9 +550,9 @@ thanks to the most advanced technology"
               height="315"
               src="https://www.youtube.com/embed/ck-CJY2keI0?si=5hX6ZTMcuUyUUKpW"
               title="YouTube video player"
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
+              allowFullScreen
               className="md:mt-[35px] mt-[31px] md:h-[492px] h-[173px]"
             ></iframe>
             <div className="md:mt-[45px] mt-[25px] flex justify-center items-center flex-wrap gap-x-[30px] gap-y-[20px]">

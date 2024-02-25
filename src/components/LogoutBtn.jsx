@@ -8,11 +8,17 @@ const LogoutBtn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleCllck = () => {
-    authService.logout().then(() => {
-      dispatch(logout());
-      localStorage.clear("user");
-      navigate("/login/user");
-    });
+    try{
+
+      authService.logout().then(() => {
+        dispatch(logout());
+        localStorage.clear("user");
+        navigate("/login/user");
+      });
+    }
+    catch(error){
+      console.log(":: error while logging out user:", error);
+    }
   };
   return (
     <button

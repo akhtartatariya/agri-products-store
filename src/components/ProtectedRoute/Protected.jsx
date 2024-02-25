@@ -7,16 +7,18 @@ const Protected = ({ children, authentication = true }) => {
   const navigate = useNavigate();
   const [loader, setLoader] = useState(true);
   const adminEmail =
-    admin.email === "sanaya@gmail.com" || admin.email === "a@gmail.com";
+    admin &&
+    (admin.email === "sanaya@gmail.com" || admin.email === "a@gmail.com");
 
   useEffect(() => {
-    if (adminEmail && authentication && authStatus !== authentication) {
-      navigate("/login");
+    if (!admin ||(adminEmail && authentication && authStatus !== authentication)) {
+      navigate("/login/user");
     } else if (adminEmail && !authentication && authStatus !== authentication) {
       navigate("/");
     }
+
     setLoader(false);
-  }, [navigate, authentication, authStatus,adminEmail]);
+  }, [navigate, authentication, authStatus, adminEmail,admin]);
 
   return loader ? <h1>Loading...</h1> : <>{children}</>;
 };

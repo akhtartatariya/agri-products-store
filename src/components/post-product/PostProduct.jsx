@@ -153,7 +153,7 @@ const PostProduct = ({ product }) => {
 
   return (
     <>
-      <h2 className="text-3xl font-bold my-4 mb-6 mx-6 text-center sm:text-left">
+      <h2 className="text-3xl font-bold my-4 mb-6 mx-8 text-center sm:text-left">
         {product ? "Edit Product" : "Add Product"}
       </h2>
       <form

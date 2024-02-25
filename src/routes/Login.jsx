@@ -30,7 +30,6 @@ const Login = () => {
     } catch (error) {
       console.error("Error while submitting login form", error);
       setError(error.message || "unexpected error");
-      throw error;
     }
   };
   return (

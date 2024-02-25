@@ -29,13 +29,15 @@ class AuthService {
       return userAccount.user;
     } catch (error) {
       console.log(":: error creating user", error);
+      return Promise.reject(error);
     }
   }
-  async login({email, password}) {
+  async login({ email, password }) {
     try {
       return await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.log(":: error while login", error);
+      return Promise.reject(error);
     }
   }
   async getCurrentUser() {
@@ -59,10 +61,10 @@ class AuthService {
   async logout() {
     try {
       await auth.signOut();
-      return true
+      return true;
     } catch (error) {
       console.log("error while logging out user:", error);
-      return false
+      return false;
     }
   }
 }

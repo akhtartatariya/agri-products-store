@@ -12,20 +12,28 @@ const AdminLogin = () => {
   const dispatch = useDispatch();
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  
   const submit = async (data) => {
     setError("");
+
+    console.log(data);
     try {
-      const account = await authService.login(data);
-      if (account) {
-        const user = await authService.getCurrentUser();
-        const userData = {
-          uid: account.user.uid,
-          email: account.user.email,
-          displayName: account.user.displayName,
-        };
-        if (userData) dispatch(authLogin({ userData }));
-        localStorage.setItem("user", JSON.stringify(userData));
-        navigate("/");
+      
+        const account = await authService.login(data);
+        if (account) {
+          const user = await authService.getCurrentUser();
+          const userData = {
+            uid: account.user.uid,
+            email: account.user.email,
+            displayName: account.user.displayName,
+          };
+          if (userData) dispatch(authLogin({ userData }));
+          localStorage.setItem("user", JSON.stringify(userData));
+          navigate("/");
+        }
+      
+      else{
+        setError("Invalid Credentials");
       }
     } catch (error) {
       // console.error("Error while submitting login form", error);

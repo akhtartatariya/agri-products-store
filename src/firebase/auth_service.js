@@ -5,10 +5,10 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth, fireDB } from "./config";
-import { Timestamp, addDoc, collection } from "firebase/firestore";
+import { Timestamp, addDoc, collection, doc, getDoc } from "firebase/firestore";
 
 class AuthService {
-  async signUp(name, email, password) {
+  async signUp(name, email, password, isAdmin = false) {
     try {
       const userAccount = await createUserWithEmailAndPassword(
         auth,
@@ -20,6 +20,7 @@ class AuthService {
         email: userAccount.user.email,
         uid: userAccount.user.uid,
         time: Timestamp.now(),
+        isAdmin: isAdmin,
       };
       const userRef = collection(fireDB, "users");
       await addDoc(userRef, user);
@@ -42,19 +43,39 @@ class AuthService {
   }
   async getCurrentUser() {
     try {
-      return new Promise((resolve) => {
+      const user = await new Promise((resolve) => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-          if (user) {
-            resolve(user);
-          } else {
-            resolve(null);
-          }
-
+          resolve(user);
           unsubscribe();
         });
       });
+
+      if (!user) {
+        console.log('No user is currently authenticated');
+        return null;
+      }
+
+      const userDocRef = doc(fireDB, 'users', user.uid);
+
+      try {
+        const userDocSnap = await getDoc(userDocRef);
+
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          const isAdmin = userData?.isAdmin || false;
+
+          console.log('User Data:', userData); // Log for debugging
+          return { ...user, isAdmin };
+        } else {
+          console.log('User Document does not exist');
+          return { ...user, isAdmin: false };
+        }
+      } catch (error) {
+        console.error('Error fetching user document:', error);
+        return { ...user, isAdmin: false }; // Resolve with default values in case of an error
+      }
     } catch (error) {
-      console.error("Error getting current user:", error);
+      console.error('Error getting current user:', error);
       throw error;
     }
   }
@@ -67,7 +88,11 @@ class AuthService {
       return false;
     }
   }
+  async isAdmin() {
+    const user = await this.getCurrentUser();
+    return user ? user.isAdmin || false : false;
+  }
 }
 
 const authService = new AuthService();
-export default authService;
+export default authService; 

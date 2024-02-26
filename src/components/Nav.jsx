@@ -18,6 +18,7 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 // Redux
 import { useSelector } from "react-redux";
 import { useSearch } from "./context/SearchContext";
+import authService from "../firebase/auth_service";
 
 function Nav() {
   //States
@@ -25,6 +26,7 @@ function Nav() {
   const [search, setSearch] = useState(false);
   const [isHomePage, setIsHomePage] = useState(false);
   const { searchTerm, updateSearchTerm } = useSearch();
+  const [isAdmin, setIsAdmin] = useState(false);
 
   //Fetch data From Store
   const userStatus = useSelector((state) => state.auth.status);
@@ -84,12 +86,28 @@ function Nav() {
     // Check if it's the home page based on the current URL
     setIsHomePage(location.pathname === "/");
   }, [location.pathname]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const user = await authService.getCurrentUser();
+        console.log(user);
+        const isAdmin = await authService.isAdmin();
+        console.log(isAdmin)
+        setIsAdmin(isAdmin);
+      } catch (error) {
+        console.log(":: error while fetching data", error.message);
+      }
+    };
+    fetchData();
+  }, [navigate]);
   const navItems = [
     {
       name: "DASHBOARD",
-      slug:"/admin/dashboard",
-      active:userEmail &&
-      userStatus && userEmail === "sanaya@gmail.com" || userEmail === "a@gmail.com",
+      slug: "/admin/dashboard",
+      active:
+        (userEmail && userStatus && userEmail === "sanaya@gmail.com") ||
+        userEmail === "a@gmail.com",
     },
     {
       name:
@@ -97,7 +115,6 @@ function Nav() {
           ? "ALL PRODUCTS"
           : "SILAGE ADDITIVES",
       slug:
-      
         userEmail === "a@gmail.com" || userEmail === "sanaya@gmail.com"
           ? "/admin/all-products"
           : "/silage_additives",
@@ -122,16 +139,17 @@ function Nav() {
       name: "ORDER HISTORY",
       slug: "/order-history/" + userId,
       active:
-      userEmail &&
-      userStatus &&
-      userEmail !== "sanaya@gmail.com" &&
-      userEmail !== "a@gmail.com",
+        userEmail &&
+        userStatus &&
+        userEmail !== "sanaya@gmail.com" &&
+        userEmail !== "a@gmail.com",
     },
     {
       name: "ADD PRODUCT",
       slug: "/admin/add-product",
-      active: userEmail &&
-      userStatus && userEmail === "sanaya@gmail.com" || userEmail === "a@gmail.com",
+      active:
+        (userEmail && userStatus && userEmail === "sanaya@gmail.com") ||
+        userEmail === "a@gmail.com",
     },
   ];
 

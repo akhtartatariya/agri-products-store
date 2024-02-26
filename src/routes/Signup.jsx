@@ -27,9 +27,20 @@ const Signup = () => {
         setError("Passwords do not match");
       }
     } catch (error) {
-      console.log(":: error while signing up", error);
-      setError(error.message);
-      console.log(Error);
+      // console.log(":: error while signing up", error);
+      if (error.code) {
+        // Map Firebase error codes to custom error messages
+        const customErrorMessages = {
+          "auth/weak-password": `Weak Password. Password should be at least 6 characters`,
+          // Add more error code mappings as needed
+        };
+        const errorMessage =
+          customErrorMessages[error.code] || "An unexpected error occurred.";
+        setError(errorMessage);
+      } else {
+        setError("An unexpected error occurred."); // Fallback error message
+      }
+      // console.log(Error);
     }
   };
   return (

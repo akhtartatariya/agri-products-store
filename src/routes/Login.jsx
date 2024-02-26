@@ -30,7 +30,20 @@ const Login = () => {
     } catch (error) {
       console.error("Error while submitting login form", error);
       setError(error.message || "unexpected error");
-      throw error;
+      // console.error("Error while submitting login form", error);
+      if (error.code) {
+        // Map Firebase error codes to custom error messages
+        const customErrorMessages = {
+          "auth/invalid-credential": `Invalid credentials. Please check your email and password.`,
+          // Add more error code mappings as needed
+        };
+        const errorMessage =
+          customErrorMessages[error.code] || "An unexpected error occurred.";
+        setError(errorMessage);
+      } else {
+        setError("An unexpected error occurred."); // Fallback error message
+      }
+      // throw error;
     }
   };
   return (

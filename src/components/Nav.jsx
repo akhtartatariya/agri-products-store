@@ -87,8 +87,9 @@ function Nav() {
   const navItems = [
     {
       name: "DASHBOARD",
-      slug: "/admin/dashboard",
-      active: userEmail === "sanaya@gmail.com" || userEmail === "a@gmail.com",
+      slug:"/admin/dashboard",
+      active:userEmail &&
+      userStatus && userEmail === "sanaya@gmail.com" || userEmail === "a@gmail.com",
     },
     {
       name:
@@ -96,6 +97,7 @@ function Nav() {
           ? "ALL PRODUCTS"
           : "SILAGE ADDITIVES",
       slug:
+      
         userEmail === "a@gmail.com" || userEmail === "sanaya@gmail.com"
           ? "/admin/all-products"
           : "/silage_additives",
@@ -120,14 +122,16 @@ function Nav() {
       name: "ORDER HISTORY",
       slug: "/order-history/" + userId,
       active:
-        userEmail !== "sanaya@gmail.com" &&
-        userEmail !== "a@gmail.com" &&
-        userStatus,
+      userEmail &&
+      userStatus &&
+      userEmail !== "sanaya@gmail.com" &&
+      userEmail !== "a@gmail.com",
     },
     {
       name: "ADD PRODUCT",
       slug: "/admin/add-product",
-      active: userEmail === "sanaya@gmail.com" || userEmail === "a@gmail.com",
+      active: userEmail &&
+      userStatus && userEmail === "sanaya@gmail.com" || userEmail === "a@gmail.com",
     },
   ];
 
@@ -186,7 +190,7 @@ function Nav() {
             ) : null}
             {userStatus && (
               <li className="flex gap-2 items-center">
-                <LogoutBtn /> {`(${userName})`}
+                <LogoutBtn /> {userEmail ? `(${userName})` : null}
               </li>
             )}
           </ul>

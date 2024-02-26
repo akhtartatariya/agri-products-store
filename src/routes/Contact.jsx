@@ -38,8 +38,8 @@ function Contact() {
             quickly as possible.
           </p>
         </div>
-        <div class="grid grid-cols-6 m-20">
-              <div className=" col-span-4">
+        <div class="grid grid-cols-4 m-20">
+              <div className=" col-span-3">
                 <form className="">
                   <div className="mb-8">
                     <label
@@ -108,7 +108,9 @@ function Contact() {
                       id="province"
                       name="province"
                       className="mt-1 p-2 w-full border h-12"
-                    ></select>
+                    >
+                       <option value="">--Choose One--</option></select>
+                   
                   </div>
                   <div className="mb-8">
                     <label
@@ -121,7 +123,8 @@ function Contact() {
                       id="country"
                       name="country"
                       className="mt-1 p-2 w-full border h-12 "
-                    ></select>
+                    > <option value="">--Choose One--</option></select>
+                    
                   </div>
                   <div class="mb-9">
                     <label
@@ -140,11 +143,11 @@ function Contact() {
                   </div>
                   <p className="mb-9">If you would like to receive Marketing Communications sent by Corteva Agriscience™ or any of its affiliated companies, please check the box below:</p>
 
-                  <div className="">
+                  <div className="flex items-center">
                   <input type="checkbox" className="form-checkbox h-6 w-6  text-blue-600" />
                   <label className="ml-4">I wish to recieve communications about products and/ or promotions</label>                                
                   </div>
-                  <p className="mb-9 mt-9">Your privacy is important to us. We would like to inform you that we collect your information for the purpose of identifying your business interests, providing you with products or services, and providing you with a positive customer experience during business interactions. Your personal information (name, email address, telephone number and other contact information) will be stored on the client system hosted primarily in the United States. This information may be shared for the same purpose by Corteva Agriscience ™ businesses , affiliated companies, associates or certain third parties in other countries. If you wish to review our Privacy Statement, you can request it from one of our sales representatives, or access it at <a href="https://www.corteva.es/politica-de-privacidad.html" className="text-[#0091ff] ">https://www.corteva.es/politica-de-privacidad.html</a>. By entering your personal information, you agree to the terms and conditions of this Privacy Statement. Corteva Agriscience ™ reserves the right to verify the</p>
+                  <p className="mb-9 mt-9">Your privacy is important to us. We would like to inform you that we collect your information for the purpose of identifying your business interests, providing you with products or services, and providing you with a positive customer experience during business interactions. Your personal information (name, email address, telephone number and other contact information) will be stored on the client system hosted primarily in the United States. This information may be shared for the same purpose by Corteva Agriscience ™ businesses , affiliated companies, associates or certain third parties in other countries. If you wish to review our Privacy Statement, you can request it from one of our sales representatives, or access it at <a href="https://www.corteva.es/politica-de-privacidad.html" className="text-[#0091ff] underline ">https://www.corteva.es/politica-de-privacidad.html</a>. By entering your personal information, you agree to the terms and conditions of this Privacy Statement. Corteva Agriscience ™ reserves the right to verify the</p>
                   <button
                     type="submit"
                     className="bg-[#0072CE] text-white font-semibold text-lg  px-2 py-2 w-[100%] hover:bg-[#0071cec9] rounded-sm mb-15"
@@ -153,8 +156,13 @@ function Contact() {
                   </button>
                 </form>
               </div>
-              <div className=" col-span-1 w-1/5 ml-auto mr-5 -mx-20">
+              <div className=" col-span-1 ml-10 ">
               <div className="absolute bg-green-400 h-1 w-[20%]  mr-20 "></div>
+              <p className="mt-5 font-bold text-xl mb-5">Data Privacy</p>
+              <hr className="bg-black-500" />
+              <p className="mt-5 mb-5 text-medium font-semibold">Your privacy is of utmost importance to Corteva. We want you to be fully aware of how we collect, use and disclose information.</p>
+              <hr className="mb-5" />
+              <a href="" className="mt-5 font-medium text-medium text-[#0072CE]">Read the full privacy policy</a>
               </div>
             </div>
             

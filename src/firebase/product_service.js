@@ -10,6 +10,7 @@ import {
   addDoc,
   query,
   orderBy,
+  where,
 } from "firebase/firestore";
 import { fireDB } from "./config";
 class ProductService {
@@ -150,15 +151,31 @@ class ProductService {
     }
   }
 
-  async getOrders() {
+  async getOrders(userId = null) {
     try {
-      const ordersQuery = query(collection(fireDB, 'orders'), orderBy('timestamp', 'desc'));
+      let ordersQuery;
+
+      if (userId) {
+        ordersQuery = query(
+          collection(fireDB, "orders"),
+
+          where("userId", "==", userId)
+        );
+      } else {
+        ordersQuery = query(
+          collection(fireDB, "orders"),
+        );
+      }
+
       const ordersSnapshot = await getDocs(ordersQuery);
-      const ordersData = ordersSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      const ordersData = ordersSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
       return ordersData;
-    }
-    catch (err) {
-      console.log(":: error while fetching orders",err);
+    } catch (error) {
+      console.error("Error while fetching orders:", error);
+      throw error;
     }
   }
 }

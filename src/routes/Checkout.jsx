@@ -11,7 +11,7 @@ const Checkout = () => {
   const cart = useSelector((state) => state.cart);
   const userId = useSelector((state) => state.auth.userData?.uid);
   const { register, handleSubmit } = useForm();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const placeOrder = async (data) => {
     try {
       const order = {
@@ -27,7 +27,7 @@ const Checkout = () => {
         items: cart.cartItems.map((cartItem) => ({
           productId: cartItem.id,
           name: cartItem.product_name,
-          price: Number(cartItem.price[cartItem.id],),
+          price: Number(cartItem.price[cartItem.id]),
           quantity: cartItem.cartQuantity,
           weight: cartItem.weight[cartItem.id],
         })),

@@ -9,7 +9,7 @@ const ProtectedUser = ({ children, authentication = true }) => {
   useEffect(() => {
     if (authentication && authStatus !== authentication) {
       // console.log("working")
-      navigate("/login");
+      navigate("/login/user");
     } else if (!authentication && authStatus !== authentication) {
       // console.log('second working')
       navigate("/");

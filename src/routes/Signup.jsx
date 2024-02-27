@@ -20,7 +20,7 @@ const Signup = () => {
         if (account) {
           const userData = await authService.getCurrentUser();
           if (userData) {
-            navigate("/login");
+            navigate("/login/user");
           }
         }
       } else {

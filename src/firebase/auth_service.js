@@ -5,7 +5,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth, fireDB } from "./config";
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { Timestamp, addDoc, doc, getDoc } from "firebase/firestore";
 
 class AuthService {
@@ -57,20 +57,20 @@ class AuthService {
       }
 
       const usersCollectionRef = collection(fireDB, "users");
-      
+
       // Query for the user document with the specified UID in the 'uid' field
       const userQuery = query(usersCollectionRef, where("uid", "==", user.uid));
-      
+
       try {
         const querySnapshot = await getDocs(userQuery);
         if (!querySnapshot.empty) {
           // Assuming there is only one document matching the UID
           const userDocSnap = querySnapshot.docs[0];
-          console.log(userDocSnap)
+          console.log(userDocSnap);
           const userData = userDocSnap.data();
-          console.log(userData)
+          console.log(userData);
           const isAdmin = userData?.isAdmin || false;
-            console.log(isAdmin)
+          console.log(isAdmin);
           console.log("User Data:", userData); // Log for debugging
           return { ...user, isAdmin };
         } else {

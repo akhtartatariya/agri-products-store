@@ -92,7 +92,7 @@ function Nav() {
       try {
         const isAdminService = await authService.isAdmin();
         console.log(isAdminService);
-        setIsAdmin(isAdmin);
+        setIsAdmin(isAdminService);
       } catch (error) {
         console.log(":: error while fetching data", error.message);
       }
@@ -106,14 +106,8 @@ function Nav() {
       active: isAdmin,
     },
     {
-      name:
-        isAdmin
-          ? "ALL PRODUCTS"
-          : "SILAGE ADDITIVES",
-      slug:
-        isAdmin
-          ? "/admin/all-products"
-          : "/silage_additives",
+      name: isAdmin ? "ALL PRODUCTS" : "SILAGE ADDITIVES",
+      slug: isAdmin ? "/admin/all-products" : "/silage_additives",
       active: true,
     },
     {
@@ -134,17 +128,12 @@ function Nav() {
     {
       name: "ORDER HISTORY",
       slug: "/order-history/" + userId,
-      active:
-        userEmail &&
-        userStatus && 
-        !isAdmin
-        
+      active: userEmail && userStatus && !isAdmin,
     },
     {
       name: "ADD PRODUCT",
       slug: "/admin/add-product",
-      active:
-        isAdmin,
+      active: isAdmin,
     },
   ];
 

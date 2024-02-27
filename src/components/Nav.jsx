@@ -90,10 +90,8 @@ function Nav() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const user = await authService.getCurrentUser();
-        console.log(user);
-        const isAdmin = await authService.isAdmin();
-        console.log(isAdmin)
+        const isAdminService = await authService.isAdmin();
+        console.log(isAdminService);
         setIsAdmin(isAdmin);
       } catch (error) {
         console.log(":: error while fetching data", error.message);
@@ -105,17 +103,15 @@ function Nav() {
     {
       name: "DASHBOARD",
       slug: "/admin/dashboard",
-      active:
-        (userEmail && userStatus && userEmail === "sanaya@gmail.com") ||
-        userEmail === "a@gmail.com",
+      active: isAdmin,
     },
     {
       name:
-        userEmail === "a@gmail.com" || userEmail === "sanaya@gmail.com"
+        isAdmin
           ? "ALL PRODUCTS"
           : "SILAGE ADDITIVES",
       slug:
-        userEmail === "a@gmail.com" || userEmail === "sanaya@gmail.com"
+        isAdmin
           ? "/admin/all-products"
           : "/silage_additives",
       active: true,
@@ -123,33 +119,32 @@ function Nav() {
     {
       name: "ABOUT US",
       slug: "/about",
-      active: userEmail !== "sanaya@gmail.com" && userEmail !== "a@gmail.com",
+      active: !isAdmin,
     },
     {
       name: "FAQs",
       slug: "/faqs",
-      active: userEmail !== "sanaya@gmail.com" && userEmail !== "a@gmail.com",
+      active: !isAdmin,
     },
     {
       name: "CONTACT",
       slug: "/contact",
-      active: userEmail !== "sanaya@gmail.com" && userEmail !== "a@gmail.com",
+      active: !isAdmin,
     },
     {
       name: "ORDER HISTORY",
       slug: "/order-history/" + userId,
       active:
         userEmail &&
-        userStatus &&
-        userEmail !== "sanaya@gmail.com" &&
-        userEmail !== "a@gmail.com",
+        userStatus && 
+        !isAdmin
+        
     },
     {
       name: "ADD PRODUCT",
       slug: "/admin/add-product",
       active:
-        (userEmail && userStatus && userEmail === "sanaya@gmail.com") ||
-        userEmail === "a@gmail.com",
+        isAdmin,
     },
   ];
 
@@ -219,7 +214,7 @@ function Nav() {
               <BiSolidUser className="cursor-pointer" />
             </Link>
           )}
-          {userEmail !== "a@gmail.com" && userEmail !== "sanaya@gmail.com" ? (
+          {!isAdmin ? (
             <div className="relative flex">
               <MdOutlineShoppingCart
                 className="cursor-pointer"

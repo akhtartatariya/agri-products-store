@@ -9,20 +9,30 @@ const Protected = ({ children, authentication = true }) => {
   const [loader, setLoader] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
-    const checkAdmin = async () => {
-      const isAdminServ = await authService.isAdmin();
-      setIsAdmin(isAdminServ);
+    const fetchData = async () => {
+      try {
+        const isAdminServ = await authService.isAdmin();
+        setIsAdmin(isAdminServ);
+        setLoader(false);
+      } catch (error) {
+        console.error("Error checking admin status:", error);
+        // Handle error if necessary
+        setLoader(false);
+      }
     };
 
-    if (isAdmin && authentication && authStatus !== authentication) {
-      navigate("/login/admin");
-    } else if (isAdmin && !authentication && authStatus !== authentication) {
-      navigate("/");
-    }
+    fetchData();
+  }, []);
 
-    setLoader(false);
-    checkAdmin();
-  }, [navigate, authentication, authStatus]);
+  useEffect(() => {
+    if (!loader) {
+      if (isAdmin && authentication && authStatus !== authentication) {
+        navigate("/login/admin");
+      } else if (isAdmin && !authentication && authStatus !== authentication) {
+        navigate("/");
+      }
+    }
+  }, [navigate, authentication, authStatus, isAdmin, loader]);
 
   return loader ? <h1>Loading...</h1> : <>{children}</>;
 };

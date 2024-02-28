@@ -158,10 +158,14 @@ class ProductService {
         ordersQuery = query(
           collection(fireDB, "orders"),
 
-          where("userId", "==", userId)
+          where("userId", "==", userId),
+          orderBy("timestamp", "desc")
         );
       } else {
-        ordersQuery = query(collection(fireDB, "orders"));
+        ordersQuery = query(
+          collection(fireDB, "orders"),
+          orderBy("timestamp", "desc")
+        );
       }
 
       const ordersSnapshot = await getDocs(ordersQuery);

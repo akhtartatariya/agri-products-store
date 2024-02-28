@@ -68,7 +68,6 @@ class AuthService {
           const userDocSnap = querySnapshot.docs[0];
           const userData = userDocSnap.data();
           const isAdmin = userData?.isAdmin || false;
-          console.log("User Data:", userData); // Log for debugging
           return { ...user, isAdmin };
         } else {
           console.log("User Document does not exist");

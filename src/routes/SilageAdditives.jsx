@@ -10,8 +10,13 @@ import Title from "../components/Title";
 //Icons
 import { CgClose, CgCloseO } from "react-icons/cg";
 import { IoIosArrowDropupCircle } from "react-icons/io";
+
+//Contexts
 import { useSearch } from "../components/context/SearchContext";
 import { useLoader } from "../components/context/LoaderContext";
+
+//Error Boundary
+import ErrorBoundaries from "../components/custom/hooks/ErrorBoundaries";
 
 function SilageAdditives() {
   //States
@@ -21,6 +26,7 @@ function SilageAdditives() {
   const [filteredItems, setFilteredItems] = useState([]);
   const [usedFor, setUsedFor] = useState(true);
   const [technology, setTechnology] = useState(true);
+  const [hasError, setHasError] = useState(false);
   const { searchTerm, updateSearchTerm } = useSearch();
   //Filter States
   const [corn, setCorn] = useState(false);
@@ -204,80 +210,84 @@ function SilageAdditives() {
     rapidReact,
   ]);
 
+  const getProducts = () => {
+    setIsLoading(true);
+    productService.getAllProducts().then((products) => {
+      let filteredProducts = []; // Start with an empty array
+
+      // Filter products based on selected options
+      const selectedUsedForOptions = [
+        corn,
+        multiforage,
+        grass,
+        pastone,
+        alfalfa,
+      ];
+      const selectedTechnologyOptions = [fiberTechnology, standard, rapidReact];
+
+      const selectedUsedForFilters = [
+        "Corn",
+        "Multiforage",
+        "Grass",
+        "Pastone",
+        "Alfalfa",
+      ];
+      const selectedTechnologyFilters = [
+        "FiberTechnology",
+        "Standard",
+        "RapidReact",
+      ];
+
+      if (
+        selectedUsedForOptions.some((option) => option) &&
+        selectedTechnologyOptions.some((option) => option)
+      ) {
+        // If both types of filters are active, filter based on both used_for and technology
+        const usedForFilteredProducts = products.filter((item) => {
+          return selectedUsedForOptions.some(
+            (option, index) =>
+              option && item.used_for === selectedUsedForFilters[index]
+          );
+        });
+
+        filteredProducts = usedForFilteredProducts.filter((item) => {
+          return selectedTechnologyOptions.some(
+            (option, index) =>
+              option && item.technology === selectedTechnologyFilters[index]
+          );
+        });
+      } else if (selectedUsedForOptions.some((option) => option)) {
+        // If only used_for filters are active, filter based on used_for only
+        filteredProducts = products.filter((item) => {
+          return selectedUsedForOptions.some(
+            (option, index) =>
+              option && item.used_for === selectedUsedForFilters[index]
+          );
+        });
+      } else if (selectedTechnologyOptions.some((option) => option)) {
+        // If only technology filters are active, filter based on technology only
+        filteredProducts = products.filter((item) => {
+          return selectedTechnologyOptions.some(
+            (option, index) =>
+              option && item.technology === selectedTechnologyFilters[index]
+          );
+        });
+      } else {
+        // If no filters are active, set the state to all products
+        filteredProducts = products;
+      }
+
+      // Set the state to the filtered products
+      setProducts(filteredProducts);
+      setIsLoading(false);
+
+      filteredProducts.length === 0 ? setHasError(true) : setHasError(false);
+    });
+  };
+
   useEffect(() => {
     try {
-      productService.getAllProducts().then((products) => {
-        let filteredProducts = []; // Start with an empty array
-
-        // Filter products based on selected options
-        const selectedUsedForOptions = [
-          corn,
-          multiforage,
-          grass,
-          pastone,
-          alfalfa,
-        ];
-        const selectedTechnologyOptions = [
-          fiberTechnology,
-          standard,
-          rapidReact,
-        ];
-
-        const selectedUsedForFilters = [
-          "Corn",
-          "Multiforage",
-          "Grass",
-          "Pastone",
-          "Alfalfa",
-        ];
-        const selectedTechnologyFilters = [
-          "FiberTechnology",
-          "Standard",
-          "RapidReact",
-        ];
-
-        if (
-          selectedUsedForOptions.some((option) => option) &&
-          selectedTechnologyOptions.some((option) => option)
-        ) {
-          // If both types of filters are active, filter based on both used_for and technology
-          const usedForFilteredProducts = products.filter((item) => {
-            return selectedUsedForOptions.some(
-              (option, index) =>
-                option && item.used_for === selectedUsedForFilters[index]
-            );
-          });
-
-          filteredProducts = usedForFilteredProducts.filter((item) => {
-            return selectedTechnologyOptions.some(
-              (option, index) =>
-                option && item.technology === selectedTechnologyFilters[index]
-            );
-          });
-        } else if (selectedUsedForOptions.some((option) => option)) {
-          // If only used_for filters are active, filter based on used_for only
-          filteredProducts = products.filter((item) => {
-            return selectedUsedForOptions.some(
-              (option, index) =>
-                option && item.used_for === selectedUsedForFilters[index]
-            );
-          });
-        } else if (selectedTechnologyOptions.some((option) => option)) {
-          // If only technology filters are active, filter based on technology only
-          filteredProducts = products.filter((item) => {
-            return selectedTechnologyOptions.some(
-              (option, index) =>
-                option && item.technology === selectedTechnologyFilters[index]
-            );
-          });
-        } else {
-          // If no filters are active, set the state to all products
-          filteredProducts = products;
-        }
-
-        // Set the state to the filtered products
-        setProducts(filteredProducts);
-      });
+      getProducts();
     } catch (error) {
       console.log("Error while loading products:", error);
     }
@@ -316,6 +326,8 @@ function SilageAdditives() {
   const closeSearch = () => {
     updateSearchTerm("");
   };
+
+  console.log(hasError);
   return (
     <div className="min-h-[100vh]">
       <div className="h-14 w-full text-white text-sm pl-[3%] md:pl-[7%] bg-[#0073cf] flex flex-row items-center">
@@ -545,20 +557,24 @@ function SilageAdditives() {
             <div className="animate-spin rounded-full border-t-4 border-[#0073cf] border-solid h-16 w-16"></div>
           </div>
         ) : (
-          <div className="lg:grid lg:grid-cols-[1fr_1fr_1fr] max-lg:flex max-lg:flex-wrap max-lg:gap-x-4 max-md:justify-center max-lg:mt-8 gap-y-4 ">
-            {filteredProducts && searchTerm && (
-              <div className="w-full text-center text-lg text-gray-500 font-bold mb-4 ">
-                {filteredProducts.length} results found for "{searchTerm}"{" "}
-                <CgCloseO
-                  className="cursor-pointer inline-block ml-1 text-xl"
-                  onClick={closeSearch}
-                >
-                  X
-                </CgCloseO>{" "}
+          <ErrorBoundaries hasError={hasError} handleError={getProducts}>
+            {!hasError && filteredProducts && (
+              <div className="lg:grid lg:grid-cols-[1fr_1fr_1fr] max-lg:flex max-lg:flex-wrap max-lg:gap-x-4 max-md:justify-center max-lg:mt-8 gap-y-4 ">
+                {filteredProducts && searchTerm && (
+                  <div className="w-full text-center text-lg text-gray-500 font-bold mb-4 block ">
+                    {filteredProducts.length} results found for "{searchTerm}"{" "}
+                    <CgCloseO
+                      className="cursor-pointer inline-block ml-1 text-xl"
+                      onClick={closeSearch}
+                    >
+                      X
+                    </CgCloseO>{" "}
+                  </div>
+                )}
+                <ProductCard products={filteredProducts} />
               </div>
             )}
-            <ProductCard products={filteredProducts} />
-          </div>
+          </ErrorBoundaries>
         )}
       </section>
 

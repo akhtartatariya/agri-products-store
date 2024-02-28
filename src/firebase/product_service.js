@@ -98,7 +98,7 @@ class ProductService {
       return products;
     } catch (error) {
       console.log(":: error while getting all products", error);
-      return [];
+      throw error;
     }
   }
   async getProduct(productId) {
@@ -146,7 +146,7 @@ class ProductService {
       console.log("Order placed successfully! Order ID:", orderRef.id);
       return true;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
@@ -161,9 +161,7 @@ class ProductService {
           where("userId", "==", userId)
         );
       } else {
-        ordersQuery = query(
-          collection(fireDB, "orders"),
-        );
+        ordersQuery = query(collection(fireDB, "orders"));
       }
 
       const ordersSnapshot = await getDocs(ordersQuery);

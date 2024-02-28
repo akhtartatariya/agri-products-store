@@ -8,22 +8,35 @@ import ProductCard from "../components/ProductCard";
 import Title from "../components/Title";
 import { Link } from "react-router-dom";
 import ProductCarousel from "../components/page-components/ProductCarousel";
+import ErrorBoundaries from "../components/custom/hooks/ErrorBoundaries";
+
+// Contexts
+import { useLoader } from "../components/context/LoaderContext";
 
 function Home() {
   //States
   const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { isLoading, setIsLoading } = useLoader();
+  const [hasError, setHasError] = useState(false);
   //dry matter
   const [initialWeight, setInitialWeight] = useState("");
   const [finalWeight, setFinalWeight] = useState("");
 
+  const getProducts = () => {
+    setIsLoading(true);
+    productService.getAllProducts().then((products) => {
+      setProducts(products);
+      setIsLoading(false);
+      products.length === 0 ? setHasError(true) : setHasError(false);
+    });
+  };
+
   useEffect(() => {
     try {
-      productService.getAllProducts().then((products) => {
-        setProducts(products);
-        setIsLoading(false);
-      });
+      getProducts();
     } catch (error) {
+      setIsLoading(false);
+      setHasError(true);
       console.log("Error while loading products:", error);
     }
   }, []);
@@ -107,32 +120,38 @@ function Home() {
             </div>
           </div>
         ) : (
-          <div className="max-md:hidden grid grid-cols-[1fr_1fr] xl:px-[100px] max-xl:md:px-[10px] py-24 w-full">
-            {/* Product Category 1 */}
-            <div className="flex max-[1140px]:flex-col justify-between max-[1140px]:items-center max-[1140px]:gap-4 border-r-2 max-xl:lg:pr-10 md:pr-4 border-gray-200">
-              <ProductCard
-                products={products.filter(
-                  (item) =>
-                    item.technology === "RapidReact" &&
-                    (item.used_for === "Corn" || item.used_for === "Grass") &&
-                    (item.product_name === "Pioneer® 11C33" ||
-                      item.product_name === "Pioneer® 11G22")
-                )}
-              />
-            </div>
-            {/* Product Category 2 */}
-            <div className="flex max-[1140px]:flex-col justify-between max-[1140px]:items-center max-[1140px]:gap-4 border-l-2 max-xl:lg:pl-10 md:pl-4 border-gray-200">
-              <ProductCard
-                products={products.filter(
-                  (item) =>
-                    item.technology === "FiberTechnology" &&
-                    (item.used_for === "Corn" || item.used_for === "Grass") &&
-                    (item.product_name === "Pioneer® 11CFT" ||
-                      item.product_name === "Pioneer® 11GFT")
-                )}
-              />
-            </div>
-          </div>
+          <ErrorBoundaries hasError={hasError} handleError={getProducts}>
+            {!hasError && products && (
+              <div className="max-md:hidden grid grid-cols-[1fr_1fr] xl:px-[100px] max-xl:md:px-[10px] py-24 w-full">
+                {/* Product Category 1 */}
+                <div className="flex max-[1140px]:flex-col justify-between max-[1140px]:items-center max-[1140px]:gap-4 border-r-2 max-xl:lg:pr-10 md:pr-4 border-gray-200">
+                  <ProductCard
+                    products={products.filter(
+                      (item) =>
+                        item.technology === "RapidReact" &&
+                        (item.used_for === "Corn" ||
+                          item.used_for === "Grass") &&
+                        (item.product_name === "Pioneer® 11C33" ||
+                          item.product_name === "Pioneer® 11G22")
+                    )}
+                  />
+                </div>
+                {/* Product Category 2 */}
+                <div className="flex max-[1140px]:flex-col justify-between max-[1140px]:items-center max-[1140px]:gap-4 border-l-2 max-xl:lg:pl-10 md:pl-4 border-gray-200">
+                  <ProductCard
+                    products={products.filter(
+                      (item) =>
+                        item.technology === "FiberTechnology" &&
+                        (item.used_for === "Corn" ||
+                          item.used_for === "Grass") &&
+                        (item.product_name === "Pioneer® 11CFT" ||
+                          item.product_name === "Pioneer® 11GFT")
+                    )}
+                  />
+                </div>
+              </div>
+            )}
+          </ErrorBoundaries>
         )}
         {/* Youtube Embbed for large screen */}
         <div className="max-md:hidden">
@@ -208,10 +227,8 @@ thanks to the most advanced technology"
           />
 
           {isLoading ? (
-            <div className="flex justify-center w-full">
-              <div className="animate__animated animate__pulse animate__infinite my-8 text-white text-sm h-11 flex items-center justify-center w-3/4 bg-[#0073cf] shadow-lg border-solid border-2 border-opacity-30 border-gray-600 rounded-lg">
-                Loading...
-              </div>
+            <div className="flex justify-center h-screen mt-12">
+              <div className="animate-spin rounded-full border-t-4 border-[#0073cf] border-solid h-16 w-16"></div>
             </div>
           ) : (
             <div>

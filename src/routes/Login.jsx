@@ -6,7 +6,7 @@ import LoginInput from "../components/FormStuff/LoginInput";
 import Button from "../components/FormStuff/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { login as authLogin } from "../store/authSlice";
+import { login as authLogin, logout } from "../store/authSlice";
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
@@ -23,9 +23,20 @@ const Login = () => {
           email: account.user.email,
           displayName: account.user.displayName,
         };
-        if (userData) dispatch(authLogin({ userData }));
-        localStorage.setItem("user", JSON.stringify(userData));
-        navigate("/");
+        const isAdmin = await authService.isAdmin();
+        if (!isAdmin) {
+          dispatch(authLogin({ userData }));
+          localStorage.setItem("user", JSON.stringify(userData));
+          navigate("/");
+        } else {
+          setError("Admins should log in from the admin login page");
+          authService.logout().then(()=>{
+            dispatch(logout());
+            localStorage.clear("user");
+          })
+        }
+      } else {
+        setError("Invalid Credentials");
       }
     } catch (error) {
       console.error("Error while submitting login form", error);

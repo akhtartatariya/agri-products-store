@@ -16,7 +16,7 @@ const Signup = () => {
     try {
       if (confirm) {
         const { password, fullName, email } = data;
-        const account = await authService.signUp(fullName, email, password);
+        const account = await authService.signUp(fullName, email, password,false);
         if (account) {
           const userData = await authService.getCurrentUser();
           if (userData) {

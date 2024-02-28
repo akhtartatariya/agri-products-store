@@ -6,33 +6,39 @@ import LoginInput from "../components/FormStuff/LoginInput";
 import Button from "../components/FormStuff/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { login as authLogin } from "../store/authSlice";
+import { login as authLogin, logout } from "../store/authSlice";
 const AdminLogin = () => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  
+
   const submit = async (data) => {
     setError("");
 
-    console.log(data);
     try {
-      
-        const account = await authService.login(data);
-        if (account) {
-          const user = await authService.getCurrentUser();
-          const userData = {
-            uid: account.user.uid,
-            email: account.user.email,
-            displayName: account.user.displayName,
-          };
-          if (userData) dispatch(authLogin({ userData }));
+      const account = await authService.login(data);
+      if (account) {
+        const user = await authService.getCurrentUser();
+        const userData = {
+          uid: account.user.uid,
+          email: account.user.email,
+          displayName: account.user.displayName,
+        };
+        const isAdmin = await authService.isAdmin();
+        if (isAdmin) {
+          dispatch(authLogin({ userData }));
           localStorage.setItem("user", JSON.stringify(userData));
-          navigate("/");
+          navigate("/admin/dashboard");
         }
-      
-      else{
+        else{
+          setError("You are not authorized as an admin");
+          authService.logout().then(()=>{
+            dispatch(logout())
+            localStorage.clear()
+          })
+        }
+      } else {
         setError("Invalid Credentials");
       }
     } catch (error) {

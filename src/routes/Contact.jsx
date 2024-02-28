@@ -162,7 +162,7 @@ function Contact() {
               <hr className="bg-black-500" />
               <p className="mt-5 mb-5 text-medium font-semibold">Your privacy is of utmost importance to Corteva. We want you to be fully aware of how we collect, use and disclose information.</p>
               <hr className="mb-5" />
-              <a href="" className="mt-5 font-medium text-medium text-[#0072CE]">Read the full privacy policy</a>
+              <Link href="" className="mt-5 font-medium text-medium text-[#0072CE]">Read the full privacy policy</Link>
               </div>
             </div>
             

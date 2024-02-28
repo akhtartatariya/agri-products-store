@@ -2,14 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import productService from "../firebase/product_service";
 import { useSelector } from "react-redux";
+import { useLoader } from "../components/context/LoaderContext";
+
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
   const userId = useSelector((state) => state.auth.userData?.uid);
+  const { isLoading, setIsLoading } = useLoader();
   useEffect(() => {
     productService.getOrders(userId).then((products) => {
       console.log(products);
       setOrders(products);
     });
+    setIsLoading(false);
   }, []);
   return (
     <>
@@ -20,10 +24,17 @@ const OrderHistory = () => {
       <div className="min-h-screen flex flex-col md:flex-row bg-white border border-t-gray-300">
         <div className="md:w-7/12 p-5 flex flex-col md:ml-5 md:mr-5 md:border-r-gray-300 md:border-t-0 md:border-l-0">
           <h1 className="text-3xl font-semibold mb-5">Order History</h1>
-          {orders.length === 0 ? (
-            <p className="text-lg font-semibold text-gray-600 mb-5 text-center md:text-left ">No orders found.</p>
+
+          {isLoading ? (
+            <div className="flex justify-center h-screen">
+              <div className="animate-spin rounded-full border-t-4 border-[#0073cf] border-solid h-16 w-16"></div>
+            </div>
+          ) : orders.length === 0 ? (
+            <p className="text-lg font-semibold text-gray-600 mb-5 text-center md:text-left">
+              No orders found.
+            </p>
           ) : (
-            orders?.map((order) =>
+            orders.map((order) =>
               order.userId === userId ? (
                 <div
                   key={order.id}
@@ -73,12 +84,6 @@ const OrderHistory = () => {
               ) : null
             )
           )}
-
-          {/* {!orders ? (
-            <p className="text-lg md:text-xl font-semibold text-gray-600 mb-5">
-              No orders found
-            </p>
-          ) : null} */}
         </div>
       </div>
     </>

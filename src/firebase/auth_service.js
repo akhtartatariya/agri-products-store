@@ -66,11 +66,8 @@ class AuthService {
         if (!querySnapshot.empty) {
           // Assuming there is only one document matching the UID
           const userDocSnap = querySnapshot.docs[0];
-          console.log(userDocSnap);
           const userData = userDocSnap.data();
-          console.log(userData);
           const isAdmin = userData?.isAdmin || false;
-          console.log(isAdmin);
           console.log("User Data:", userData); // Log for debugging
           return { ...user, isAdmin };
         } else {

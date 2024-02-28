@@ -64,6 +64,7 @@ const Checkout = () => {
                 type="email"
                 placeholder="Email"
                 className="border border-gray-300 p-2 w-full rounded my-2"
+                required
                 {...register("email", { required: true })}
               />
             </div>
@@ -114,6 +115,7 @@ const Checkout = () => {
                 type="text"
                 placeholder="Address"
                 className="border border-gray-300 p-2 w-full rounded my-2"
+                required
                 {...register("address", { required: true })}
               />
               <div className="flex my-2">
@@ -121,18 +123,21 @@ const Checkout = () => {
                   type="number"
                   placeholder="Pincode"
                   className=" w-1/3 border border-gray-300 p-2 rounded"
+                  required
                   {...register("pincode", { required: true })}
                 />
                 <input
                   type="text"
                   placeholder="City"
                   className="  w-1/3 border border-gray-300 p-2 rounded ml-2"
+                  required
                   {...register("city", { required: true })}
                 />
                 <input
                   type="text"
                   placeholder="State"
                   className=" w-1/3 border border-gray-300 p-2 rounded ml-2"
+                  required
                   {...register("state", { required: true })}
                 />
               </div>
@@ -140,6 +145,7 @@ const Checkout = () => {
                 type="text"
                 placeholder="Phone"
                 className="border border-gray-300 p-2 w-full rounded my-2"
+                required
                 {...register("phone", { required: true })}
               />
             </div>

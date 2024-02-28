@@ -45,6 +45,7 @@ import Signup from "./routes/Signup";
 import ProtectedUser from "./components/ProtectedRoute/ProtectedUser";
 import AdminLogin from "./routes/AdminLogin";
 import AdminSignup from "./routes/AdminSignup";
+import { LoaderProvider } from "./components/context/LoaderContext";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -168,11 +169,13 @@ store.dispatch(getTotals());
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <SearchProvider>
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
-    </SearchProvider>
+    <LoaderProvider>
+      <SearchProvider>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+      </SearchProvider>
+    </LoaderProvider>
   </React.StrictMode>
 );
 

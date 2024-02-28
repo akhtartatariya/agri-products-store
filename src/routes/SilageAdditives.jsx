@@ -11,11 +11,12 @@ import Title from "../components/Title";
 import { CgClose, CgCloseO } from "react-icons/cg";
 import { IoIosArrowDropupCircle } from "react-icons/io";
 import { useSearch } from "../components/context/SearchContext";
+import { useLoader } from "../components/context/LoaderContext";
 
 function SilageAdditives() {
   //States
   const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { isLoading, setIsLoading } = useLoader();
   const [filter, setFilter] = useState(false);
   const [filteredItems, setFilteredItems] = useState([]);
   const [usedFor, setUsedFor] = useState(true);
@@ -540,10 +541,8 @@ function SilageAdditives() {
         </div>
         {/* PRODUCT LIST */}
         {isLoading ? (
-          <div className="flex justify-center w-full ">
-            <div className="animate__animated animate__pulse animate__infinite my-8 text-white text-sm h-11 flex items-center justify-center w-3/4 bg-[#0073cf] shadow-lg border-solid border-2 border-opacity-30 border-gray-600 rounded-lg ">
-              Loading...
-            </div>
+          <div className="flex justify-center h-screen">
+            <div className="animate-spin rounded-full border-t-4 border-[#0073cf] border-solid h-16 w-16"></div>
           </div>
         ) : (
           <div className="lg:grid lg:grid-cols-[1fr_1fr_1fr] max-lg:flex max-lg:flex-wrap max-lg:gap-x-4 max-md:justify-center max-lg:mt-8 gap-y-4 ">

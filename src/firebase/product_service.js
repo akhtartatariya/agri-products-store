@@ -146,8 +146,7 @@ class ProductService {
       console.log("Order placed successfully! Order ID:", orderRef.id);
       return true;
     } catch (error) {
-      console.log(":: error while placing order", error);
-      return false;
+      throw error
     }
   }
 

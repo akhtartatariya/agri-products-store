@@ -98,7 +98,7 @@ function Nav() {
       }
     };
     fetchData();
-  }, [navigate]);
+  }, [navigate,userStatus,userEmail]);
   const navItems = [
     {
       name: "DASHBOARD",

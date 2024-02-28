@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import authService from "../../firebase/auth_service";
 const Protected = ({ children, authentication = true }) => {
   const authStatus = useSelector((state) => state.auth.status);
-  const admin = JSON.parse(localStorage.getItem("user"));
+  console.log(authStatus);
   const navigate = useNavigate();
   const [loader, setLoader] = useState(true);
-  const adminEmail =
-    admin &&
-    (admin.email === "sanaya@gmail.com" || admin.email === "a@gmail.com");
-
+  const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
-    if (!admin ||(adminEmail && authentication && authStatus !== authentication)) {
-      navigate("/login/user");
-    } else if (adminEmail && !authentication && authStatus !== authentication) {
+    const checkAdmin = async () => {
+      const isAdminServ = await authService.isAdmin();
+      setIsAdmin(isAdminServ);
+    };
+
+    if (isAdmin && authentication && authStatus !== authentication) {
+      navigate("/login/admin");
+    } else if (isAdmin && !authentication && authStatus !== authentication) {
       navigate("/");
     }
 
     setLoader(false);
-  }, [navigate, authentication, authStatus, adminEmail,admin]);
+    checkAdmin();
+  }, [navigate, authentication, authStatus]);
 
   return loader ? <h1>Loading...</h1> : <>{children}</>;
 };

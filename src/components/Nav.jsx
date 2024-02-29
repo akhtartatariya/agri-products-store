@@ -27,7 +27,7 @@ function Nav() {
   const [isHomePage, setIsHomePage] = useState(false);
   const { searchTerm, updateSearchTerm } = useSearch();
   const [isAdmin, setIsAdmin] = useState(false);
-  const [cartQuantity, setCartQuantity] = useState(0)
+  const [cartQuantity, setCartQuantity] = useState(0);
 
   //Fetch data From Store
   const userStatus = useSelector((state) => state.auth.status);
@@ -98,11 +98,11 @@ function Nav() {
       }
     };
     fetchData();
-  }, [navigate,userStatus,userEmail]);
+  }, [navigate, userStatus, userEmail]);
 
-  useEffect(()=>{
-    setCartQuantity(cartQuantity)
-  },[cartTotalQuantity,cartQuantity])
+  useEffect(() => {
+    setCartQuantity(cartQuantity);
+  }, [cartTotalQuantity, cartQuantity]);
   const navItems = [
     {
       name: "DASHBOARD",

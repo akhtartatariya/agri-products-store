@@ -287,6 +287,7 @@ function SilageAdditives() {
 
   useEffect(() => {
     try {
+      updateSearchTerm('')
       getProducts();
     } catch (error) {
       console.log("Error while loading products:", error);
@@ -329,13 +330,13 @@ function SilageAdditives() {
 
   console.log(hasError);
   return (
-    <div className="min-h-[100vh]">
+    <div className="min-h-[100vh] ">
       <div className="h-14 w-full text-white text-sm pl-[3%] md:pl-[7%] bg-[#0073cf] flex flex-row items-center">
         <Link to={"/"}>Home</Link> &nbsp;/ Silage additives
       </div>
 
       {/* PRODUCTS */}
-      <div className="w-full border-b-4 border-slate-30000 h-60 pt-16 max-sm:pt-6 max-lg:px-10 lg:px-28 max-md:px-4">
+      <div className={`w-full border-b-4 border-slate-30000 h-60 pt-16 max-sm:pt-6 max-lg:px-10 lg:px-28 max-md:px-4 ${searchTerm && 'hidden'}`}>
         <Title
           text="Products"
           className={"max-md:text-3xl md:text-5xl font-bold "}
@@ -349,9 +350,9 @@ function SilageAdditives() {
       </div>
 
       {/* FILTER SECTION */}
-      <section className="lg:px-28 max-lg:px-10 max-md:px-4 grid lg:grid-cols-[.7fr_2.2fr] max-md:grid-rows-[1fr] py-12 gap-x-8 bg-gray-50">
+      <section className={`lg:px-28 max-lg:px-10 max-md:px-4 grid lg:grid-cols-[.7fr_2.2fr] max-md:grid-rows-[1fr] py-12 gap-x-8 bg-gray-50`}>
         {/* SORT */}
-        <div>
+        <div className={`${searchTerm && 'order-last sm:order-none hidden sm:block'}`}>
           {filter && (
             <div className="mb-4">
               <div className="flex flex-row justify-between">
@@ -559,9 +560,9 @@ function SilageAdditives() {
         ) : (
           <ErrorBoundaries hasError={hasError} handleError={getProducts}>
             {!hasError && filteredProducts && (
-              <div className="lg:grid lg:grid-cols-[1fr_1fr_1fr] max-lg:flex max-lg:flex-wrap max-lg:gap-x-4 max-md:justify-center max-lg:mt-8 gap-y-4 ">
+              <div className={`lg:grid lg:grid-cols-[1fr_1fr_1fr] max-lg:flex max-lg:flex-wrap max-lg:gap-x-4 max-md:justify-center max-lg:mt-8 gap-y-4 `}>
                 {filteredProducts && searchTerm && (
-                  <div className="w-full text-center text-lg text-gray-500 font-bold mb-4 block ">
+                  <div className={`w-full text-center text-lg text-gray-500 font-bold mb-4 block `}>
                     {filteredProducts.length} results found for "{searchTerm}"{" "}
                     <CgCloseO
                       className="cursor-pointer inline-block ml-1 text-xl"
@@ -571,7 +572,8 @@ function SilageAdditives() {
                     </CgCloseO>{" "}
                   </div>
                 )}
-                <ProductCard products={filteredProducts} />
+               
+                <ProductCard products={filteredProducts}/>
               </div>
             )}
           </ErrorBoundaries>

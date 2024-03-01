@@ -15,7 +15,7 @@ function About() {
         />
         <div className="absolute bottom-32 md:bottom-44 top-32 left-4 md:left-16 right-4 md:right-16 h-56 bg-white opacity-100 shadow-lg grid grid-cols-1 md:grid-cols-2 place-items-center p-8">
           <div className="mb-4 md:mb-0">
-            <p className="text-black text-left font-bold md:text-3xl text-lg ">
+            <p className="text-black text-left sm:text-left font-bold md:text-3xl text-lg lg:w-[95%] xl:w-full  text-pretty">
               A commitment to increasing <div>Progress</div>
             </p>
           </div>
@@ -25,7 +25,7 @@ function About() {
               resources so farms can thrive and move our world forward.
             </p>
           </div>
-          <div className="absolute top-10 md:top-[4.5rem] left-[7%] md:left-[48%] bg-green-400 h-10 md:h-20 w-1 rounded-2xl bottom-1/2 "></div>
+          <div className="absolute top-10 md:top-[4.5rem] left-[7%] md:left-[48%] bg-green-400 h-12 md:h-20 w-1 rounded-2xl bottom-1/2 "></div>
         </div>
         <div className="text-left p-4 md:p-16 md:mt-10 mt-20">
           <p className="text-2xl md:text-3xl font-bold">

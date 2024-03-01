@@ -53,7 +53,7 @@ const Checkout = () => {
   return (
     <>
       <div className="min-h-screen flex flex-col md:flex-row bg-white border border-t-gray-300">
-        <div className="md:w-7/12 p-5 flex flex-col md:ml-52 border border-r-gray-300 border-t-0 border-l-0">
+        <div className="md:w-7/12 p-5 flex flex-col md:ml-52 border border-r-gray-300 border-t-0 border-l-0 order-1 sm:order-none">
           <form onSubmit={handleSubmit(placeOrder)}>
             <div className="w-full">
               <label htmlFor="contact" className="text-2xl font-semibold block">

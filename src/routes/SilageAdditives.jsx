@@ -352,7 +352,7 @@ function SilageAdditives() {
       {/* FILTER SECTION */}
       <section className={`lg:px-28 max-lg:px-10 max-md:px-4 grid lg:grid-cols-[.7fr_2.2fr] max-md:grid-rows-[1fr] py-12 gap-x-8 bg-gray-50`}>
         {/* SORT */}
-        <div className={`${searchTerm && 'order-last sm:order-none hidden sm:block'}`}>
+        <div className={`${searchTerm && 'order-last sm:order-none '}`}>
           {filter && (
             <div className="mb-4">
               <div className="flex flex-row justify-between">
@@ -560,7 +560,7 @@ function SilageAdditives() {
         ) : (
           <ErrorBoundaries hasError={hasError} handleError={getProducts}>
             {!hasError && filteredProducts && (
-              <div className={`lg:grid lg:grid-cols-[1fr_1fr_1fr] max-lg:flex max-lg:flex-wrap max-lg:gap-x-4 max-md:justify-center max-lg:mt-8 gap-y-4 `}>
+              <div className={`lg:grid lg:grid-cols-[1fr_1fr_1fr] max-lg:flex max-lg:flex-wrap max-lg:gap-x-4 max-md:justify-center max-lg:mt-8 gap-y-4 mb-10 sm:mb-0`}>
                 {filteredProducts && searchTerm && (
                   <div className={`w-full text-center text-lg text-gray-500 font-bold mb-4 block `}>
                     {filteredProducts.length} results found for "{searchTerm}"{" "}

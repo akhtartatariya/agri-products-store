@@ -9,7 +9,7 @@ function Footer() {
         {/* Footer Upper */}
         <div className="px-[15%] md:px-[13%] bg-[#262626] flex flex-col md:flex-row gap-[12%] justify-center md:items-center h-[14rem] md:h-[8rem]">
           <img
-            src="../Corteva_Footer_Logo.png"
+            src="/Corteva_Footer_Logo.png"
             alt="Corteva Footer Logo"
             className="w-52 h-10 max-md:-ml-[3.2rem]"
           />
@@ -79,21 +79,21 @@ function Footer() {
             <div className="flex gap-2">
               <div className="bg-white w-10 h-6 flex items-center justify-center">
                 <img
-                  src="../img/footer/Visa_icon.png"
+                  src="/img/footer/Visa_icon.png"
                   alt="Visa Icon"
                   className="w-7"
                 />
               </div>
               <div className="bg-white w-10 h-6 flex items-center justify-center">
                 <img
-                  src="../img/footer/Mastercard_icon.png"
+                  src="/img/footer/Mastercard_icon.png"
                   alt="Mastercard icon"
                   className="w-7"
                 />
               </div>
               <div className="bg-transparent w-[2.9rem] h-6 flex items-center justify-center">
                 <img
-                  src="../img/footer/Amex_icon.png"
+                  src="/img/footer/Amex_icon.png"
                   alt="Amex icon"
                   className="w-[2.9rem] -ml-[.6rem]"
                 />

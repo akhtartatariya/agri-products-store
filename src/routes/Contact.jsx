@@ -1,10 +1,78 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
 import { Link } from "react-router-dom";
 
 function Contact() {
-  const onChange = () => {};
+  const [captchaCompleted, setCaptchaCompleted] = useState(false);
+  const [provinces, setProvinces] = useState([]);
+  const [countries, setCountries] = useState([]);
+
+  const onChange = () => {
+    setCaptchaCompleted(true);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (captchaCompleted) {
+      // Form submission logic goes here
+      console.log("Form submitted successfully");
+      alert("Form submitted successfully");
+    } else {
+      alert("Please complete the captcha before submitting the form.");
+    }
+  };
+
+  // Provinces/District Data Germany
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://raw.githubusercontent.com/pensnarik/german-cities/master/germany.json"
+        );
+        const data = await response.json();
+        const districtNames = data.map((city) => city.district);
+        setProvinces(districtNames);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(provinces);
+
+  //Countries Data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-alphabet-letters.json"
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+       }
+
+        const data = await response.json();
+        const firstElement = data[0];
+
+        // Extract country names from the properties of the first element
+        const countryNames = Object.values(firstElement).flatMap((item) =>
+          item.countries.map((country) => country.country)
+        );
+
+        setCountries(countryNames);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(countries);
+
   return (
     <>
       <div className="h-14 w-full text-white text-sm pl-[3%] md:pl-[7%] bg-[#0073cf] flex flex-row items-center">
@@ -16,33 +84,35 @@ function Contact() {
           alt="about banner"
           className=" h-72 w-full object-cover object-center  "
         />
-        <div className="absolute bottom-32 md:bottom-44 top-32 left-4 md:left-16 right-4 md:right-16 h-56 bg-white opacity-100 shadow-lg grid grid-cols-3 place-items-center p-8">
+        <div className="absolute bottom-32 md:bottom-44 top-32 left-4 md:left-16 right-4 md:right-16 h-56 bg-white opacity-100 shadow-lg grid grid-cols-1 md:grid-cols-2 place-items-center p-8">
           <div class=" md:mb-0 col-span-1">
-            <p class="text-black font-semibold md:text-xl">
+            <p class="text-black font-semibold text-sm md:text-lg lg:text-xl">
               To contact us, use the phone:
             </p>
-            <p class="text-[#0072CE] font-bold md:text-4xl mt-2 md:mt-4">
+            <p class="text-[#0072CE] font-bold text-xl md:text-2xl lg:text-4xl mt-2 md:mt-4">
               +34-954-298-300
             </p>
           </div>
-          <div className=" md:mb-0 col-span-2">
-            <p className="text-black font-semibold md:text-xl ">or email:</p>
-            <p className="text-[#0072CE] font-bold md:text-4xl mt-2 md:mt-4 ">
+          <div className=" md:mb-0 col-span-1 ml-6">
+            <p className="text-black font-semibold text-sm md:text-lg lg:text-xl ">
+              or email:
+            </p>
+            <p className="text-[#0072CE] font-bold text-xl md:text-2xl lg:text-4xl mt-2 md:mt-4 ">
               shop.es@corteva.com
             </p>
           </div>
-          <div className="absolute top-10 md:top-[4.5rem] left-[7%] md:left-[48%] bg-[#0000002E] h-20 md:h-24 w-1 rounded-xl bottom-1/2 "></div>
+          <div className="absolute top-10 md:top-[4.5rem] left-[7%] md:left-[48%] bg-[#0000002E] h-14 md:h-24 w-1 rounded-xl bottom-1/2 "></div>
         </div>
         <div className="border-t-2 h-72 border-none bg-[#f8f8f8] flex items-center justify-center">
-          <p className=" text-xl md:ml-16  md:mr-16 pt-16 ">
+          <p className="text-lg md:text-xl md:ml-16  md:mr-16 pt-16 mx-4 ">
             Please contact us via the phone number or email mentioned if you
             have any questions related to the order. We strive to help you as
             quickly as possible.
           </p>
         </div>
-        <div class="grid grid-cols-4 m-20">
-          <div className=" col-span-3">
-            <form className="">
+        <div class="grid grid-cols-1 md:grid-cols-6 m-4 md:m-20">
+          <div className="col-span-1 md:col-span-4">
+            <form className="" onSubmit={handleSubmit}>
               <div className="mb-8">
                 <label
                   for="name"
@@ -114,6 +184,11 @@ function Contact() {
                   className="mt-1 p-2 w-full border h-12"
                 >
                   <option value="">--Choose One--</option>
+                  {provinces.map((province, index) => (
+                    <option key={index} value={province}>
+                      {province}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className="mb-8">
@@ -130,6 +205,11 @@ function Contact() {
                 >
                   {" "}
                   <option value="">--Choose One--</option>
+                  {countries.map((country, index) => (
+                    <option key={index} value={country}>
+                      {country}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div class="mb-9">
@@ -155,7 +235,7 @@ function Contact() {
               <div className="flex items-center">
                 <input
                   type="checkbox"
-                  className="form-checkbox h-6 w-6  text-blue-600"
+                  className="form-checkbox w-10 h-10 md:h-6 md:w-6  text-blue-600"
                 />
                 <label className="ml-4">
                   I wish to recieve communications about products and/ or
@@ -199,8 +279,8 @@ function Contact() {
               </button>
             </form>
           </div>
-          <div className=" col-span-1 ml-10 ">
-            <div className="absolute bg-green-400 h-1 w-[20%]  mr-20 "></div>
+          <div className="col-span-1 md:col-span-2 md:ml-10 md:my-0 my-12 ">
+            <div className="bg-green-400 h-1 w-full  mr-20 "></div>
             <p className="mt-5 font-bold text-xl mb-5">Data Privacy</p>
             <hr className="bg-black-500" />
             <p className="mt-5 mb-5 text-medium font-semibold">

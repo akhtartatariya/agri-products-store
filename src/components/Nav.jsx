@@ -27,7 +27,6 @@ function Nav() {
   const [isHomePage, setIsHomePage] = useState(false);
   const { searchTerm, updateSearchTerm } = useSearch();
   const [isAdmin, setIsAdmin] = useState(false);
-  const [cartQuantity, setCartQuantity] = useState(0);
 
   //Fetch data From Store
   const userStatus = useSelector((state) => state.auth.status);
@@ -100,9 +99,7 @@ function Nav() {
     fetchData();
   }, [navigate, userStatus, userEmail]);
 
-  useEffect(() => {
-    setCartQuantity(cartQuantity);
-  }, [cartTotalQuantity, cartQuantity]);
+  
   const navItems = [
     {
       name: "DASHBOARD",
@@ -214,7 +211,7 @@ function Nav() {
                 onClick={() => handleOpenCart()}
               />
               <div className="bg-[#0073cf] rounded-full text-white h-4 w-4 text-xs flex justify-center items-center absolute left-4 -top-2">
-                {cartQuantity}
+                {cartTotalQuantity}
               </div>
             </div>
           ) : null}

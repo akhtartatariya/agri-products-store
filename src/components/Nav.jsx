@@ -116,7 +116,6 @@ function Nav() {
     fetchData();
   }, [navigate, userStatus, userEmail]);
 
-  
   const navItems = [
     {
       name: "DASHBOARD",
@@ -164,7 +163,7 @@ function Nav() {
         <div className="w-[10rem] z-30">
           <Link to={"/"}>
             <img
-              src="../Corteva_logo.png"
+              src="/Corteva_logo.png"
               alt="Corteva logo"
               className="w-40 cursor-pointer"
             />

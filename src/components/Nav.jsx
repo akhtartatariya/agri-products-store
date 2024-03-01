@@ -78,6 +78,23 @@ function Nav() {
 
   //Effects
   useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest(".toggle-element")) {
+        // Replace '.your-toggle-element' with the appropriate class or selector
+        setToggle(false);
+      }
+    };
+
+    if (toggle) {
+      document.addEventListener("click", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [toggle]);
+
+  useEffect(() => {
     if (searchRef.current && search) {
       searchRef.current.focus();
     }
@@ -221,12 +238,12 @@ function Nav() {
           <MdOutlineSearch className="cursor-pointer" onClick={activeSearch} />
           {!toggle ? (
             <HiOutlineMenuAlt3
-              className="cursor-pointer lg:hidden"
+              className="toggle-element cursor-pointer lg:hidden"
               onClick={activeToggle}
             />
           ) : (
             <CgCloseO
-              className="cursor-pointer lg:hidden"
+              className="toggle-element cursor-pointer lg:hidden"
               onClick={deactiveToggle}
             />
           )}
@@ -258,20 +275,24 @@ function Nav() {
 
             {!userStatus ? (
               <li className="flex gap-4">
-                <Button
-                  children={"Login"}
-                  className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
-                />
+                <NavLink to={"/login/user"}>
+                  <Button
+                    children={"Login"}
+                    className="px-3 py-2 bg-[#0073cf] text-white rounded hover:bg-sky-500"
+                  />
+                </NavLink>
 
-                <Button
-                  children={"SignUp"}
-                  className="px-3 py-2 bg-green-800 text-white rounded hover:bg-green-600"
-                />
+                <NavLink to={"/signup/user"}>
+                  <Button
+                    children={"SignUp"}
+                    className="px-3 py-2 bg-green-800 text-white rounded hover:bg-green-600"
+                  />
+                </NavLink>
               </li>
             ) : null}
             {userStatus && (
               <li className="flex gap-2 items-center">
-                <LogoutBtn /> {`(${userName})`}
+                <LogoutBtn /> {userEmail ? `(${userName})` : null}
               </li>
             )}
           </ul>

@@ -46,6 +46,7 @@ import ProtectedUser from "./components/ProtectedRoute/ProtectedUser";
 import AdminLogin from "./routes/AdminLogin";
 import AdminSignup from "./routes/AdminSignup";
 import { LoaderProvider } from "./components/context/LoaderContext";
+import Error404 from "./components/Error404";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -160,6 +161,7 @@ const router = createBrowserRouter(
           }
         />
       </Route>
+      <Route path="*" element={<Error404 />} />
     </Route>
   )
 );

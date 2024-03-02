@@ -26,7 +26,7 @@ const Protected = ({ children, authentication = true }) => {
 
   useEffect(() => {
     if (!loader) {
-      if (isAdmin && authentication && authStatus !== authentication) {
+      if (!isAdmin && authentication && authStatus !== authentication) {
         navigate("/login/admin");
       } else if (isAdmin && !authentication && authStatus !== authentication) {
         navigate("/");

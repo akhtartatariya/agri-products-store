@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Title from "../components/Title";
 import authService from "../firebase/auth_service";
 import { useDispatch } from "react-redux";
@@ -14,10 +14,13 @@ const AdminLogin = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { isLoading, setIsLoading } = useLoader();
+  useEffect(()=>{
+    setIsLoading(false);
+  },[])
   const submit = async (data) => {
     setError("");
     setIsLoading(true);
-
+    
     try {
       const account = await authService.login(data);
       if (account) {
@@ -64,6 +67,7 @@ const AdminLogin = () => {
       // throw error;
     }
   };
+  
   return (
     <>
       <div className="h-14 w-full text-white text-sm pl-[3%] md:pl-[7%] bg-[#0073cf] flex flex-row items-center">

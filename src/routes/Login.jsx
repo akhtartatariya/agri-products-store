@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Title from "../components/Title";
 import authService from "../firebase/auth_service";
 import { useDispatch } from "react-redux";
@@ -14,6 +14,9 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { isLoading, setIsLoading } = useLoader();
+  useEffect(()=>{
+    setIsLoading(false);
+  },[])
   const submit = async (data) => {
     setError("");
     setIsLoading(true);

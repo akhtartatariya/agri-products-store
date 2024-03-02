@@ -123,7 +123,7 @@ const router = createBrowserRouter(
       <Route
         path="/admin"
         element={
-          <Protected>
+          <Protected authentication>
             <Admin />
           </Protected>
         }
@@ -131,7 +131,7 @@ const router = createBrowserRouter(
         <Route
           path="/admin/dashboard"
           element={
-            <Protected>
+            <Protected authentication>
               <Dashboard />
             </Protected>
           }
@@ -139,7 +139,7 @@ const router = createBrowserRouter(
         <Route
           path="/admin/add-product"
           element={
-            <Protected>
+            <Protected authentication>
               <AddProduct />
             </Protected>
           }
@@ -147,7 +147,7 @@ const router = createBrowserRouter(
         <Route
           path="/admin/edit-product/:slug"
           element={
-            <Protected>
+            <Protected authentication>
               <EditProduct />
             </Protected>
           }
@@ -155,7 +155,7 @@ const router = createBrowserRouter(
         <Route
           path="/admin/all-products"
           element={
-            <Protected>
+            <Protected authentication>
               <AllProducts />
             </Protected>
           }

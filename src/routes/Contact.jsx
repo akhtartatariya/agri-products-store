@@ -27,12 +27,38 @@ function Contact() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://raw.githubusercontent.com/pensnarik/german-cities/master/germany.json"
-        );
-        const data = await response.json();
-        const districtNames = data.map((city) => city.district);
-        setProvinces(districtNames);
+        // Check if data is available in local storage
+        const storedProvinces = localStorage.getItem("provinces");
+        const storedCountries = localStorage.getItem("countries");
+
+        if (storedProvinces && storedCountries) {
+          setProvinces(JSON.parse(storedProvinces));
+          setCountries(JSON.parse(storedCountries));
+        } else {
+          const responseProvinces = await fetch(
+            "https://raw.githubusercontent.com/pensnarik/german-cities/master/germany.json"
+          );
+          const dataProvinces = await responseProvinces.json();
+          const districtNames = dataProvinces.map((city) => city.district);
+          setProvinces(districtNames);
+
+          const responseCountries = await fetch(
+            "https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-alphabet-letters.json"
+          );
+          if (!responseCountries.ok) {
+            throw new Error(`HTTP error! Status: ${responseCountries.status}`);
+          }
+          const dataCountries = await responseCountries.json();
+          const firstElement = dataCountries[0];
+          const countryNames = Object.values(firstElement).flatMap((item) =>
+            item.countries.map((country) => country.country)
+          );
+          setCountries(countryNames);
+
+          // Store data in local storage
+          localStorage.setItem("provinces", JSON.stringify(districtNames));
+          localStorage.setItem("countries", JSON.stringify(countryNames));
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -40,38 +66,6 @@ function Contact() {
 
     fetchData();
   }, []);
-
-  console.log(provinces);
-
-  //Countries Data
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-alphabet-letters.json"
-        );
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-       }
-
-        const data = await response.json();
-        const firstElement = data[0];
-
-        // Extract country names from the properties of the first element
-        const countryNames = Object.values(firstElement).flatMap((item) =>
-          item.countries.map((country) => country.country)
-        );
-
-        setCountries(countryNames);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  console.log(countries);
 
   return (
     <>

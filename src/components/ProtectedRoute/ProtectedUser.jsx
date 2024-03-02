@@ -11,10 +11,10 @@ const ProtectedUser = ({ children, authentication = true }) => {
     let isMounted = true; // Flag to check if the component is still mounted
 
     const handleNavigation = () => {
-      if (authentication && authStatus !== authentication) {
-        navigate("/login/user");
-      } else if (!authentication && authStatus !== authentication) {
+      if (!authentication && authStatus !== authentication) {
         navigate("/");
+      } else if (authentication && authStatus !== authentication) {
+        navigate("/login/user");
       }
 
       setLoader(false);
@@ -33,7 +33,7 @@ const ProtectedUser = ({ children, authentication = true }) => {
 
   return (
     <React.Suspense fallback={<h1>Loading...</h1>}>
-      {loader ? null : children}
+      {loader ? <React.Fragment> </React.Fragment> : children}
     </React.Suspense>
   );
 };

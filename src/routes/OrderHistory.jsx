@@ -9,11 +9,12 @@ const OrderHistory = () => {
   const userId = useSelector((state) => state.auth.userData?.uid);
   const { isLoading, setIsLoading } = useLoader();
   useEffect(() => {
+    setIsLoading(true);
     productService.getOrders(userId).then((products) => {
       console.log(products);
       setOrders(products);
+      setIsLoading(false);
     });
-    setIsLoading(false);
   }, []);
   return (
     <>
@@ -26,7 +27,7 @@ const OrderHistory = () => {
           <h1 className="text-3xl font-semibold mb-5">Order History</h1>
 
           {isLoading ? (
-            <div className="flex justify-center h-screen">
+            <div className="flex justify-center items-start h-screen">
               <div className="animate-spin rounded-full border-t-4 border-[#0073cf] border-solid h-16 w-16"></div>
             </div>
           ) : orders.length === 0 ? (

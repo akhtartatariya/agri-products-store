@@ -24,7 +24,6 @@ const AdminLogin = () => {
     try {
       const account = await authService.login(data);
       if (account) {
-        const user = await authService.getCurrentUser();
         const userData = {
           uid: account.user.uid,
           email: account.user.email,

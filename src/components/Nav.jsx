@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 //Components
 import Button from "./FormStuff/Button";
 import LogoutBtn from "./LogoutBtn";
@@ -47,34 +47,33 @@ function Nav() {
   };
 
   //Functions
-  const activeToggle = () => {
+  const activeToggle = useCallback(() => {
     setToggle(true);
-  };
-  const deactiveToggle = () => {
+  }, []);
+  const deactiveToggle = useCallback(() => {
     setToggle(false);
-  };
+  }, []);
 
-  const activeSearch = () => {
+  const activeSearch = useCallback(() => {
     setSearch(true);
     navigate("/silage_additives");
-  };
-  const deactiveSearch = () => {
+  }, [navigate]);
+  const deactiveSearch = useCallback(() => {
     setSearch(false);
     updateSearchTerm("");
-  };
+  }, [updateSearchTerm]);
 
-  const handleKeyDown = (e) => {
+  const handleSubmit = useCallback(() => {
+    setSearch(false);
+  }, []);
+  const handleKeyDown = useCallback((e) => {
     if (e.key === "Enter") {
       handleSubmit();
     }
-  };
-  const handleSearchChange = (e) => {
+  }, [handleSubmit]);
+  const handleSearchChange = useCallback((e) => {
     updateSearchTerm(e.target.value);
-  };
-  const handleSubmit = () => {
-    setSearch(false);
-  };
-
+  }, [updateSearchTerm]);
   //Effects
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -116,7 +115,7 @@ function Nav() {
     fetchData();
   }, [navigate, userStatus, userEmail]);
 
-  const navItems = [
+  const navItems = useMemo(() =>[
     {
       name: "DASHBOARD",
       slug: "/admin/dashboard",
@@ -152,7 +151,7 @@ function Nav() {
       slug: "/admin/add-product",
       active: isAdmin,
     },
-  ];
+  ],[isAdmin,userEmail,userStatus,userId])
 
   return (
     <>

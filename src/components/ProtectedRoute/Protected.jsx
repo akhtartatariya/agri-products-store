@@ -16,7 +16,6 @@ const Protected = ({ children, authentication = true }) => {
         setLoader(false);
       } catch (error) {
         console.error("Error checking admin status:", error);
-        // Handle error if necessary
         setLoader(false);
       }
     };
@@ -26,10 +25,10 @@ const Protected = ({ children, authentication = true }) => {
 
   useEffect(() => {
     if (!loader) {
-      if (!isAdmin && authentication && authStatus !== authentication) {
-        navigate("/login/admin");
-      } else if (isAdmin && !authentication && authStatus !== authentication) {
+      if (isAdmin && !authentication && authStatus !== authentication) {
         navigate("/");
+      } else if (!isAdmin && authentication && authStatus !== authentication) {
+        navigate("/login/admin");
       }
     }
   }, [navigate, authentication, authStatus, isAdmin, loader]);

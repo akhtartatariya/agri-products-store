@@ -79,11 +79,11 @@ function Contact() {
           className=" h-72 w-full object-cover object-center  "
         />
         <div className="absolute bottom-32 md:bottom-44 top-32 left-4 md:left-16 right-4 md:right-16 h-56 bg-white opacity-100 shadow-lg grid grid-cols-1 md:grid-cols-2 place-items-center p-8">
-          <div class=" md:mb-0 col-span-1">
-            <p class="text-black font-semibold text-sm md:text-lg lg:text-xl">
+          <div className=" md:mb-0 col-span-1">
+            <p className="text-black font-semibold text-sm md:text-lg lg:text-xl">
               To contact us, use the phone:
             </p>
-            <p class="text-[#0072CE] font-bold text-xl md:text-2xl lg:text-4xl mt-2 md:mt-4">
+            <p className="text-[#0072CE] font-bold text-xl md:text-2xl lg:text-4xl mt-2 md:mt-4">
               +34-954-298-300
             </p>
           </div>
@@ -104,12 +104,12 @@ function Contact() {
             quickly as possible.
           </p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-6 m-4 md:m-20">
+        <div className="grid grid-cols-1 md:grid-cols-6 m-4 md:m-20">
           <div className="col-span-1 md:col-span-4">
             <form className="" onSubmit={handleSubmit}>
               <div className="mb-8">
                 <label
-                  for="name"
+                  htmlFor="name"
                   className="block text-lg font-medium text-gray-700"
                 >
                   Name *
@@ -124,7 +124,7 @@ function Contact() {
               </div>
               <div className="mb-8">
                 <label
-                  for="surnames"
+                  htmlFor="surnames"
                   className="block text-lg font-medium text-gray-700"
                 >
                   Surnames *
@@ -139,7 +139,7 @@ function Contact() {
               </div>
               <div className="mb-8">
                 <label
-                  for="company"
+                  htmlFor="company"
                   className="block text-lg font-medium text-gray-700"
                 >
                   Company
@@ -153,8 +153,8 @@ function Contact() {
               </div>
               <div className="mb-8">
                 <label
-                  for="email"
-                  class="block text-lg font-medium text-gray-700"
+                  htmlFor="email"
+                  className="block text-lg font-medium text-gray-700"
                 >
                   Email *
                 </label>
@@ -167,7 +167,7 @@ function Contact() {
               </div>
               <div className="mb-8">
                 <label
-                  for="province"
+                  htmlFor="province"
                   className="block text-lg font-medium text-gray-700"
                 >
                   Province *
@@ -187,7 +187,7 @@ function Contact() {
               </div>
               <div className="mb-8">
                 <label
-                  for="country"
+                  htmlFor="country"
                   className="block text-lg font-medium text-gray-700"
                 >
                   Country *
@@ -206,9 +206,9 @@ function Contact() {
                   ))}
                 </select>
               </div>
-              <div class="mb-9">
+              <div className="mb-9">
                 <label
-                  for="message"
+                  htmlFor="message"
                   className="block text-lg font-medium text-black"
                 >
                   Your message *

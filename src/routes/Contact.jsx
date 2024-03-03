@@ -150,7 +150,12 @@ function Contact() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-6 m-4 md:m-20">
           <div className="col-span-1 md:col-span-4">
-            <form className="" onSubmit={handleSubmit} netlify>
+            <form
+              className=""
+              onSubmit={handleSubmit}
+              action="post"
+              data-netlify="true"
+            >
               <div className="mb-8">
                 <label
                   htmlFor="name"

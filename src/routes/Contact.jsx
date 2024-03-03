@@ -56,19 +56,14 @@ function Contact() {
     setCaptchaCompleted(true);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await fetch("/", {
-        method: "POST",
-        body: new FormData(e.target),
-      });
+    if (captchaCompleted) {
+      // Form submission logic goes here
       console.log("Form submitted successfully");
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      alert(
-        "An error occurred while submitting the form. Please try again later."
-      );
+      alert("Form submitted successfully");
+    } else {
+      alert("Please complete the captcha before submitting the form.");
     }
   };
 
@@ -155,12 +150,7 @@ function Contact() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-6 m-4 md:m-20">
           <div className="col-span-1 md:col-span-4">
-            <form
-              className=""
-              onSubmit={handleSubmit}
-              method="POST"
-              data-netlify="true"
-            >
+            <form className="" action="POST" netlify>
               <div className="mb-8">
                 <label
                   htmlFor="name"

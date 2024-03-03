@@ -56,14 +56,20 @@ function Contact() {
     setCaptchaCompleted(true);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (captchaCompleted) {
-      // Form submission logic goes here
+    try {
+      await fetch("/", {
+        method: "POST",
+        body: new FormData(e.target),
+      });
       console.log("Form submitted successfully");
       alert("Form submitted successfully");
-    } else {
-      alert("Please complete the captcha before submitting the form.");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert(
+        "An error occurred while submitting the form. Please try again later."
+      );
     }
   };
 

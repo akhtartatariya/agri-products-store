@@ -153,7 +153,7 @@ function Contact() {
             <form
               className=""
               onSubmit={handleSubmit}
-              action="post"
+              method="POST"
               data-netlify="true"
             >
               <div className="mb-8">

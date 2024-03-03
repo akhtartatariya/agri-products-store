@@ -57,13 +57,7 @@ function Contact() {
   };
 
   const handleSubmit = async (e) => {
-  const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await fetch("/", {
-        method: "POST",
-        body: new FormData(e.target),
-      });
     try {
       await fetch("/", {
         method: "POST",

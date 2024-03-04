@@ -151,11 +151,12 @@ function Contact() {
         <div className="grid grid-cols-1 md:grid-cols-6 m-4 md:m-20">
           <div className="col-span-1 md:col-span-4">
             <form
-              className=""
-              action="POST"
+              name="contact-from"
+              method="post"
               data-netlify="true"
-              id="contact-form"
+              data-netlify-honeypot="bot-field"
             >
+              <input type="hidden" name="form-name" value="contact" />
               <div className="mb-8">
                 <label
                   htmlFor="name"
@@ -446,7 +447,6 @@ function Contact() {
                 onChange={onChange}
                 className="mb-6"
               /> */}
-              <div data-netlify-recaptcha="true" className="mb-6"></div>
               <button
                 type="submit"
                 className="bg-[#0072CE] text-white font-semibold text-lg  px-2 py-2 w-[100%] hover:bg-[#0071cec9] rounded-sm mb-15"

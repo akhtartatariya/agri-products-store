@@ -150,7 +150,7 @@ function Contact() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-6 m-4 md:m-20">
           <div className="col-span-1 md:col-span-4">
-            <form className="" onSubmit={handleSubmit}>
+            <form className="" method="POST" data-netlify="true">
               <div className="mb-8">
                 <label
                   htmlFor="name"
@@ -436,11 +436,12 @@ function Contact() {
                 and conditions of this Privacy Statement. Corteva Agriscience ™
                 reserves the right to verify the
               </p>
-              <ReCAPTCHA
+              {/* <ReCAPTCHA
                 sitekey="6Le9IYUpAAAAAJBRsq694Uyp917iNrBmgpR5234V"
                 onChange={onChange}
                 className="mb-6"
-              />
+              /> */}
+              <div data-netlify-recaptcha="true" className="mb-6"></div>
               <button
                 type="submit"
                 className="bg-[#0072CE] text-white font-semibold text-lg  px-2 py-2 w-[100%] hover:bg-[#0071cec9] rounded-sm mb-15"

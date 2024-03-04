@@ -59,16 +59,16 @@ function Contact() {
   const handleSubmit = (e) => {
     const formElement = document.querySelector("#contact-form");
     e.preventDefault();
-    const formData = new FormData(formElement);
-    fetch(
-      "https://script.google.com/macros/s/AKfycby6kLZNRgItnNd6OGBRmX1_1r1Oy-aqVFO9C9Rro4PglFjP71WDe9-zVo4RhOGIuP53/exec",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
     if (captchaCompleted) {
       // Form submission logic goes here
+      const formData = new FormData(formElement);
+      fetch(
+        "https://script.google.com/macros/s/AKfycby6kLZNRgItnNd6OGBRmX1_1r1Oy-aqVFO9C9Rro4PglFjP71WDe9-zVo4RhOGIuP53/exec",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
       console.log("Form submitted successfully");
       alert("Form submitted successfully");
     } else {
@@ -119,8 +119,6 @@ function Contact() {
 
     fetchData();
   }, []);
-
-  console.log(countries);
 
   return (
     <>

@@ -8,23 +8,23 @@ function Contact() {
   const [provinces, setProvinces] = useState([]);
   const [countries, setCountries] = useState([]);
   const [inputValues, setInputValues] = useState({
-    name: "",
-    surnames: "",
-    company: "",
-    email: "",
-    province: "",
-    country: "",
-    message: "",
+    Name: "",
+    Surnames: "",
+    Company: "",
+    Email: "",
+    Province: "",
+    Country: "",
+    Message: "",
   });
   const [focusedField, setFocusedField] = useState(null);
   const [blurStates, setBlurStates] = useState({
-    name: false,
-    surnames: false,
-    company: false,
-    email: false,
-    province: false,
-    country: false,
-    message: false,
+    Name: false,
+    Surnames: false,
+    Company: false,
+    Email: false,
+    Province: false,
+    Country: false,
+    Message: false,
   });
 
   const handleChange = (e) => {
@@ -57,7 +57,16 @@ function Contact() {
   };
 
   const handleSubmit = (e) => {
+    const formElement = document.querySelector("#contact-form");
     e.preventDefault();
+    const formData = new FormData(formElement);
+    fetch(
+      "https://script.google.com/macros/s/AKfycby6kLZNRgItnNd6OGBRmX1_1r1Oy-aqVFO9C9Rro4PglFjP71WDe9-zVo4RhOGIuP53/exec",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
     if (captchaCompleted) {
       // Form submission logic goes here
       console.log("Form submitted successfully");
@@ -111,6 +120,8 @@ function Contact() {
     fetchData();
   }, []);
 
+  console.log(countries);
+
   return (
     <>
       <div className="h-14 w-full text-white text-sm pl-[3%] md:pl-[7%] bg-[#0073cf] flex flex-row items-center">
@@ -150,40 +161,34 @@ function Contact() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-6 m-4 md:m-20">
           <div className="col-span-1 md:col-span-4">
-            <form
-              name="contact-from"
-              method="post"
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
-            >
-              <input type="hidden" name="form-name" value="contact-form" />
+            <form id="contact-form" className="" onSubmit={handleSubmit}>
               <div className="mb-8">
                 <label
-                  htmlFor="name"
+                  htmlFor="Name"
                   className="block text-lg font-medium text-gray-700"
                 >
                   Name *
                 </label>
                 <input
                   type="text"
-                  id="name"
-                  name="name"
+                  id="Name"
+                  name="Name"
                   required
-                  value={inputValues.name}
+                  value={inputValues.Name}
                   onChange={handleChange}
-                  onFocus={() => handleFocus("name")}
-                  onBlur={() => handleBlur("name")}
+                  onFocus={() => handleFocus("Name")}
+                  onBlur={() => handleBlur("Name")}
                   className={`mt-1 p-2 w-full h-12 border shadow-sm sm:text-sm rounded ${
-                    (focusedField === "name" && !inputValues.name.trim()) ||
-                    (!inputValues.name.trim() && blurStates["name"])
+                    (focusedField === "Name" && !inputValues.Name.trim()) ||
+                    (!inputValues.Name.trim() && blurStates["Name"])
                       ? "outline-none border-2 border-red-500"
-                      : inputValues.name.trim() && blurStates["name"]
+                      : inputValues.Name.trim() && blurStates["Name"]
                       ? "outline-none border-2 border-green-500"
                       : ""
                   }`}
                 />
-                {(focusedField === "name" && !inputValues.name.trim()) ||
-                (!inputValues.name.trim() && blurStates["name"]) ? (
+                {(focusedField === "Name" && !inputValues.Name.trim()) ||
+                (!inputValues.Name.trim() && blurStates["Name"]) ? (
                   <p className="mt-2 text-sm text-red-500">
                     This field is required *
                   </p>
@@ -193,33 +198,33 @@ function Contact() {
               </div>
               <div className="mb-8">
                 <label
-                  htmlFor="surnames"
+                  htmlFor="Surnames"
                   className="block text-lg font-medium text-gray-700"
                 >
                   Surnames *
                 </label>
                 <input
                   type="text"
-                  id="surnames"
-                  name="surnames"
+                  id="Surnames"
+                  name="Surnames"
                   required
-                  value={inputValues.surnames}
+                  value={inputValues.Surnames}
                   onChange={handleChange}
-                  onFocus={() => handleFocus("surnames")}
-                  onBlur={() => handleBlur("surnames")}
+                  onFocus={() => handleFocus("Surnames")}
+                  onBlur={() => handleBlur("Surnames")}
                   className={`mt-1 p-2 w-full h-12 border shadow-sm sm:text-sm rounded ${
-                    (focusedField === "surnames" &&
-                      !inputValues.surnames.trim()) ||
-                    (!inputValues.surnames.trim() && blurStates["surnames"])
+                    (focusedField === "Surnames" &&
+                      !inputValues.Surnames.trim()) ||
+                    (!inputValues.Surnames.trim() && blurStates["Surnames"])
                       ? "outline-none border-2 border-red-500"
-                      : inputValues.surnames.trim() && blurStates["surnames"]
+                      : inputValues.Surnames.trim() && blurStates["Surnames"]
                       ? "outline-none border-2 border-green-500"
                       : ""
                   }`}
                 />
-                {(focusedField === "surnames" &&
-                  !inputValues.surnames.trim()) ||
-                (!inputValues.surnames.trim() && blurStates["surnames"]) ? (
+                {(focusedField === "Surnames" &&
+                  !inputValues.Surnames.trim()) ||
+                (!inputValues.Surnames.trim() && blurStates["Surnames"]) ? (
                   <p className="mt-2 text-sm text-red-500">
                     This field is required *
                   </p>
@@ -229,21 +234,21 @@ function Contact() {
               </div>
               <div className="mb-8">
                 <label
-                  htmlFor="company"
+                  htmlFor="Company"
                   className="block text-lg font-medium text-gray-700"
                 >
                   Company
                 </label>
                 <input
                   type="text"
-                  id="company"
-                  name="company"
-                  value={inputValues.company}
+                  id="Company"
+                  name="Company"
+                  value={inputValues.Company}
                   onChange={handleChange}
-                  onFocus={() => handleFocus("company")}
-                  onBlur={() => handleBlur("company")}
+                  onFocus={() => handleFocus("Company")}
+                  onBlur={() => handleBlur("Company")}
                   className={`mt-1 p-2 w-full h-12 border shadow-sm sm:text-sm rounded ${
-                    inputValues.company.trim() && blurStates["company"]
+                    inputValues.Company.trim() && blurStates["Company"]
                       ? "outline-none border-2 border-green-500"
                       : ""
                   }`}
@@ -251,31 +256,31 @@ function Contact() {
               </div>
               <div className="mb-8">
                 <label
-                  htmlFor="email"
+                  htmlFor="Email"
                   className="block text-lg font-medium text-gray-700"
                 >
                   Email *
                 </label>
                 <input
-                  type="email"
-                  id="email"
-                  name="email"
+                  type="Email"
+                  id="Email"
+                  name="Email"
                   required
-                  value={inputValues.email}
+                  value={inputValues.Email}
                   onChange={handleChange}
-                  onFocus={() => handleFocus("email")}
-                  onBlur={() => handleBlur("email")}
+                  onFocus={() => handleFocus("Email")}
+                  onBlur={() => handleBlur("Email")}
                   className={`mt-1 p-2 w-full h-12 border shadow-sm sm:text-sm rounded ${
-                    (focusedField === "email" && !inputValues.email.trim()) ||
-                    (!inputValues.email.trim() && blurStates["email"])
+                    (focusedField === "Email" && !inputValues.Email.trim()) ||
+                    (!inputValues.Email.trim() && blurStates["Email"])
                       ? "outline-none border-2 border-red-500"
-                      : inputValues.email.trim() && blurStates["email"]
+                      : inputValues.Email.trim() && blurStates["Email"]
                       ? "outline-none border-2 border-green-500"
                       : ""
                   }`}
                 />
-                {(focusedField === "email" && !inputValues.email.trim()) ||
-                (!inputValues.email.trim() && blurStates["email"]) ? (
+                {(focusedField === "Email" && !inputValues.Email.trim()) ||
+                (!inputValues.Email.trim() && blurStates["Email"]) ? (
                   <p className="mt-2 text-sm text-red-500">
                     This field is required *
                   </p>
@@ -285,25 +290,25 @@ function Contact() {
               </div>
               <div className="mb-8">
                 <label
-                  htmlFor="province"
+                  htmlFor="Province"
                   className="block text-lg font-medium text-gray-700"
                 >
                   Province *
                 </label>
                 <select
-                  id="province"
-                  name="province"
+                  id="Province"
+                  name="Province"
                   required
-                  value={inputValues.province}
+                  value={inputValues.Province}
                   onChange={handleChange}
-                  onFocus={() => handleFocus("province")}
-                  onBlur={() => handleBlur("province")}
+                  onFocus={() => handleFocus("Province")}
+                  onBlur={() => handleBlur("Province")}
                   className={`mt-1 p-2 w-full h-12 border shadow-sm sm:text-sm rounded ${
-                    (focusedField === "province" &&
-                      !inputValues.province.trim()) ||
-                    (!inputValues.province.trim() && blurStates["province"])
+                    (focusedField === "Province" &&
+                      !inputValues.Province.trim()) ||
+                    (!inputValues.Province.trim() && blurStates["Province"])
                       ? "outline-none border-2 border-red-500"
-                      : inputValues.province.trim() && blurStates["province"]
+                      : inputValues.Province.trim() && blurStates["Province"]
                       ? "outline-none border-2 border-green-500"
                       : ""
                   }`}
@@ -315,9 +320,9 @@ function Contact() {
                     </option>
                   ))}
                 </select>
-                {(focusedField === "province" &&
-                  !inputValues.province.trim()) ||
-                (!inputValues.province.trim() && blurStates["province"]) ? (
+                {(focusedField === "Province" &&
+                  !inputValues.Province.trim()) ||
+                (!inputValues.Province.trim() && blurStates["Province"]) ? (
                   <p className="mt-2 text-sm text-red-500">
                     This field is required *
                   </p>
@@ -327,25 +332,25 @@ function Contact() {
               </div>
               <div className="mb-8">
                 <label
-                  htmlFor="country"
+                  htmlFor="Country"
                   className="block text-lg font-medium text-gray-700"
                 >
                   Country *
                 </label>
                 <select
-                  id="country"
-                  name="country"
+                  id="Country"
+                  name="Country"
                   required
-                  value={inputValues.country}
+                  value={inputValues.Country}
                   onChange={handleChange}
-                  onFocus={() => handleFocus("country")}
-                  onBlur={() => handleBlur("country")}
+                  onFocus={() => handleFocus("Country")}
+                  onBlur={() => handleBlur("Country")}
                   className={`mt-1 p-2 w-full h-12 border shadow-sm sm:text-sm rounded ${
-                    (focusedField === "country" &&
-                      !inputValues.country.trim()) ||
-                    (!inputValues.country.trim() && blurStates["country"])
+                    (focusedField === "Country" &&
+                      !inputValues.Country.trim()) ||
+                    (!inputValues.Country.trim() && blurStates["Country"])
                       ? "outline-none border-2 border-red-500"
-                      : inputValues.country.trim() && blurStates["country"]
+                      : inputValues.Country.trim() && blurStates["Country"]
                       ? "outline-none border-2 border-green-500"
                       : ""
                   }`}
@@ -358,8 +363,8 @@ function Contact() {
                     </option>
                   ))}
                 </select>
-                {(focusedField === "country" && !inputValues.country.trim()) ||
-                (!inputValues.country.trim() && blurStates["country"]) ? (
+                {(focusedField === "Country" && !inputValues.Country.trim()) ||
+                (!inputValues.Country.trim() && blurStates["Country"]) ? (
                   <p className="mt-2 text-sm text-red-500">
                     This field is required *
                   </p>
@@ -369,32 +374,32 @@ function Contact() {
               </div>
               <div className="mb-9">
                 <label
-                  htmlFor="message"
+                  htmlFor="Message"
                   className="block text-lg font-medium text-black"
                 >
                   Your message *
                 </label>
                 <input
                   type="text"
-                  id="message"
-                  name="message"
+                  id="Message"
+                  name="Message"
                   required
-                  value={inputValues.message}
+                  value={inputValues.Message}
                   onChange={handleChange}
-                  onFocus={() => handleFocus("message")}
-                  onBlur={() => handleBlur("message")}
+                  onFocus={() => handleFocus("Message")}
+                  onBlur={() => handleBlur("Message")}
                   className={`mt-1 p-2 w-full h-12 border shadow-sm sm:text-sm rounded ${
-                    (focusedField === "message" &&
-                      !inputValues.message.trim()) ||
-                    (!inputValues.message.trim() && blurStates["message"])
+                    (focusedField === "Message" &&
+                      !inputValues.Message.trim()) ||
+                    (!inputValues.Message.trim() && blurStates["Message"])
                       ? "outline-none border-2 border-red-500"
-                      : inputValues.message.trim() && blurStates["message"]
+                      : inputValues.Message.trim() && blurStates["Message"]
                       ? "outline-none border-2 border-green-500"
                       : ""
                   }`}
                 />
-                {(focusedField === "message" && !inputValues.message.trim()) ||
-                (!inputValues.message.trim() && blurStates["message"]) ? (
+                {(focusedField === "Message" && !inputValues.Message.trim()) ||
+                (!inputValues.Message.trim() && blurStates["Message"]) ? (
                   <p className="mt-2 text-sm text-red-500">
                     This field is required *
                   </p>
@@ -442,11 +447,11 @@ function Contact() {
                 and conditions of this Privacy Statement. Corteva Agriscience ™
                 reserves the right to verify the
               </p>
-              {/* <ReCAPTCHA
+              <ReCAPTCHA
                 sitekey="6Le9IYUpAAAAAJBRsq694Uyp917iNrBmgpR5234V"
                 onChange={onChange}
                 className="mb-6"
-              /> */}
+              />
               <button
                 type="submit"
                 className="bg-[#0072CE] text-white font-semibold text-lg  px-2 py-2 w-[100%] hover:bg-[#0071cec9] rounded-sm mb-15"

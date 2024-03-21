@@ -29,45 +29,41 @@ const OrderHistoryAdmin = () => {
     }, [])
 
     return (
-        <div>
-            <div className="bg-white rounded-md p-6 shadow-md mt-6">
-                <h2 className="text-2xl font-bold mb-4">Order History</h2>
-                <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
-                            <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Order ID
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Customer Name
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Order Placed At
-                                </th>
-                                {/* Add more table headers as needed */}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {orderHistory.map((order) => (
-                                <tr key={order.id}>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        {order.id}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        {order.contact.name}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        {order.timestamp}
-                                    </td>
-                                    {/* Render other order details */}
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                    <tr>
+                        <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">
+                            Order ID
+                        </th>
+                        <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">
+                            Customer Name
+                        </th>
+                        <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">
+                            Order Placed At
+                        </th>
+                        {/* Add more table headers as needed */}
+                    </tr>
+                </thead>
+                <tbody>
+                    {orderHistory.map((order) => (
+                        <tr key={order.id}>
+                            <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm md:text-base font-medium text-gray-900">
+                                {order.id}
+                            </td>
+                            <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm md:text-base font-medium text-gray-900">
+                                {order.contact.name}
+                            </td>
+                            <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm md:text-base font-medium text-gray-900">
+                                {order.timestamp}
+                            </td>
+                            {/* Render other order details */}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
+
     )
 }
 

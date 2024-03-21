@@ -115,7 +115,7 @@ function Nav() {
     fetchData();
   }, [navigate, userStatus, userEmail]);
 
-  const navItems = useMemo(() =>[
+  const navItems = useMemo(() => [
     {
       name: "DASHBOARD",
       slug: "/admin/dashboard",
@@ -151,7 +151,12 @@ function Nav() {
       slug: "/admin/add-product",
       active: isAdmin,
     },
-  ],[isAdmin,userEmail,userStatus,userId])
+    {
+      name: "ORDER-HISTORY",
+      slug: "/admin/order-history", 
+      active: isAdmin
+    }
+  ], [isAdmin, userEmail, userStatus, userId])
 
   return (
     <>
@@ -180,8 +185,7 @@ function Nav() {
                   to={item.slug}
                   key={item.name}
                   className={({ isActive }) =>
-                    `${
-                      isActive ? "border-[#0073cf]" : "border-transparent"
+                    `${isActive ? "border-[#0073cf]" : "border-transparent"
                     } border-b-4 hover:border-[#0073cf] h-full flex items-center`
                   }
                 >
@@ -258,8 +262,7 @@ function Nav() {
                   to={item.slug}
                   key={item.name}
                   className={({ isActive }) =>
-                    `${
-                      isActive ? "border-[#0073cf]" : "border-transparent"
+                    `${isActive ? "border-[#0073cf]" : "border-transparent"
                     } border-b-4 hover:border-[#0073cf] h-full flex items-center`
                   }
                 >

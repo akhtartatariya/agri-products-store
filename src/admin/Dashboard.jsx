@@ -1,7 +1,7 @@
 import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { fireDB } from "../firebase/config";
 const Dashboard = () => {
   const [ordersCount, setOrdersCount] = useState(0);
@@ -11,9 +11,11 @@ const Dashboard = () => {
     const fetchOrdersCount = async () => {
       const orderCollection = collection(fireDB, "orders");
       const orderSnapshot = await getDocs(orderCollection);
-      console.log(orderSnapshot.size);
+      console.log(orderSnapshot);
       setOrdersCount(orderSnapshot.size);
     };
+
+
     const fetchProductsCount = async () => {
       const productsCollection = collection(fireDB, "products");
       const productsSnapshot = await getDocs(productsCollection);
@@ -24,6 +26,8 @@ const Dashboard = () => {
       const usersSnapshot = await getDocs(usersCollection);
       setUsersCount(usersSnapshot.size);
     };
+
+
     fetchOrdersCount();
     fetchProductsCount();
     fetchUsersCount();
@@ -55,6 +59,8 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+
+
     </>
   );
 };

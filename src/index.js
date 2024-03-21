@@ -47,6 +47,7 @@ import AdminLogin from "./routes/AdminLogin";
 import AdminSignup from "./routes/AdminSignup";
 import { LoaderProvider } from "./components/context/LoaderContext";
 import Error404 from "./components/Error404";
+import OrderHistoryAdmin from "./routes/OrderHistoryAdmin";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -144,6 +145,15 @@ const router = createBrowserRouter(
             </Protected>
           }
         />
+        <Route
+          path="/admin/order-history"
+          element={
+            <Protected authentication>
+              <OrderHistoryAdmin />
+            </Protected>
+          }
+        />
+        
         <Route
           path="/admin/edit-product/:slug"
           element={

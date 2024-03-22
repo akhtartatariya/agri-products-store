@@ -72,7 +72,7 @@ const OrderHistory = () => {
                           {item.name}
                         </p>
                         <p className="text-base font-semibold text-gray-600 mt-2 md:mt-0 ">
-                          Quantity: {item.quantity} | Total: €
+                          Quantity: {item.quantity} | {item.weight} | Total: €
                           {typeof item.price === "number" &&
                           typeof item.quantity === "number"
                             ? (item.price * item.quantity).toFixed(2)

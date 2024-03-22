@@ -11,7 +11,6 @@ const OrderHistory = () => {
   useEffect(() => {
     setIsLoading(true);
     productService.getOrders(userId).then((products) => {
-      console.log(products);
       setOrders(products);
       setIsLoading(false);
     });

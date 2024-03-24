@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 //Components
 import Button from "./FormStuff/Button";
 import LogoutBtn from "./LogoutBtn";
@@ -66,14 +72,20 @@ function Nav() {
   const handleSubmit = useCallback(() => {
     setSearch(false);
   }, []);
-  const handleKeyDown = useCallback((e) => {
-    if (e.key === "Enter") {
-      handleSubmit();
-    }
-  }, [handleSubmit]);
-  const handleSearchChange = useCallback((e) => {
-    updateSearchTerm(e.target.value);
-  }, [updateSearchTerm]);
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (e.key === "Enter") {
+        handleSubmit();
+      }
+    },
+    [handleSubmit]
+  );
+  const handleSearchChange = useCallback(
+    (e) => {
+      updateSearchTerm(e.target.value);
+    },
+    [updateSearchTerm]
+  );
   //Effects
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -115,48 +127,51 @@ function Nav() {
     fetchData();
   }, [navigate, userStatus, userEmail]);
 
-  const navItems = useMemo(() => [
-    {
-      name: "DASHBOARD",
-      slug: "/admin/dashboard",
-      active: isAdmin,
-    },
-    {
-      name: isAdmin ? "ALL PRODUCTS" : "SILAGE ADDITIVES",
-      slug: isAdmin ? "/admin/all-products" : "/silage_additives",
-      active: true,
-    },
-    {
-      name: "ABOUT US",
-      slug: "/about",
-      active: !isAdmin,
-    },
-    {
-      name: "FAQs",
-      slug: "/faqs",
-      active: !isAdmin,
-    },
-    {
-      name: "CONTACT",
-      slug: "/contact",
-      active: !isAdmin,
-    },
-    {
-      name: "ORDER HISTORY",
-      slug: "/order-history/" + userId,
-      active: userEmail && userStatus && !isAdmin,
-    },
-    {
-      name: "ADD PRODUCT",
-      slug: "/admin/add-product",
-      active: isAdmin,
-    },
-    {
-      name: "ORDER-HISTORY",
-      slug: "/admin/order-history", 
-      active: isAdmin
-    }
-  ], [isAdmin, userEmail, userStatus, userId])
+  const navItems = useMemo(
+    () => [
+      {
+        name: "DASHBOARD",
+        slug: "/admin/dashboard",
+        active: isAdmin,
+      },
+      {
+        name: isAdmin ? "ALL PRODUCTS" : "SILAGE ADDITIVES",
+        slug: isAdmin ? "/admin/all-products" : "/silage_additives",
+        active: true,
+      },
+      {
+        name: "ABOUT US",
+        slug: "/about",
+        active: !isAdmin,
+      },
+      {
+        name: "FAQs",
+        slug: "/faqs",
+        active: !isAdmin,
+      },
+      {
+        name: "CONTACT",
+        slug: "/contact",
+        active: !isAdmin,
+      },
+      {
+        name: "ORDER HISTORY",
+        slug: "/order-history/" + userId,
+        active: userEmail && userStatus && !isAdmin,
+      },
+      {
+        name: "ADD PRODUCT",
+        slug: "/admin/add-product",
+        active: isAdmin,
+      },
+      {
+        name: "ORDER-HISTORY",
+        slug: "/admin/order-history",
+        active: isAdmin,
+      },
+    ],
+    [isAdmin, userEmail, userStatus, userId]
+  );
 
   return (
     <>
@@ -185,7 +200,8 @@ function Nav() {
                   to={item.slug}
                   key={item.name}
                   className={({ isActive }) =>
-                    `${isActive ? "border-[#0073cf]" : "border-transparent"
+                    `${
+                      isActive ? "border-[#0073cf]" : "border-transparent"
                     } border-b-4 hover:border-[#0073cf] h-full flex items-center`
                   }
                 >
@@ -262,7 +278,8 @@ function Nav() {
                   to={item.slug}
                   key={item.name}
                   className={({ isActive }) =>
-                    `${isActive ? "border-[#0073cf]" : "border-transparent"
+                    `${
+                      isActive ? "border-[#0073cf]" : "border-transparent"
                     } border-b-4 hover:border-[#0073cf] h-full flex items-center`
                   }
                 >

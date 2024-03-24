@@ -11,10 +11,9 @@ const Dashboard = () => {
     const fetchOrdersCount = async () => {
       const orderCollection = collection(fireDB, "orders");
       const orderSnapshot = await getDocs(orderCollection);
-      console.log(orderSnapshot);
+      // console.log(orderSnapshot);
       setOrdersCount(orderSnapshot.size);
     };
-
 
     const fetchProductsCount = async () => {
       const productsCollection = collection(fireDB, "products");
@@ -26,7 +25,6 @@ const Dashboard = () => {
       const usersSnapshot = await getDocs(usersCollection);
       setUsersCount(usersSnapshot.size);
     };
-
 
     fetchOrdersCount();
     fetchProductsCount();
@@ -43,15 +41,19 @@ const Dashboard = () => {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Orders */}
-          <div className="bg-white rounded-md p-6 shadow-md">
-            <p className="text-xl font-bold mb-3">Total Orders</p>
-            <p className="text-4xl text-blue-500">{ordersCount}</p>
-          </div>
+          <Link to={"/admin/order-history"}>
+            <div className="bg-white rounded-md p-6 shadow-md">
+              <p className="text-xl font-bold mb-3">Total Orders</p>
+              <p className="text-4xl text-blue-500">{ordersCount}</p>
+            </div>
+          </Link>
           {/* Products */}
-          <div className="bg-white rounded-md p-6 shadow-md">
-            <p className="text-xl font-bold mb-3">Total Products</p>
-            <p className="text-4xl text-green-500">{productsCount}</p>
-          </div>
+          <Link to={"/admin/all-products"}>
+            <div className="bg-white rounded-md p-6 shadow-md">
+              <p className="text-xl font-bold mb-3">Total Products</p>
+              <p className="text-4xl text-green-500">{productsCount}</p>
+            </div>
+          </Link>
           {/* Users */}
           <div className="bg-white rounded-md p-6 shadow-md">
             <p className="text-xl font-bold mb-3">Total Users</p>
@@ -59,8 +61,6 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-
-
     </>
   );
 };
